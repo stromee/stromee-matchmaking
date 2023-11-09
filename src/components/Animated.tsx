@@ -23,7 +23,6 @@ export function Animated({animation, children, position:positionProps}: Animated
   })
 
   return (
-    <>
       <Square
         animation={animation || 'bouncy'}
         animateOnly={['transform']}
@@ -43,7 +42,6 @@ export function Animated({animation, children, position:positionProps}: Animated
       >
         {children}
       </Square>
-    </>
   )
 }
 
