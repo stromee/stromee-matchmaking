@@ -16,12 +16,7 @@ export default defineConfig({
     tamaguiPlugin(tamaguiConfig),
     shouldExtract ? tamaguiExtractPlugin(tamaguiConfig) : null,
   ].filter(Boolean),
-  optimizeDeps: {
-    esbuildOptions: {
-      // Node.js global to browser globalThis
-      define: {
-        global: "globalThis",
-      },
-    },
+  define: {
+    global: "globalThis",
   },
 });

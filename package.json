@@ -2,14 +2,14 @@
   "name": "myapp",
   "private": true,
   "scripts": {
-    "web": "yarn dev",
+    "web": "npm run dev",
     "dev:vite": "NODE_ENV=development vite --host --clearScreen false",
-    "dev:vite:extract": "EXTRACT=1 yarn dev",
-    "dev": "yarn dev:vite",
+    "dev:vite:extract": "EXTRACT=1 npm run dev",
+    "dev": "npm run dev:vite",
     "build": "NODE_ENV=production EXTRACT=1 vite build",
     "preview": "vite preview",
     "final": "npm run build && node build/index.js",
-    "upgrade:tamagui": "yarn up '*tamagui*'@latest '@tamagui/*'@latest"
+    "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest"
   },
   "dependencies": {
     "@tamagui/animations-css": "latest",

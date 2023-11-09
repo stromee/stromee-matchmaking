@@ -24,6 +24,7 @@ type SwipeButtonPropsType = {
     finalDistance: number;
     callback: () => void;
   }) => void;
+  children: React.ReactNode;
 };
 
 const GESTURE_DEFAULT_DIMENSIONS = {
@@ -36,6 +37,7 @@ const GESTURE_DEFAULT_DIMENSIONS = {
 const SwipeableButton = ({
   onSwipe,
   onSwipeFinished,
+  children,
 }: SwipeButtonPropsType) => {
   const SWIPABLE_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
   const ELEMENT_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
@@ -201,13 +203,13 @@ const SwipeableButton = ({
       const beta = Math.asin(b / c) * (180 / Math.PI);
 
       const MAX_SWIPE_DISTANCE = Math.sqrt(
-        SWIPABLE_DIMENSIONS.current.width * SWIPABLE_DIMENSIONS.current.width +
-          SWIPABLE_DIMENSIONS.current.height *
-            SWIPABLE_DIMENSIONS.current.height
+        Math.pow(SWIPABLE_DIMENSIONS.current.width / 2, 2) +
+          Math.pow(SWIPABLE_DIMENSIONS.current.height / 2, 2)
       );
+
       const MAX_ELEMENT_DISTANCE = Math.sqrt(
-        ELEMENT_DIMENSIONS.current.width * ELEMENT_DIMENSIONS.current.width +
-          ELEMENT_DIMENSIONS.current.height * ELEMENT_DIMENSIONS.current.height
+        Math.pow(ELEMENT_DIMENSIONS.current.width / 2, 2) +
+          Math.pow(ELEMENT_DIMENSIONS.current.height / 2, 2)
       );
 
       const c2 = MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE;
@@ -255,7 +257,6 @@ const SwipeableButton = ({
       }}
     >
       <View
-        bg="yellow"
         onLayout={(e) => {
           ELEMENT_DIMENSIONS.current = {
             width: e.nativeEvent.layout.width,
@@ -269,17 +270,7 @@ const SwipeableButton = ({
           onHandlerStateChange={gestureStateHandler}
           onGestureEvent={gestureHandler}
         >
-          <Animated.View style={[animatedStyles]}>
-            <Square
-              size={400}
-              borderColor="$borderColor"
-              borderWidth={1}
-              borderRadius="$9"
-              backgroundColor="$color9"
-            >
-              <Text>Hi</Text>
-            </Square>
-          </Animated.View>
+          <Animated.View style={[animatedStyles]}>{children}</Animated.View>
         </PanGestureHandler>
       </View>
     </YStack>
