@@ -1,15 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import '@tamagui/polyfill-dev'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Button, TamaguiProvider, YStack } from 'tamagui'
 
+import config from '../tamagui/tamagui.config'
+import { Animated } from './components/Animated'
+
+export const App = () => {
   return (
-    <>
-   <h1 className='text-3xl'>Match made in heaven</h1>
-    </>
+    <TamaguiProvider config={config} defaultTheme="light">
+      <YStack f={1} ai="center" jc="center">
+        <Button onPress={() => {
+          console.log('Hello world')
+        }}>Hello world</Button>
+        <Animated>Hi</Animated>
+      </YStack>
+    </TamaguiProvider>
   )
 }
-
-export default App
