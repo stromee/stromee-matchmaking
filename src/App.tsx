@@ -1,21 +1,27 @@
-import '@tamagui/polyfill-dev'
+import "@tamagui/polyfill-dev";
 
-import { Button, TamaguiProvider, YStack , Text} from 'tamagui'
+import { TamaguiProvider, XStack, View } from "tamagui";
 
-import config from '../tamagui/tamagui.config'
-import { Animated } from './components/Animated'
+import config from "../tamagui/tamagui.config";
 
+import SwipeableButton from "./components/Swipeable";
 
 export const App = () => {
-  
   return (
     <TamaguiProvider config={config} defaultTheme="light">
-      <YStack f={1} ai="center" jc="center">
-        <Button onPress={() => {
-          console.log('Hello world')
-        }}>Hello world</Button>
-        <Animated><Text>Hi</Text></Animated>
-      </YStack>
+      <XStack fullscreen>
+        <View bg="teal" flex={1} height="100%" />
+        <View bg="red" flex={1} height="100%" />
+      </XStack>
+      <SwipeableButton
+        onSwipe={(swipe) => {
+          console.log("onSwipe", swipe);
+        }}
+        onSwipeFinished={(swipeFinished) => {
+          console.log("onSwipeFinished", swipeFinished);
+          swipeFinished.callback();
+        }}
+      />
     </TamaguiProvider>
-  )
-}
+  );
+};
