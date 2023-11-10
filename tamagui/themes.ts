@@ -206,6 +206,6 @@ import { tokens } from "./tokens";
 
 export const themes = {
   light: {
-    green: tokens.color.stromeeGreen,
+    stromeeGreen: tokens.color.baseStromeeGreen,
   },
 };

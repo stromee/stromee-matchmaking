@@ -11,23 +11,112 @@ import {
   Paragraph,
   Button,
   Image,
+  YStack,
+  clamp,
 } from "tamagui";
 
 import config from "../tamagui/tamagui.config";
 
-import SwipeableButton from "./components/Swipeable";
+import SwipeableButton, {
+  MIN_SWIPE_DISTANCE,
+  SwipableRef,
+} from "./components/Swipeable";
+import { useRef, useState } from "react";
+import Animated, {
+  Easing,
+  interpolate,
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { color } from "../tamagui/tokens";
+import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
+
+const computedStyle = (value: number, shadowColor: string): DefaultStyle => {
+  const eased = Easing.bezier(0, 1, 0.5, 1).factory()(value);
+  const radius = interpolate(value, [0, 1], [4, 12]);
+  const scale = interpolate(value, [0, 1], [1, 1.2]);
+  console.log(eased, value);
+
+  return {
+    // backgroundColor: color,
+    shadowColor,
+    shadowOpacity: eased,
+    shadowRadius: radius,
+
+    transform: [
+      {
+        scale,
+      },
+    ],
+  };
+};
 
 export const App = () => {
+  const swiperRef = useRef<SwipableRef>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState("undetermined");
+  const leftButtonTransform = useSharedValue(0);
+  const rightButtonTransform = useSharedValue(0);
+
+  const leftButtonStyle = useAnimatedStyle(
+    () => computedStyle(leftButtonTransform.value, color.baseLollipopRed),
+    [leftButtonTransform]
+  );
+
+  const rightButtonStyle = useAnimatedStyle(
+    () => computedStyle(rightButtonTransform.value, color.baseStromeeGreen),
+    [rightButtonTransform]
+  );
+
   return (
     <TamaguiProvider config={config} defaultTheme="light">
-      <View bg="$baseGrey600">
+      <YStack bg="$baseGrey600" fullscreen>
         <SwipeableButton
+          ref={swiperRef}
           onSwipe={(swipe) => {
             console.log("onSwipe", swipe);
+            setIsSwiping(true);
           }}
           onSwipeFinished={(swipeFinished) => {
             console.log("onSwipeFinished", swipeFinished);
+            setIsSwiping(false);
             swipeFinished.callback();
+          }}
+          onPan={(swipe) => {
+            setSwipeDirection(swipe.direction);
+            const clamped = clamp(swipe.distance, [0, swipe.maxDistance]);
+            console.log("onPan", swipe.distance, swipe.maxDistance);
+            if (swipe.direction === "left") {
+              const scale = interpolate(
+                clamped,
+                [MIN_SWIPE_DISTANCE, swipe.maxDistance],
+                [0, 1]
+              );
+              leftButtonTransform.value = scale;
+              rightButtonTransform.value = withTiming(0);
+            }
+            if (swipe.direction === "right") {
+              const scale = interpolate(
+                clamped,
+                [MIN_SWIPE_DISTANCE, swipe.maxDistance],
+                [0, 1]
+              );
+              leftButtonTransform.value = withTiming(0);
+              rightButtonTransform.value = scale;
+            }
+
+            if (swipe.direction === "undetermined") {
+              leftButtonTransform.value = withTiming(0);
+              rightButtonTransform.value = withTiming(0);
+            }
+
+            if (swipe.distance) {
+              setIsSwiping(true);
+            } else {
+              setIsSwiping(false);
+            }
           }}
         >
           <Card elevate size="$4" bordered>
@@ -52,7 +141,104 @@ export const App = () => {
             </Card.Background>
           </Card>
         </SwipeableButton>
-      </View>
+        <View flex={0} padding="$4" justifyContent="space-around">
+          <Button
+            p="0"
+            borderRadius="$full"
+            animation="bouncy"
+            animateOnly={["transform", "shadowOpacity", "shadowRadius"]}
+            shadowColor={color.baseLollipopRed}
+            shadowOpacity={0}
+            shadowRadius={4}
+            hoverStyle={{
+              borderColor: "transparent",
+            }}
+            pressStyle={{
+              borderColor: "transparent",
+              transform: [{ scale: 1.2 }],
+              shadowColor: color.baseLollipopRed,
+              shadowOpacity: 1,
+              shadowRadius: 12,
+            }}
+            focusStyle={{
+              outlineWidth: 0,
+            }}
+            onPress={() => {
+              swiperRef.current?.swipe("left");
+            }}
+            disabled={isSwiping}
+          >
+            <Animated.View
+              style={[
+                {
+                  borderRadius: 99999,
+                  paddingHorizontal: 20,
+                  paddingVertical: 1,
+                  height: 44,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: color.baseLollipopRed,
+                  color: color.baseCloudWhite,
+                  borderWidth: 0.5,
+                  borderColor: color.baseCloudWhite,
+                },
+                leftButtonStyle,
+              ]}
+            >
+              <Text>Nope</Text>
+            </Animated.View>
+          </Button>
+
+          <Button
+            p="0"
+            borderRadius="$full"
+            animation="bouncy"
+            animateOnly={["transform", "shadowOpacity", "shadowRadius"]}
+            shadowColor={color.baseStromeeGreen}
+            shadowOpacity={0}
+            shadowRadius={4}
+            hoverStyle={{
+              borderColor: "transparent",
+            }}
+            pressStyle={{
+              borderColor: "transparent",
+              transform: [{ scale: 1.2 }],
+              shadowColor: color.baseStromeeGreen,
+              shadowOpacity: 1,
+              shadowRadius: 12,
+            }}
+            focusStyle={{
+              outlineWidth: 0,
+            }}
+            onPress={() => {
+              swiperRef.current?.swipe("right");
+            }}
+            disabled={isSwiping}
+          >
+            <Animated.View
+              style={[
+                {
+                  borderRadius: 99999,
+                  paddingHorizontal: 20,
+                  paddingVertical: 1,
+                  height: 44,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: color.baseStromeeGreen,
+                  borderWidth: 0.5,
+                  borderColor: color.baseCloudWhite,
+                },
+                rightButtonStyle,
+              ]}
+            >
+              <Text>Yes!</Text>
+            </Animated.View>
+          </Button>
+        </View>
+        <View>
+          <Text>Swipe me! {isSwiping ? "true" : "false"}</Text>
+        </View>
+      </YStack>
     </TamaguiProvider>
   );
 };

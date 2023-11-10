@@ -76,10 +76,10 @@ const radius = {
   10: 34,
   11: 42,
   12: 50,
+  full: 9999,
 };
 
-const color = {
-  stromeeGreen: "green",
+export const color = {
   baseStromeeGreen: "#6ddc91",
   baseStromeeNavy: "#1d2445",
   basePopPetrol: "#1b4650",
