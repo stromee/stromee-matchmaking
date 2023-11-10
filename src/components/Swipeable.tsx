@@ -32,14 +32,16 @@ export type SwipableRef = {
   swipe: (direction: "left" | "right") => void;
 };
 
+export type Pan = {
+  translate: number;
+  maxSwipeDistance: number;
+  minSwipeDistance: number;
+};
+
 type SwipableProps = {
   enabled?: boolean;
   offscreenOffset?: number;
-  onPan: (pan: {
-    translate: number;
-    maxSwipeDistance: number;
-    minSwipeDistance: number;
-  }) => void;
+  onPan: (pan: Pan) => void;
   onSwipe: (swipe: { direction: "left" | "right"; distance: number }) => void;
   onSwipeFinished: (swipe: {
     direction: "left" | "right";

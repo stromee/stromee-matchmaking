@@ -20,9 +20,10 @@ import config from "../tamagui/tamagui.config";
 
 import Swipable, {
   MIN_SWIPE_DISTANCE,
+  Pan,
   SwipableRef,
 } from "./components/Swipeable";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Animated, {
   Easing,
   interpolate,
@@ -104,6 +105,69 @@ export const App = () => {
 
   const [swipables, setSwipables] = useState(createSwipables(10));
 
+  const handlePan = useCallback((pan: Pan) => {
+    if (pan.translate === 0) {
+      setSwipeDirection("undetermined");
+      leftButtonTransform.value = withTiming(1);
+      rightButtonTransform.value = withTiming(1);
+      setIsSwiping(false);
+      return;
+    }
+
+    const direction = pan.translate > 0 ? "right" : "left";
+    setSwipeDirection(direction);
+    setIsSwiping(true);
+    const distance = Math.abs(pan.translate);
+
+    // if the swipe isn't far enough, the scale is 0 - 1
+    if (distance < pan.minSwipeDistance) {
+      console.log("less than min swipe distance", direction, pan.translate);
+      if (direction === "right") {
+        const scale = interpolate(
+          pan.translate,
+          [0, pan.minSwipeDistance],
+          [0, 1]
+        );
+        leftButtonTransform.value = 1;
+        rightButtonTransform.value = scale;
+      }
+      // left swipe
+      if (direction === "left") {
+        const scale = interpolate(
+          pan.translate,
+          [0, -pan.minSwipeDistance],
+          [0, 1]
+        );
+        console.log("scale", scale);
+        leftButtonTransform.value = scale;
+        rightButtonTransform.value = 1;
+      }
+
+      return;
+    }
+
+    // if we have an actual swipe, the scale is 1 - 2
+    const clamped = clamp(distance, [
+      pan.minSwipeDistance,
+      pan.maxSwipeDistance,
+    ]);
+
+    const interpolated = interpolate(
+      clamped,
+      [pan.minSwipeDistance, pan.maxSwipeDistance],
+      [1, 2]
+    );
+
+    if (direction === "left") {
+      leftButtonTransform.value = interpolated;
+      rightButtonTransform.value = withTiming(1);
+    }
+    if (direction === "right") {
+      leftButtonTransform.value = withTiming(1);
+      rightButtonTransform.value = interpolated;
+    }
+  }, []);
+
   return (
     <TamaguiProvider config={config} defaultTheme="light">
       <View flex={1} bg="$basePopPetrol">
@@ -134,72 +198,7 @@ export const App = () => {
                     return newSwipables;
                   });
                 }}
-                onPan={(pan) => {
-                  if (pan.translate === 0) {
-                    setSwipeDirection("undetermined");
-                    leftButtonTransform.value = withTiming(1);
-                    rightButtonTransform.value = withTiming(1);
-                    setIsSwiping(false);
-                    return;
-                  }
-
-                  const direction = pan.translate > 0 ? "right" : "left";
-                  setSwipeDirection(direction);
-                  setIsSwiping(true);
-                  const distance = Math.abs(pan.translate);
-
-                  // if the swipe isn't far enough, the scale is 0 - 1
-                  if (distance < pan.minSwipeDistance) {
-                    console.log(
-                      "less than min swipe distance",
-                      direction,
-                      pan.translate
-                    );
-                    if (direction === "right") {
-                      const scale = interpolate(
-                        pan.translate,
-                        [0, pan.minSwipeDistance],
-                        [0, 1]
-                      );
-                      leftButtonTransform.value = withTiming(1);
-                      rightButtonTransform.value = scale;
-                    }
-                    // left swipe
-                    if (direction === "left") {
-                      const scale = interpolate(
-                        pan.translate,
-                        [0, -pan.minSwipeDistance],
-                        [0, 1]
-                      );
-                      console.log("scale", scale);
-                      leftButtonTransform.value = scale;
-                      rightButtonTransform.value = withTiming(1);
-                    }
-
-                    return;
-                  }
-
-                  // if we have an actual swipe, the scale is 1 - 2
-                  const clamped = clamp(distance, [
-                    pan.minSwipeDistance,
-                    pan.maxSwipeDistance,
-                  ]);
-
-                  const interpolated = interpolate(
-                    clamped,
-                    [pan.minSwipeDistance, pan.maxSwipeDistance],
-                    [1, 2]
-                  );
-
-                  if (direction === "left") {
-                    leftButtonTransform.value = interpolated;
-                    rightButtonTransform.value = withTiming(1);
-                  }
-                  if (direction === "right") {
-                    leftButtonTransform.value = withTiming(1);
-                    rightButtonTransform.value = interpolated;
-                  }
-                }}
+                onPan={handlePan}
               >
                 <Card
                   elevate
