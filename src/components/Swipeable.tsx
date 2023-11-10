@@ -18,7 +18,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import useForwardRef from "../hooks/use-forward-ref";
 
 export const MIN_SWIPE_DISTANCE = 128;
 
@@ -40,6 +39,7 @@ type SwipableProps = {
     direction: "left" | "right" | "undetermined";
     distance: number;
     maxDistance: number;
+    offset: number;
   }) => void;
   onSwipe: (swipe: { direction: "left" | "right"; distance: number }) => void;
   onSwipeFinished: (swipe: {
@@ -110,6 +110,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           maxDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
+          offset: 0,
         });
       }
 
@@ -166,6 +167,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             maxDistance:
               SWIPABLE_DIMENSIONS.current.width / 2 +
               ELEMENT_DIMENSIONS.current.width / 2,
+            offset: newX,
           });
         } else {
           onPan({
@@ -174,6 +176,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             maxDistance:
               SWIPABLE_DIMENSIONS.current.width / 2 +
               ELEMENT_DIMENSIONS.current.width / 2,
+            offset: newX,
           });
         }
       }
@@ -199,6 +202,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           maxDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
+          offset: 0,
         });
       }
 
@@ -228,6 +232,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           maxDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
+          offset: 0,
         });
       }
 
@@ -275,6 +280,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
               maxDistance:
                 SWIPABLE_DIMENSIONS.current.width / 2 +
                 ELEMENT_DIMENSIONS.current.width / 2,
+              offset: 0,
             });
 
             setState(State.UNDETERMINED);

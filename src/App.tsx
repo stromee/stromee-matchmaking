@@ -34,17 +34,42 @@ import Animated, {
 import { color } from "../tamagui/tokens";
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
 
-const computedStyle = (value: number, shadowColor: string): DefaultStyle => {
-  const eased = Easing.bezier(0, 1, 0.5, 1).factory()(value);
-  const radius = interpolate(value, [0, 1], [4, 12]);
-  const scale = interpolate(value, [0, 1], [1, 1.2]);
+const computedStyle = (value: number): DefaultStyle => {
+  if (value == 1) {
+    return {
+      shadowOpacity: 0,
+      shadowRadius: 4,
+      transform: [
+        {
+          scale: 1,
+        },
+      ],
+    };
+  }
+  console.log("value", value);
+  if (value >= 1) {
+    const eased = Easing.bezier(0, 1, 0.5, 1).factory()(value);
+    const radius = interpolate(value, [1, 2], [4, 12]);
+    const scale = interpolate(value, [1, 2], [1, 1.2]);
+    console.log(scale);
+    return {
+      // backgroundColor: color,
+      shadowOpacity: eased,
+      shadowRadius: radius,
 
+      transform: [
+        {
+          scale,
+        },
+      ],
+    };
+  }
+
+  const scale = interpolate(value, [0, 1], [0.8, 1]);
+  console.log("scale", scale);
   return {
-    // backgroundColor: color,
-    shadowColor,
-    shadowOpacity: eased,
-    shadowRadius: radius,
-
+    shadowOpacity: 0,
+    shadowRadius: 4,
     transform: [
       {
         scale,
@@ -67,16 +92,16 @@ export const App = () => {
   const swiperRef = useRef<SwipableRef>(null);
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState("undetermined");
-  const leftButtonTransform = useSharedValue(0);
-  const rightButtonTransform = useSharedValue(0);
+  const leftButtonTransform = useSharedValue(1);
+  const rightButtonTransform = useSharedValue(1);
 
   const leftButtonStyle = useAnimatedStyle(
-    () => computedStyle(leftButtonTransform.value, color.baseLollipopRed),
+    () => computedStyle(leftButtonTransform.value),
     [leftButtonTransform]
   );
 
   const rightButtonStyle = useAnimatedStyle(
-    () => computedStyle(rightButtonTransform.value, color.baseStromeeGreen),
+    () => computedStyle(rightButtonTransform.value),
     [rightButtonTransform]
   );
 
@@ -119,24 +144,48 @@ export const App = () => {
                     const scale = interpolate(
                       clamped,
                       [MIN_SWIPE_DISTANCE, swipe.maxDistance],
-                      [0, 1]
+                      [1, 2]
                     );
                     leftButtonTransform.value = scale;
-                    rightButtonTransform.value = withTiming(0);
+                    rightButtonTransform.value = withTiming(1);
                   }
                   if (swipe.direction === "right") {
                     const scale = interpolate(
                       clamped,
                       [MIN_SWIPE_DISTANCE, swipe.maxDistance],
-                      [0, 1]
+                      [1, 2]
                     );
-                    leftButtonTransform.value = withTiming(0);
+                    leftButtonTransform.value = withTiming(1);
                     rightButtonTransform.value = scale;
                   }
 
                   if (swipe.direction === "undetermined") {
-                    leftButtonTransform.value = withTiming(0);
-                    rightButtonTransform.value = withTiming(0);
+                    // right swipe
+                    if (swipe.offset > 0) {
+                      const scale = interpolate(
+                        swipe.offset,
+                        [0, MIN_SWIPE_DISTANCE],
+                        [0, 1]
+                      );
+                      leftButtonTransform.value = withTiming(1);
+                      rightButtonTransform.value = scale;
+                    }
+                    // left swipe
+                    if (swipe.offset < 0) {
+                      const scale = interpolate(
+                        swipe.offset,
+                        [0, -MIN_SWIPE_DISTANCE],
+                        [0, 1]
+                      );
+
+                      console.log("scale", scale, swipe.offset);
+                      leftButtonTransform.value = scale;
+                      rightButtonTransform.value = withTiming(1);
+                    }
+                    if (swipe.offset === 0) {
+                      leftButtonTransform.value = withTiming(1);
+                      rightButtonTransform.value = withTiming(1);
+                    }
                   }
 
                   if (swipe.distance) {
@@ -229,11 +278,12 @@ export const App = () => {
                     color: color.baseCloudWhite,
                     borderWidth: 0.5,
                     borderColor: color.baseCloudWhite,
+                    shadowColor: color.baseLollipopRed,
                   },
                   leftButtonStyle,
                 ]}
               >
-                <Text>Nope</Text>
+                <Text fontSize="$2">Nope</Text>
               </Animated.View>
             </Button>
 
@@ -275,6 +325,7 @@ export const App = () => {
                     backgroundColor: color.baseStromeeGreen,
                     borderWidth: 0.5,
                     borderColor: color.baseCloudWhite,
+                    shadowColor: color.baseStromeeGreen,
                   },
                   rightButtonStyle,
                 ]}
