@@ -34,6 +34,7 @@ export type SwipableRef = {
 };
 
 type SwipableProps = {
+  enabled?: boolean;
   onPan: (swipe: {
     direction: "left" | "right" | "undetermined";
     distance: number;
@@ -49,7 +50,7 @@ type SwipableProps = {
 };
 
 const Swipable = forwardRef<SwipableRef, SwipableProps>(
-  ({ onPan, onSwipe, onSwipeFinished, children }, ref) => {
+  ({ enabled, onPan, onSwipe, onSwipeFinished, children }, ref) => {
     const SWIPABLE_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
     const ELEMENT_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
 
@@ -63,27 +64,25 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     const velocityX = useSharedValue(0);
     const velocityY = useSharedValue(0);
 
-    if (
-      ref &&
-      typeof ref !== "function" &&
-      (ref.current == null || !("swipe" in ref.current))
-    ) {
-      ref.current = {
-        swipe: (direction) => {
-          if (direction === "left") {
-            x.value = MIN_SWIPE_DISTANCE * -1;
-          }
+    useEffect(() => {
+      if (ref && typeof ref !== "function" && "current" in ref) {
+        ref.current = {
+          swipe: (direction) => {
+            if (direction === "left") {
+              x.value = MIN_SWIPE_DISTANCE * -1;
+            }
 
-          if (direction === "right") {
-            x.value = MIN_SWIPE_DISTANCE;
-          }
+            if (direction === "right") {
+              x.value = MIN_SWIPE_DISTANCE;
+            }
 
-          const Y_RANGE = [-24, 24];
-          y.value = Math.random() * (Y_RANGE[1] - Y_RANGE[0]) + Y_RANGE[0];
-          handleEndState();
-        },
-      };
-    }
+            const Y_RANGE = [-24, 24];
+            y.value = Math.random() * (Y_RANGE[1] - Y_RANGE[0]) + Y_RANGE[0];
+            handleEndState();
+          },
+        };
+      }
+    }, [ref]);
 
     const handleEndState = () => {
       const distance = x.value;
@@ -360,6 +359,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           }}
         >
           <PanGestureHandler
+            enabled={enabled}
             onHandlerStateChange={gestureStateHandler}
             onGestureEvent={gestureHandler}
           >
