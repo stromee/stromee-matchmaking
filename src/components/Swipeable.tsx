@@ -35,6 +35,7 @@ export type SwipableRef = {
 
 type SwipableProps = {
   enabled?: boolean;
+  offscreenOffset?: number;
   onPan: (swipe: {
     direction: "left" | "right" | "undetermined";
     distance: number;
@@ -50,7 +51,10 @@ type SwipableProps = {
 };
 
 const Swipable = forwardRef<SwipableRef, SwipableProps>(
-  ({ enabled, onPan, onSwipe, onSwipeFinished, children }, ref) => {
+  (
+    { enabled, offscreenOffset = 0, onPan, onSwipe, onSwipeFinished, children },
+    ref
+  ) => {
     const SWIPABLE_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
     const ELEMENT_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
 
@@ -302,7 +306,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             Math.pow(ELEMENT_DIMENSIONS.current.height / 2, 2)
         );
 
-        const c2 = MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE;
+        const c2 = MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + offscreenOffset;
 
         const a2 = c2 * Math.sin(alpha * (Math.PI / 180));
         const b2 = c2 * Math.sin(beta * (Math.PI / 180));
