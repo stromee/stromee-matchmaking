@@ -46,12 +46,10 @@ const computedStyle = (value: number): DefaultStyle => {
       ],
     };
   }
-  console.log("value", value);
   if (value >= 1) {
     const eased = Easing.bezier(0, 1, 0.5, 1).factory()(value);
     const radius = interpolate(value, [1, 2], [4, 12]);
     const scale = interpolate(value, [1, 2], [1, 1.2]);
-    console.log(scale);
     return {
       // backgroundColor: color,
       shadowOpacity: eased,
@@ -66,7 +64,6 @@ const computedStyle = (value: number): DefaultStyle => {
   }
 
   const scale = interpolate(value, [0, 1], [0.8, 1]);
-  console.log("scale", scale);
   return {
     shadowOpacity: 0,
     shadowRadius: 4,
@@ -137,61 +134,70 @@ export const App = () => {
                     return newSwipables;
                   });
                 }}
-                onPan={(swipe) => {
-                  setSwipeDirection(swipe.direction);
-                  const clamped = clamp(swipe.distance, [0, swipe.maxDistance]);
-                  if (swipe.direction === "left") {
-                    const scale = interpolate(
-                      clamped,
-                      [MIN_SWIPE_DISTANCE, swipe.maxDistance],
-                      [1, 2]
-                    );
-                    leftButtonTransform.value = scale;
-                    rightButtonTransform.value = withTiming(1);
-                  }
-                  if (swipe.direction === "right") {
-                    const scale = interpolate(
-                      clamped,
-                      [MIN_SWIPE_DISTANCE, swipe.maxDistance],
-                      [1, 2]
-                    );
+                onPan={(pan) => {
+                  if (pan.translate === 0) {
+                    setSwipeDirection("undetermined");
                     leftButtonTransform.value = withTiming(1);
-                    rightButtonTransform.value = scale;
+                    rightButtonTransform.value = withTiming(1);
+                    setIsSwiping(false);
+                    return;
                   }
 
-                  if (swipe.direction === "undetermined") {
-                    // right swipe
-                    if (swipe.offset > 0) {
+                  const direction = pan.translate > 0 ? "right" : "left";
+                  setSwipeDirection(direction);
+                  setIsSwiping(true);
+                  const distance = Math.abs(pan.translate);
+
+                  // if the swipe isn't far enough, the scale is 0 - 1
+                  if (distance < pan.minSwipeDistance) {
+                    console.log(
+                      "less than min swipe distance",
+                      direction,
+                      pan.translate
+                    );
+                    if (direction === "right") {
                       const scale = interpolate(
-                        swipe.offset,
-                        [0, MIN_SWIPE_DISTANCE],
+                        pan.translate,
+                        [0, pan.minSwipeDistance],
                         [0, 1]
                       );
                       leftButtonTransform.value = withTiming(1);
                       rightButtonTransform.value = scale;
                     }
                     // left swipe
-                    if (swipe.offset < 0) {
+                    if (direction === "left") {
                       const scale = interpolate(
-                        swipe.offset,
-                        [0, -MIN_SWIPE_DISTANCE],
+                        pan.translate,
+                        [0, -pan.minSwipeDistance],
                         [0, 1]
                       );
-
-                      console.log("scale", scale, swipe.offset);
+                      console.log("scale", scale);
                       leftButtonTransform.value = scale;
                       rightButtonTransform.value = withTiming(1);
                     }
-                    if (swipe.offset === 0) {
-                      leftButtonTransform.value = withTiming(1);
-                      rightButtonTransform.value = withTiming(1);
-                    }
+
+                    return;
                   }
 
-                  if (swipe.distance) {
-                    setIsSwiping(true);
-                  } else {
-                    setIsSwiping(false);
+                  // if we have an actual swipe, the scale is 1 - 2
+                  const clamped = clamp(distance, [
+                    pan.minSwipeDistance,
+                    pan.maxSwipeDistance,
+                  ]);
+
+                  const interpolated = interpolate(
+                    clamped,
+                    [pan.minSwipeDistance, pan.maxSwipeDistance],
+                    [1, 2]
+                  );
+
+                  if (direction === "left") {
+                    leftButtonTransform.value = interpolated;
+                    rightButtonTransform.value = withTiming(1);
+                  }
+                  if (direction === "right") {
+                    leftButtonTransform.value = withTiming(1);
+                    rightButtonTransform.value = interpolated;
                   }
                 }}
               >

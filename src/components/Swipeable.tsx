@@ -35,11 +35,10 @@ export type SwipableRef = {
 type SwipableProps = {
   enabled?: boolean;
   offscreenOffset?: number;
-  onPan: (swipe: {
-    direction: "left" | "right" | "undetermined";
-    distance: number;
-    maxDistance: number;
-    offset: number;
+  onPan: (pan: {
+    translate: number;
+    maxSwipeDistance: number;
+    minSwipeDistance: number;
   }) => void;
   onSwipe: (swipe: { direction: "left" | "right"; distance: number }) => void;
   onSwipeFinished: (swipe: {
@@ -105,12 +104,11 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         velocityY.value = 0;
 
         onPan({
-          direction: "undetermined",
-          distance: 0,
-          maxDistance:
+          translate: 0,
+          maxSwipeDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
-          offset: 0,
+          minSwipeDistance: MIN_SWIPE_DISTANCE,
         });
       }
 
@@ -160,25 +158,13 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         velocityX.value = e.velocityX;
         velocityY.value = e.velocityY;
 
-        if (Math.abs(newX) >= MIN_SWIPE_DISTANCE) {
-          onPan({
-            direction: newX > 0 ? "right" : "left",
-            distance: Math.abs(newX),
-            maxDistance:
-              SWIPABLE_DIMENSIONS.current.width / 2 +
-              ELEMENT_DIMENSIONS.current.width / 2,
-            offset: newX,
-          });
-        } else {
-          onPan({
-            direction: "undetermined",
-            distance: Math.abs(newX),
-            maxDistance:
-              SWIPABLE_DIMENSIONS.current.width / 2 +
-              ELEMENT_DIMENSIONS.current.width / 2,
-            offset: newX,
-          });
-        }
+        onPan({
+          translate: newX,
+          maxSwipeDistance:
+            SWIPABLE_DIMENSIONS.current.width / 2 +
+            ELEMENT_DIMENSIONS.current.width / 2,
+          minSwipeDistance: MIN_SWIPE_DISTANCE,
+        });
       }
     };
 
@@ -197,12 +183,11 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         velocityY.value = 0;
 
         onPan({
-          direction: "undetermined",
-          distance: 0,
-          maxDistance:
+          translate: 0,
+          maxSwipeDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
-          offset: 0,
+          minSwipeDistance: MIN_SWIPE_DISTANCE,
         });
       }
 
@@ -226,13 +211,11 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         velocityY.value = 0;
 
         onPan({
-          direction: "undetermined",
-          distance: 0,
-
-          maxDistance:
+          translate: 0,
+          maxSwipeDistance:
             SWIPABLE_DIMENSIONS.current.width / 2 +
             ELEMENT_DIMENSIONS.current.width / 2,
-          offset: 0,
+          minSwipeDistance: MIN_SWIPE_DISTANCE,
         });
       }
 
@@ -274,15 +257,12 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             velocityY.value = 0;
 
             onPan({
-              direction: "undetermined",
-              distance: 0,
-
-              maxDistance:
+              translate: 0,
+              maxSwipeDistance:
                 SWIPABLE_DIMENSIONS.current.width / 2 +
                 ELEMENT_DIMENSIONS.current.width / 2,
-              offset: 0,
+              minSwipeDistance: MIN_SWIPE_DISTANCE,
             });
-
             setState(State.UNDETERMINED);
           },
         });
