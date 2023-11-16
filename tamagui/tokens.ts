@@ -50,8 +50,6 @@ const spaces = Object.entries(size)
       ] as const
   );
 
-console.log(spaces);
-
 const spacesNegative = spaces.slice(1).map(([k, v]) => [`-${k}`, -v]);
 
 const space = {
@@ -89,6 +87,10 @@ const radius = {
 export const color = {
   baseStromeeGreen: "#6ddc91",
   baseStromeeNavy: "#1d2445",
+  baseStromeeNavyOpacity20: "#1d244533",
+  baseStromeeNavyOpacity40: "#1d244566",
+  baseStromeeNavyOpacity60: "#1d244599",
+  baseStromeeNavyOpacity80: "#1d2445CC",
   basePopPetrol: "#1b4650",
   basePunchGreen: "#caf2a3",
   baseSummerYellow: "#fcf466",
@@ -101,9 +103,15 @@ export const color = {
   baseGrey500: "#ebebeb",
   baseGrey600: "#f8f8f8",
   baseCloudWhite: "#ffffff",
+  baseCloudWhiteOpacity20: "#ffffff33",
+  baseCloudWhiteOpacity40: "#ffffff66",
+  baseCloudWhiteOpacity60: "#ffffff99",
+  baseCloudWhiteOpacity80: "#ffffffCC",
 
   baseTanLight: "#f0e7da",
   baseTanDark: "#f5d6ba",
+
+  transparent: "transparent",
 };
 
 export const tokens = createTokens({

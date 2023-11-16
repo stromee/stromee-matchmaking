@@ -9,7 +9,8 @@
     "build": "NODE_ENV=production EXTRACT=1 vite build --base=/matchmaking",
     "preview": "vite preview",
     "final": "npm run build && node build/index.js",
-    "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest"
+    "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest",
+    "themes": "npx tamagui generate-themes ./tamagui/themes-builder.ts ./tamagui/generated-themes.ts"
   },
   "dependencies": {
     "@tamagui/animations-css": "latest",
@@ -24,6 +25,7 @@
     "tamagui": "latest"
   },
   "devDependencies": {
+    "@tamagui/theme-builder": "^1.76.0",
     "@tamagui/vite-plugin": "latest",
     "@vitejs/plugin-react-swc": "^3.3.0",
     "react-refresh": "^0.14.0",
