@@ -74,7 +74,7 @@ const createSwipables = (length: number) => {
   for (let i = 0; i < length; i++) {
     swipables.push({
       id: `${i.toString().padStart(3, "0")}-${new Date().getTime()}`,
-      rotate: `${Math.random() * 30}deg`,
+      rotate: `${(Math.random() - 0.5) * 6}deg`,
     });
   }
 
@@ -82,6 +82,22 @@ const createSwipables = (length: number) => {
 
   return swipables;
 };
+
+const indexAfterActive = ({
+  swipables,
+  activeId,
+  id,
+}: {
+  swipables: { id: string }[];
+  activeId: string;
+  id;
+}) => {
+  const activeIndex = swipables.findIndex(({ id }) => id === activeId);
+  const index = swipables.findIndex(({ id: swipableId }) => swipableId === id);
+
+  return activeIndex - index;
+};
+
 export const App = () => {
   const swiperRef = useRef<SwipableRef | null>(null);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -225,7 +241,6 @@ export const App = () => {
                     offscreenOffset={80}
                   >
                     <Card
-                      elevate
                       shadowOpacity={0.2}
                       size="$4"
                       bordered
@@ -233,6 +248,34 @@ export const App = () => {
                       animation="bouncy"
                       animateOnly={["transform"]}
                       transform={[
+                        {
+                          translateY: interpolate(
+                            clamp(
+                              indexAfterActive({
+                                swipables,
+                                activeId: activeSwipable,
+                                id,
+                              }) + 1,
+                              [0, 3]
+                            ),
+                            [0, 3],
+                            [0, 48]
+                          ),
+                        },
+                        {
+                          scale: interpolate(
+                            clamp(
+                              indexAfterActive({
+                                swipables,
+                                activeId: activeSwipable,
+                                id,
+                              }) + 1,
+                              [0, 3]
+                            ),
+                            [0, 3],
+                            [1, 0.8]
+                          ),
+                        },
                         {
                           rotate: id !== activeSwipable ? rotate : "0deg",
                         },
@@ -245,6 +288,14 @@ export const App = () => {
                           Index in Array {swipables.length - 1 - index}
                         </Paragraph>
                         <Paragraph>Index in Render {index}</Paragraph>
+                        <Paragraph>
+                          Index After Active{" "}
+                          {indexAfterActive({
+                            swipables,
+                            activeId: activeSwipable,
+                            id,
+                          })}
+                        </Paragraph>
 
                         <Paragraph>CurrentId {activeSwipable}</Paragraph>
                       </Card.Header>
