@@ -284,15 +284,17 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         const alpha = Math.asin(a / c) * (180 / Math.PI);
         const beta = Math.asin(b / c) * (180 / Math.PI);
 
-        const MAX_SWIPE_DISTANCE = Math.sqrt(
-          Math.pow(SWIPABLE_DIMENSIONS.current.width / 2, 2) +
-            Math.pow(SWIPABLE_DIMENSIONS.current.height / 2, 2)
-        );
+        const MAX_SWIPE_DISTANCE =
+          Math.sqrt(
+            Math.pow(SWIPABLE_DIMENSIONS.current.width, 2) +
+              Math.pow(SWIPABLE_DIMENSIONS.current.height, 2)
+          ) / 2;
 
-        const MAX_ELEMENT_DISTANCE = Math.sqrt(
-          Math.pow(ELEMENT_DIMENSIONS.current.width / 2, 2) +
-            Math.pow(ELEMENT_DIMENSIONS.current.height / 2, 2)
-        );
+        const MAX_ELEMENT_DISTANCE =
+          Math.sqrt(
+            Math.pow(ELEMENT_DIMENSIONS.current.width, 2) +
+              Math.pow(ELEMENT_DIMENSIONS.current.height, 2)
+          ) / 2;
 
         const c2 = MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + offscreenOffset;
 
