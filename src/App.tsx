@@ -21,11 +21,9 @@ import config from "../tamagui/tamagui.config";
 import { Swipable, Pan, SwipableRef } from "./components/Swipeable";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Animated, {
-  Easing,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import { color } from "../tamagui/tokens";
@@ -72,19 +70,21 @@ const computedStyle = (value: number): DefaultStyle => {
 };
 
 const createSwipables = (length: number) => {
-  const swipables: { value: number; rotate: string }[] = [];
+  const swipables: { id: string; rotate: string }[] = [];
   for (let i = 0; i < length; i++) {
     swipables.push({
-      value: i,
+      id: `${i.toString().padStart(3, "0")}-${new Date().getTime()}`,
       rotate: `${Math.random() * 30}deg`,
     });
   }
+
+  swipables.reverse();
+
   return swipables;
 };
 export const App = () => {
-  const swiperRef = useRef<SwipableRef>(null);
+  const swiperRef = useRef<SwipableRef | null>(null);
   const [isSwiping, setIsSwiping] = useState(false);
-  const [swipeDirection, setSwipeDirection] = useState("undetermined");
   const leftButtonTransform = useSharedValue(1);
   const rightButtonTransform = useSharedValue(1);
 
@@ -99,16 +99,20 @@ export const App = () => {
   );
 
   const [swipables, setSwipables] = useState(createSwipables(10));
+  const [activeSwipable, setActiveSwipable] = useState(
+    () => swipables[swipables.length - 1].id
+  );
 
   useEffect(() => {
     if (swipables.length === 0) {
-      setSwipables(createSwipables(10));
+      const newSwipables = createSwipables(10);
+      setSwipables(newSwipables);
+      setActiveSwipable(newSwipables[newSwipables.length - 1].id);
     }
   }, [swipables]);
 
   const handlePan = useCallback((pan: Pan) => {
     if (pan.translate === 0) {
-      setSwipeDirection("undetermined");
       leftButtonTransform.value = withTiming(1);
       rightButtonTransform.value = withTiming(1);
       setIsSwiping(false);
@@ -116,7 +120,6 @@ export const App = () => {
     }
 
     const direction = pan.translate > 0 ? "right" : "left";
-    setSwipeDirection(direction);
     setIsSwiping(true);
     const distance = Math.abs(pan.translate);
 
@@ -167,6 +170,10 @@ export const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(swiperRef.current);
+  }, [activeSwipable]);
+
   return (
     <TamaguiProvider config={config} defaultTheme="popPetrol">
       <AppStateProvider>
@@ -179,20 +186,38 @@ export const App = () => {
               maxHeight="800px"
               overflow="hidden"
             >
-              <ZStack flex={1}>
-                {swipables.toReversed().map(({ value, rotate }, index) => (
+              <ZStack flex={1} className="removePointerEventsForDirectChildren">
+                {swipables.map(({ id, rotate }, index) => (
                   <Swipable
-                    key={value}
-                    enabled={index === swipables.length - 1}
-                    ref={index === swipables.length - 1 ? swiperRef : null}
-                    onSwipe={(swipe) => {
-                      setIsSwiping(true);
+                    id={id}
+                    key={id}
+                    enabled={id === activeSwipable}
+                    ref={id === activeSwipable ? swiperRef : null}
+                    onSwipe={() => {
+                      if (id === swipables[0].id) {
+                        setActiveSwipable("");
+                        setIsSwiping(true);
+                      } else {
+                        // reset buttons
+                        handlePan({
+                          maxSwipeDistance: 0,
+                          minSwipeDistance: 0,
+                          translate: 0,
+                        });
+                        setIsSwiping(false);
+
+                        // set the next swipable as active
+                        const nextIndex = index - 1;
+                        setActiveSwipable(swipables[nextIndex].id);
+                      }
                     }}
                     onSwipeFinished={(swipeFinished) => {
                       swipeFinished.callback();
-                      setIsSwiping(false);
+                      if (id === activeSwipable) {
+                        setIsSwiping(false);
+                      }
                       setSwipables((s) => {
-                        const newSwipables = s.slice(1);
+                        const newSwipables = s.slice(0, -1);
                         return newSwipables;
                       });
                     }}
@@ -209,8 +234,7 @@ export const App = () => {
                       animateOnly={["transform"]}
                       transform={[
                         {
-                          rotate:
-                            index !== swipables.length - 1 ? rotate : "0deg",
+                          rotate: id !== activeSwipable ? rotate : "0deg",
                         },
                       ]}
                     >
@@ -265,7 +289,7 @@ export const App = () => {
                     backgroundColor: "$transparent",
                   }}
                   pressStyle={{
-                    transform: [{ scale: 1.2 }],
+                    transform: [{ scale: 1.1 }],
                     shadowColor: color.baseLollipopRed,
                     shadowOpacity: 1,
                     shadowRadius: 12,
@@ -275,7 +299,12 @@ export const App = () => {
                     outlineWidth: 0,
                   }}
                   onPress={() => {
-                    swiperRef.current?.swipe("left");
+                    if (
+                      swiperRef.current &&
+                      swiperRef.current.id === activeSwipable
+                    ) {
+                      swiperRef.current.swipe("left");
+                    }
                   }}
                   disabled={isSwiping}
                 >
@@ -283,9 +312,9 @@ export const App = () => {
                     style={[
                       {
                         borderRadius: 99999,
-                        paddingHorizontal: 20,
-                        paddingVertical: 1,
                         height: 44,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
                         alignItems: "center",
                         justifyContent: "center",
                         backgroundColor: color.baseLollipopRed,
@@ -315,7 +344,7 @@ export const App = () => {
                     backgroundColor: "$transparent",
                   }}
                   pressStyle={{
-                    transform: [{ scale: 1.2 }],
+                    transform: [{ scale: 1.1 }],
                     shadowColor: color.baseStromeeGreen,
                     shadowOpacity: 1,
                     shadowRadius: 12,
@@ -325,7 +354,12 @@ export const App = () => {
                     outlineWidth: 0,
                   }}
                   onPress={() => {
-                    swiperRef.current?.swipe("right");
+                    if (
+                      swiperRef.current &&
+                      swiperRef.current.id === activeSwipable
+                    ) {
+                      swiperRef.current?.swipe("right");
+                    }
                   }}
                   disabled={isSwiping}
                 >
@@ -333,9 +367,9 @@ export const App = () => {
                     style={[
                       {
                         borderRadius: 99999,
-                        paddingHorizontal: 20,
-                        paddingVertical: 1,
                         height: 44,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
                         alignItems: "center",
                         justifyContent: "center",
                         backgroundColor: color.baseStromeeGreen,

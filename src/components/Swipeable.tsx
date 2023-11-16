@@ -1,14 +1,6 @@
-import {
-  Ref,
-  RefObject,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
-import { Square, Text, YStack, View, clamp } from "tamagui";
+import { YStack, View, clamp } from "tamagui";
 
 import Animated, {
   Extrapolate,
@@ -29,6 +21,7 @@ const GESTURE_DEFAULT_DIMENSIONS = {
 };
 
 export type SwipableRef = {
+  id: string;
   swipe: (direction: "left" | "right") => void;
 };
 
@@ -39,6 +32,7 @@ export type Pan = {
 };
 
 type SwipableProps = {
+  id: string;
   enabled?: boolean;
   offscreenOffset?: number;
   onPan: (pan: Pan) => void;
@@ -53,7 +47,15 @@ type SwipableProps = {
 
 const Swipable = forwardRef<SwipableRef, SwipableProps>(
   (
-    { enabled, offscreenOffset = 0, onPan, onSwipe, onSwipeFinished, children },
+    {
+      id,
+      enabled,
+      offscreenOffset = 0,
+      onPan,
+      onSwipe,
+      onSwipeFinished,
+      children,
+    },
     ref
   ) => {
     const SWIPABLE_DIMENSIONS = useRef({ width: 0, height: 0, x: 0, y: 0 });
@@ -72,6 +74,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     useEffect(() => {
       if (ref && typeof ref !== "function" && "current" in ref) {
         ref.current = {
+          id,
           swipe: (direction) => {
             if (direction === "left") {
               x.value = MIN_SWIPE_DISTANCE * -1;
@@ -81,7 +84,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
               x.value = MIN_SWIPE_DISTANCE;
             }
 
-            const Y_RANGE = [-24, 24];
+            const Y_RANGE = [-64, 64];
             y.value = Math.random() * (Y_RANGE[1] - Y_RANGE[0]) + Y_RANGE[0];
             handleEndState();
           },
@@ -244,6 +247,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
 
     const swipeSpringCallback = useCallback((distance) => {
       swipingCount.current = swipingCount.current + 1;
+
       if (swipingCount.current === 2) {
         const direction = distance > 0 ? "right" : "left";
 
@@ -350,6 +354,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             y: e.nativeEvent.layout.y,
           };
         }}
+        pointerEvents={enabled ? "auto" : "none"}
       >
         <View
           onLayout={(e) => {
