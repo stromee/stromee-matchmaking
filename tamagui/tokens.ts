@@ -35,15 +35,22 @@ const size = {
   18: 244,
   19: 264,
   20: 284,
+  full: "100%",
 };
 
-const spaces = Object.entries(size).map(
-  ([k, v]) =>
-    [
-      k,
-      Math.max(0, v <= 16 ? Math.round(v * 0.333) : Math.floor(v * 0.7 - 12)),
-    ] as const
-);
+const spaces = Object.entries(size)
+  .filter(
+    (entries): entries is [string, number] => typeof entries[1] === "number"
+  )
+  .map(
+    ([k, v]) =>
+      [
+        k,
+        Math.max(0, v <= 16 ? Math.round(v * 0.333) : Math.floor(v * 0.7 - 12)),
+      ] as const
+  );
+
+console.log(spaces);
 
 const spacesNegative = spaces.slice(1).map(([k, v]) => [`-${k}`, -v]);
 
