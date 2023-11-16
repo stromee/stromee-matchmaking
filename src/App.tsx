@@ -198,6 +198,7 @@ export const App = () => {
             <YStack
               bg="$background"
               fullscreen
+              margin="auto"
               maxWidth="400px"
               maxHeight="800px"
               overflow="hidden"
