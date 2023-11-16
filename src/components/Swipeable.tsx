@@ -270,13 +270,14 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         });
 
         swipingCount.current = 0;
-
+        console.timeEnd("fly out");
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }
     }, []);
 
     useEffect(() => {
       if (state === State.END) {
+        // @TODO refactor with lines
         const a = x.value;
         const b = y.value;
         const c = Math.sqrt(a * a + b * b);
@@ -301,12 +302,16 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         const a2 = c2 * Math.sin(alpha * (Math.PI / 180));
         const b2 = c2 * Math.sin(beta * (Math.PI / 180));
 
+        console.time("fly out");
+
         x.value = withSpring(
           a2,
           {
             velocity: velocityX.value,
             damping: 100,
             stiffness: 500,
+            overshootClamping: true,
+            restDisplacementThreshold: 1,
           },
           () => swipeSpringCallback(c2)
         );
@@ -317,13 +322,13 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
             velocity: velocityY.value,
             damping: 100,
             stiffness: 500,
+            overshootClamping: true,
+            restDisplacementThreshold: 1,
           },
           () => swipeSpringCallback(c2)
         );
 
         angle.value = withSpring(a2 > 0 ? 30 : -30);
-
-        // todo move offscreen with velocity
       }
     }, [state]);
 
@@ -332,7 +337,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         f={1}
         ai="center"
         jc="center"
-        width="100%"
+        width="full"
+        height="full"
         onLayout={(e) => {
           SWIPABLE_DIMENSIONS.current = {
             width: e.nativeEvent.layout.width,
@@ -365,4 +371,4 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
   }
 );
 
-export default Swipable;
+export { Swipable };
