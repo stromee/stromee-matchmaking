@@ -277,14 +277,6 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
 
     useEffect(() => {
       if (state === State.END) {
-        // @TODO refactor with lines
-        const a = x.value;
-        const b = y.value;
-        const c = Math.sqrt(a * a + b * b);
-
-        const alpha = Math.asin(a / c) * (180 / Math.PI);
-        const beta = Math.asin(b / c) * (180 / Math.PI);
-
         const MAX_SWIPE_DISTANCE =
           Math.sqrt(
             Math.pow(SWIPABLE_DIMENSIONS.current.width, 2) +
@@ -297,38 +289,49 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
               Math.pow(ELEMENT_DIMENSIONS.current.height, 2)
           ) / 2;
 
-        const c2 = MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + offscreenOffset;
+        const targetDistance =
+          MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + offscreenOffset;
 
-        const a2 = c2 * Math.sin(alpha * (Math.PI / 180));
-        const b2 = c2 * Math.sin(beta * (Math.PI / 180));
+        const currentDistance = Math.sqrt(
+          Math.pow(x.value, 2) + Math.pow(y.value, 2)
+        );
 
         console.time("fly out");
 
-        x.value = withSpring(
-          a2,
-          {
-            velocity: velocityX.value,
-            damping: 100,
-            stiffness: 500,
-            overshootClamping: true,
-            restDisplacementThreshold: 1,
-          },
-          () => swipeSpringCallback(c2)
-        );
+        const factor = targetDistance / currentDistance;
+        const newX = x.value * factor;
+        const newY = y.value * factor;
 
-        y.value = withSpring(
-          b2,
-          {
-            velocity: velocityY.value,
-            damping: 100,
-            stiffness: 500,
-            overshootClamping: true,
-            restDisplacementThreshold: 1,
-          },
-          () => swipeSpringCallback(c2)
-        );
+        if (factor < 1) {
+          swipeSpringCallback(currentDistance);
+          swipeSpringCallback(currentDistance);
+        } else {
+          x.value = withSpring(
+            newX,
+            {
+              velocity: velocityX.value,
+              damping: 100,
+              stiffness: 500,
+              overshootClamping: true,
+              restDisplacementThreshold: 1,
+            },
+            () => swipeSpringCallback(targetDistance)
+          );
 
-        angle.value = withSpring(a2 > 0 ? 30 : -30);
+          y.value = withSpring(
+            newY,
+            {
+              velocity: velocityY.value,
+              damping: 100,
+              stiffness: 500,
+              overshootClamping: true,
+              restDisplacementThreshold: 1,
+            },
+            () => swipeSpringCallback(targetDistance)
+          );
+
+          angle.value = withSpring(newX > 0 ? 30 : -30);
+        }
       }
     }, [state]);
 
