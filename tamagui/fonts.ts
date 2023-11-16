@@ -4,6 +4,8 @@ export const fonts = {
   body: createFont({
     family: `Helvetica`,
     size: {
+      true: 14,
+      1: 10,
       2: 12,
       3: 14,
       4: 16,
@@ -18,6 +20,7 @@ export const fonts = {
       4: "400",
     },
     lineHeight: {
+      true: 17,
       2: 15,
       3: 17,
       4: 20,
@@ -32,6 +35,8 @@ export const fonts = {
   heading: createFont({
     family: `Helvetica`,
     size: {
+      true: 20,
+      1: 14,
       2: 16,
       3: 20,
       4: 24,
@@ -44,6 +49,7 @@ export const fonts = {
     },
     letterSpacing: {},
     lineHeight: {
+      true: 1.5 * 20,
       2: 1.5 * 16,
       3: 1.5 * 20,
       4: 1.5 * 24,

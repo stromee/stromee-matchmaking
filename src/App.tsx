@@ -4,8 +4,6 @@ import {
   TamaguiProvider,
   XStack,
   View,
-  Text,
-  Stack,
   Card,
   H2,
   Paragraph,
@@ -15,6 +13,7 @@ import {
   clamp,
   ZStack,
   Theme,
+  SizableText,
 } from "tamagui";
 
 import config from "../tamagui/tamagui.config";
@@ -217,13 +216,13 @@ export const App = () => {
                     >
                       <Card.Header padded>
                         <H2>homee App</H2>
-                        <Paragraph>
-                          Value {value} {index}
-                        </Paragraph>
-                        <Paragraph>Index in Render {index}</Paragraph>
+                        <Paragraph>Value {id}</Paragraph>
                         <Paragraph>
                           Index in Array {swipables.length - 1 - index}
                         </Paragraph>
+                        <Paragraph>Index in Render {index}</Paragraph>
+
+                        <Paragraph>CurrentId {activeSwipable}</Paragraph>
                       </Card.Header>
                       <Card.Footer padded>
                         <XStack flex={1} />
@@ -247,6 +246,9 @@ export const App = () => {
                 ))}
               </ZStack>
 
+              <SizableText>
+                {activeSwipable} {swiperRef.current?.id}
+              </SizableText>
               <View flex={0} padding="$4" justifyContent="space-around">
                 <Button
                   theme="lollipopRed"
@@ -294,7 +296,7 @@ export const App = () => {
                       leftButtonStyle,
                     ]}
                   >
-                    <Text fontSize="$2">Nope</Text>
+                    <SizableText>Nope</SizableText>
                   </Animated.View>
                 </Button>
 
@@ -344,12 +346,12 @@ export const App = () => {
                       rightButtonStyle,
                     ]}
                   >
-                    <Text>Yes!</Text>
+                    <SizableText>Yes!</SizableText>
                   </Animated.View>
                 </Button>
               </View>
               <View>
-                <Text>Swipe me! {isSwiping ? "true" : "false"}</Text>
+                <Paragraph>Swipe me! {isSwiping ? "true" : "false"}</Paragraph>
               </View>
             </YStack>
           </Theme>
