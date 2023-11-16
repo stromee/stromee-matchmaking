@@ -255,7 +255,7 @@ export const App = () => {
                                 swipables,
                                 activeId: activeSwipable,
                                 id,
-                              }) + 1,
+                              }),
                               [0, 3]
                             ),
                             [0, 3],
@@ -269,7 +269,7 @@ export const App = () => {
                                 swipables,
                                 activeId: activeSwipable,
                                 id,
-                              }) + 1,
+                              }),
                               [0, 3]
                             ),
                             [0, 3],
