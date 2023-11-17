@@ -34,7 +34,10 @@ export type Pan = {
 type SwipableProps = {
   id: string;
   enabled?: boolean;
-  offscreenOffset?: number;
+  topOffset?: number;
+  rightOffset?: number;
+  bottomOffset?: number;
+  leftOffset?: number;
   onPan: (pan: Pan) => void;
   onSwipe: (swipe: { direction: "left" | "right"; distance: number }) => void;
   onSwipeFinished: (swipe: {
@@ -50,7 +53,10 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     {
       id,
       enabled,
-      offscreenOffset = 0,
+      topOffset = 0,
+      rightOffset = 0,
+      bottomOffset = 0,
+      leftOffset = 0,
       onPan,
       onSwipe,
       onSwipeFinished,
@@ -71,6 +77,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     const velocityX = useSharedValue(0);
     const velocityY = useSharedValue(0);
 
+    // set ref
     useEffect(() => {
       if (ref && typeof ref !== "function" && "current" in ref) {
         ref.current = {
@@ -124,15 +131,24 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
       "worklet";
 
       if (e.state === State.ACTIVE) {
-        const LEFT_X_BOUNDARY = gestureStartDimensions.value.absoluteX * -1;
-        const RIGHT_X_BOUNDARY =
-          SWIPABLE_DIMENSIONS.current.width -
-          gestureStartDimensions.value.absoluteX;
+        const LEFT_X_BOUNDARY =
+          (ELEMENT_DIMENSIONS.current.x + gestureStartDimensions.value.x) * -1 -
+          leftOffset;
 
-        const TOP_Y_BOUNDARY = gestureStartDimensions.value.absoluteY * -1;
+        const RIGHT_X_BOUNDARY =
+          ELEMENT_DIMENSIONS.current.x +
+          ELEMENT_DIMENSIONS.current.width -
+          gestureStartDimensions.value.x +
+          rightOffset;
+
+        const TOP_Y_BOUNDARY =
+          (ELEMENT_DIMENSIONS.current.y + gestureStartDimensions.value.y) * -1 -
+          topOffset;
         const BOTTOM_Y_BOUNDARY =
-          SWIPABLE_DIMENSIONS.current.height -
-          gestureStartDimensions.value.absoluteY;
+          ELEMENT_DIMENSIONS.current.y +
+          ELEMENT_DIMENSIONS.current.height -
+          gestureStartDimensions.value.y +
+          bottomOffset;
 
         const newX = clamp(e.translationX, [LEFT_X_BOUNDARY, RIGHT_X_BOUNDARY]);
 
@@ -293,8 +309,14 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
               Math.pow(ELEMENT_DIMENSIONS.current.height, 2)
           ) / 2;
 
+        const MAX_OFFSET_DISTANCE =
+          Math.sqrt(
+            Math.pow(topOffset + bottomOffset, 2) +
+              Math.pow(leftOffset + rightOffset, 2)
+          ) / 2;
+
         const targetDistance =
-          MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + offscreenOffset;
+          MAX_SWIPE_DISTANCE + MAX_ELEMENT_DISTANCE + MAX_OFFSET_DISTANCE;
 
         const currentDistance = Math.sqrt(
           Math.pow(x.value, 2) + Math.pow(y.value, 2)
