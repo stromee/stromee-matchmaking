@@ -26,7 +26,8 @@
     "react-native-reanimated": "^3.5.4",
     "react-native-web": "^0.18.10",
     "react-router-dom": "^6.19.0",
-    "tamagui": "latest"
+    "tamagui": "latest",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@tamagui/theme-builder": "^1.76.0",

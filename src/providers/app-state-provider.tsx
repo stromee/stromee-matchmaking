@@ -11,12 +11,9 @@ type AppStateProps = {
 };
 
 const AppStateProvider = ({ children }: AppStateProps) => {
-  const [appState, setAppState] = useState<AppState | undefined>(undefined);
-
-  useEffect(() => {
-    const isInIframe = window.self !== window.top;
-    setAppState({ isInIframe });
-  }, []);
+  const [appState] = useState<AppState | undefined>({
+    isInIframe: window.self !== window.top,
+  });
 
   return (
     <AppStateContext.Provider value={appState}>
