@@ -17,16 +17,21 @@
     "@tamagui/core": "latest",
     "@tamagui/create-theme": "latest",
     "@tamagui/react-native-svg": "latest",
+    "@tanstack/react-query": "^5.8.4",
+    "i": "^0.3.7",
+    "npm": "^10.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native-gesture-handler": "^2.13.4",
     "react-native-reanimated": "^3.5.4",
     "react-native-web": "^0.18.10",
+    "react-router-dom": "^6.19.0",
     "tamagui": "latest"
   },
   "devDependencies": {
     "@tamagui/theme-builder": "^1.76.0",
     "@tamagui/vite-plugin": "latest",
+    "@tanstack/eslint-plugin-query": "^5.8.4",
     "@vitejs/plugin-react-swc": "^3.3.0",
     "react-refresh": "^0.14.0",
     "vite": "^4.3.0"
