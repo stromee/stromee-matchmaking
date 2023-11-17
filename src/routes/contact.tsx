@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Paragraph } from "tamagui";
+import { useSearchedParams } from "../hooks/use-searched-params";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -22,12 +23,6 @@ const contactDetailQuery = (id: string) => ({
 });
 
 export default function Contact() {
-  const [searchParams] = useSearchParams();
-
-  searchParams.forEach((value, name) => {
-    console.log(name, value);
-  });
-
   const { contactId } = useParams();
   if (!contactId) {
     throw new Error("No contactId provided");

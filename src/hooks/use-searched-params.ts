@@ -2,17 +2,17 @@ import { useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 
 const desiralizeParams = (searchParams: URLSearchParams) => {
-  const desiralizedParams: Record<string, string[]> = {};
+  const paramsArray: Record<string, string[]> = {};
   searchParams.forEach((value, name) => {
-    if (name in desiralizeParams) {
-      desiralizedParams[name].push(value);
+    if (name in paramsArray) {
+      paramsArray[name].push(value);
     } else {
-      desiralizedParams[name] = [value];
+      paramsArray[name] = [value];
     }
   });
 
   const finalParams: Record<string, string | string[]> = {};
-  Object.entries(desiralizedParams).forEach(([name, values]) => {
+  Object.entries(paramsArray).forEach(([name, values]) => {
     if (values.length === 1) {
       finalParams[name] = values[0];
     } else {
@@ -27,7 +27,7 @@ const useSearchedParams = () => {
   const [searchParams] = useSearchParams();
 
   const desiralizedParams = useMemo(() => {
-    return desiralizedParams(searchParams);
+    return desiralizeParams(searchParams);
   }, [searchParams]);
 
   return desiralizedParams;
