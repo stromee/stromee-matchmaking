@@ -165,7 +165,6 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     }, []);
 
     const gesture = Gesture.Pan()
-
       .onBegin((e) => {
         if (enabled) {
           setState(e.state);

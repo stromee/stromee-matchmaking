@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Root } from "./routes/layouts/root";
+import { Root } from "@layouts/root";
 
-import { Home } from "./routes/home";
-import Contact from "./routes/contact";
+import { Home } from "@routes/home";
+import { Matches } from "@routes/matches";
+import { Match } from "@routes/match";
 
 const router = createBrowserRouter([
   {
@@ -12,9 +13,14 @@ const router = createBrowserRouter([
     //   errorElement: <ErrorPage />,
     children: [
       {
-        path: "contact/:contactId",
-        element: <Contact />,
+        path: "matches/:producerId",
+        element: <Match />,
       },
+      {
+        path: "matches",
+        element: <Matches />,
+      },
+
       {
         path: "",
         element: <Home />,

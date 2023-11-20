@@ -11,6 +11,8 @@ import {
   H4,
 } from "tamagui";
 
+import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
+
 import { Swipable, Pan, SwipableRef } from "./swipeable";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Animated, {
@@ -19,10 +21,9 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { color } from "../../tamagui/tokens";
-import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
-import { createSwipableStore } from "../utils/swipable-store";
-import { generateName } from "../utils/name";
+import { color } from "@theme/tokens";
+import { producerStore } from "@utils/swipable-store";
+import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
 
 const computedStyle = (value: number): DefaultStyle => {
@@ -94,18 +95,14 @@ const indexAfterActive = ({
   return activeIndex - index;
 };
 
-const getIndexInFull = (id: string, full: { id: string }[]) => {
-  const index = full.findIndex(({ id: fullId }) => fullId === id);
+const getIndexInFull = (id: string, items: { id: string }[]) => {
+  const index = items.findIndex(({ id: itemId }) => itemId === id);
 
   return index;
 };
-const once = createSwipables(40).map((item) => ({
-  key: item.id,
-  value: item,
-}));
 
 const SwipableList = ({ count = 5 }) => {
-  const store = useRef(createSwipableStore(once, "swipables")).current;
+  const store = useRef().current;
 
   const swipableRef = useRef<SwipableRef | null>(null);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -123,24 +120,24 @@ const SwipableList = ({ count = 5 }) => {
     [rightButtonTransform]
   );
 
-  const full = store.use.items().map((item) => item.value);
-  const remaining = store.use.remaining().map((item) => item.value);
-  const remainingDeferred = store.use
+  const items = producerStore.use.items();
+  const remaining = producerStore.use.remaining();
+  const remainingDeferred = producerStore.use
     .remainingDeferred()
-    .slice(-count, undefined)
-    .map((item) => item.value);
+    .slice(-count, undefined);
 
-  const activeSwipable = remaining[remaining.length - 1]?.id || "";
+  const onSwipe = producerStore.use.onSwipe();
+  const onSwipeFinished = producerStore.use.onSwipeFinished();
+  const resetSwiped = producerStore.use.resetSwiped();
+
+  const activeSwipableId = remaining[remaining.length - 1]?.id || "";
   // we need to copy the swipable id to a ref, so we can use the value in swipabled callbacks
   // with the current value
-  const activeSwipableRef = useRef(activeSwipable);
-  useEffect(() => {
-    activeSwipableRef.current = activeSwipable;
-  }, [activeSwipable]);
+  const activeSwipableIdRef = useRef(activeSwipableId);
 
-  const onSwipe = store.use.onSwipe();
-  const onSwipeFinished = store.use.onSwipeFinished();
-  const reset = store.use.reset();
+  useEffect(() => {
+    activeSwipableIdRef.current = activeSwipableId;
+  }, [activeSwipableId]);
 
   // useEffect(() => {
   //   if (swipables.length === 0) {
@@ -151,10 +148,13 @@ const SwipableList = ({ count = 5 }) => {
   // }, [swipables]);
 
   const handlePan = useCallback((pan: Pan) => {
-    if (pan.swipableId !== activeSwipableRef.current) {
-      console.warn(
-        `pan.swipableId not active for "${pan.swipableId}"; expected: "${activeSwipableRef.current}")`
-      );
+    if (pan.swipableId !== activeSwipableIdRef.current) {
+      if (__DEV__) {
+        console.warn(
+          `pan.swipableId not active for "${pan.swipableId}"; expected: "${activeSwipableIdRef.current}")`
+        );
+      }
+
       return;
     }
 
@@ -222,16 +222,16 @@ const SwipableList = ({ count = 5 }) => {
         <H4>Swipe me! {isSwiping ? "true" : "false"}</H4>
       </View>
       <CustomZStack>
-        {remainingDeferred.map(({ id, rotate }, index) => (
+        {remainingDeferred.map(({ id, value, rotate }, index) => (
           <CustomZStackChild key={id}>
             <Swipable
-              id={id}
               key={id}
-              enabled={id === activeSwipable}
-              ref={id === activeSwipable ? swipableRef : null}
+              id={id}
+              enabled={id === activeSwipableId}
+              ref={id === activeSwipableId ? swipableRef : null}
               onSwipe={(swipe) => {
                 onSwipe({
-                  key: id,
+                  id,
                   direction: swipe.direction,
                 });
                 if (remaining.length === 1) {
@@ -250,12 +250,18 @@ const SwipableList = ({ count = 5 }) => {
               onSwipeFinished={(swipeFinished) => {
                 swipeFinished.callback();
 
-                if (!activeSwipableRef.current) {
+                if (!activeSwipableIdRef.current) {
+                  handlePan({
+                    swipableId: activeSwipableIdRef.current,
+                    maxSwipeDistance: 0,
+                    minSwipeDistance: 0,
+                    translate: 0,
+                  });
                   setIsSwiping(false);
                 }
 
                 onSwipeFinished({
-                  key: id,
+                  id,
                 });
               }}
               onPan={handlePan}
@@ -275,7 +281,7 @@ const SwipableList = ({ count = 5 }) => {
                       clamp(
                         indexAfterActive({
                           swipables: remaining,
-                          activeId: activeSwipable,
+                          activeId: activeSwipableId,
                           id,
                         }),
                         [0, 3]
@@ -289,7 +295,7 @@ const SwipableList = ({ count = 5 }) => {
                       clamp(
                         indexAfterActive({
                           swipables: remaining,
-                          activeId: activeSwipable,
+                          activeId: activeSwipableId,
                           id,
                         }),
                         [0, 3]
@@ -299,14 +305,16 @@ const SwipableList = ({ count = 5 }) => {
                     ),
                   },
                   {
-                    rotate: id !== activeSwipable ? rotate : "0deg",
+                    rotate: id !== activeSwipableId ? rotate : "0deg",
                   },
                 ]}
               >
                 <Card.Header padded gap="$2">
-                  <H3>Produzent {getIndexInFull(id, full)}</H3>
-                  <Paragraph>element id: {id}</Paragraph>
-                  <Paragraph>active id: {activeSwipable}</Paragraph>
+                  <H3>Produzent {getIndexInFull(id, items)}</H3>
+                  <Paragraph>
+                    element id: {id} (id: {value.id})
+                  </Paragraph>
+                  <Paragraph>active id: {activeSwipableId}</Paragraph>
                   <Paragraph fontSize="$4" mt="$4">
                     Debug infos:
                   </Paragraph>
@@ -369,7 +377,7 @@ const SwipableList = ({ count = 5 }) => {
           onPress={() => {
             if (
               swipableRef.current &&
-              swipableRef.current.id === activeSwipable
+              swipableRef.current.id === activeSwipableId
             ) {
               swipableRef.current.swipe("left");
             }
@@ -390,9 +398,7 @@ const SwipableList = ({ count = 5 }) => {
                 borderColor: color.baseCloudWhite,
                 shadowColor: color.baseLollipopRed,
               },
-              isSwiping || remainingDeferred.length === 0
-                ? {}
-                : leftButtonStyle,
+              leftButtonStyle,
             ]}
           >
             <SizableText>Nope</SizableText>
@@ -426,7 +432,7 @@ const SwipableList = ({ count = 5 }) => {
           onPress={() => {
             if (
               swipableRef.current &&
-              swipableRef.current.id === activeSwipable
+              swipableRef.current.id === activeSwipableId
             ) {
               swipableRef.current?.swipe("right");
             }
@@ -455,7 +461,7 @@ const SwipableList = ({ count = 5 }) => {
         </Button>
       </View>
       <View jc="center" p="$2">
-        <Button theme="popPetrol" onPress={reset} borderRadius="$full">
+        <Button theme="popPetrol" onPress={resetSwiped} borderRadius="$full">
           Restart
         </Button>
       </View>
