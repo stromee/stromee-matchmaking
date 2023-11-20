@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Paragraph } from "tamagui";
 import { useSearchedParams } from "../hooks/use-searched-params";
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { sleep } from "../utils/misc";
 
 const getContact = async (id: string) => {
   await sleep(1000);
