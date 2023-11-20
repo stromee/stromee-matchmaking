@@ -12,13 +12,13 @@ const Match = () => {
 
   const { data } = useProducerQuery({ producerId });
 
-  const rightSwiped = producerStore.use.rightSwiped();
+  const swipedRight = producerStore.use.swipedRight();
 
-  const isInRightSwiped = rightSwiped.some((id) => id === producerId);
+  const isInSwipedRight = swipedRight.some((id) => id === producerId);
 
   useEffect(() => {
     console.log("swiped", params);
-  }, [rightSwiped]);
+  }, [swipedRight]);
 
   return (
     <View>

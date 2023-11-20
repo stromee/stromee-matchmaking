@@ -11,8 +11,8 @@ interface State<TItem extends { id: string }> {
   remaining: TItem[]; // remaining items (selected - swiped)
   remainingDeferred: TItem[]; // remaining items (selected - swiped + selected items waiting for callback)
   swiped: TItem["id"][];
-  leftSwiped: TItem["id"][];
-  rightSwiped: TItem["id"][];
+  swipedLeft: TItem["id"][];
+  swipedRight: TItem["id"][];
   onSwipe: (swipe: { direction: "left" | "right"; id: TItem["id"] }) => void;
   onSwipeFinished: ({ id }: { id: TItem["id"] }) => void;
   updateSelection: (selection: TItem[]) => void;
@@ -31,8 +31,8 @@ export const createSwipableStore = <TItem extends { id: string }>(
     remaining: items,
     remainingDeferred: items,
     swiped: [],
-    leftSwiped: [],
-    rightSwiped: [],
+    swipedLeft: [],
+    swipedRight: [],
   };
   const baseStore = create<State<TItem>>()(
     persist(
@@ -50,20 +50,24 @@ export const createSwipableStore = <TItem extends { id: string }>(
             const newSelection = state.selection.filter((item) =>
               items.some((newItem) => newItem.id === item.id)
             );
-            const newRemaining = state.remaining.filter((item) => {
-              items.some((newItem) => newItem.id === item.id);
-            });
+
+            const newSwiped = state.swiped.filter((id) =>
+              items.some((item) => item.id === id)
+            );
+
+            const newRemaining = newSelection.filter(
+              (item) => !newSwiped.some((id) => id === item.id)
+            );
+
             const newRemainingDeferred = [...newRemaining];
 
-            const newSwiped = state.swiped.filter((id) => {
-              items.some((newItem) => newItem.id === id);
-            });
-            const newLeftSwiped = state.leftSwiped.filter((id) => {
-              newSwiped.some((swipedId) => swipedId === id);
-            });
-            const newRightSwiped = state.rightSwiped.filter((id) => {
-              newSwiped.some((swipedId) => swipedId === id);
-            });
+            const newSwipedLeft = state.swipedLeft.filter((id) =>
+              newSwiped.some((swipedId) => swipedId === id)
+            );
+
+            const newSwipedRight = state.swipedRight.filter((id) =>
+              newSwiped.some((swipedId) => swipedId === id)
+            );
 
             return {
               ...state,
@@ -72,8 +76,8 @@ export const createSwipableStore = <TItem extends { id: string }>(
               remaining: newRemaining,
               remainingDeferred: newRemainingDeferred,
               swiped: newSwiped,
-              leftSwiped: newLeftSwiped,
-              rightSwiped: newRightSwiped,
+              swipedLeft: newSwipedLeft,
+              swipedRight: newSwipedRight,
             };
           });
         },
@@ -98,7 +102,6 @@ export const createSwipableStore = <TItem extends { id: string }>(
               remainingDeferred: newRemainingDeferred,
             };
           });
-          console.log("updateSelection", selection);
         },
         onSwipe: ({ direction, id }) => {
           set((state) => {
@@ -116,22 +119,22 @@ export const createSwipableStore = <TItem extends { id: string }>(
               newSwiped = [...state.swiped, id];
             }
 
-            let newLeftSwiped = state.leftSwiped;
-            if (direction === "left" && !state.leftSwiped.includes(id)) {
-              newLeftSwiped = [...state.leftSwiped, id];
+            let newSwipedLeft = state.swipedLeft;
+            if (direction === "left" && !state.swipedLeft.includes(id)) {
+              newSwipedLeft = [...state.swipedLeft, id];
             }
 
-            let newRightSwiped = state.rightSwiped;
-            if (direction === "right" && !state.rightSwiped.includes(id)) {
-              newRightSwiped = [...state.rightSwiped, id];
+            let newSwipedRight = state.swipedRight;
+            if (direction === "right" && !state.swipedRight.includes(id)) {
+              newSwipedRight = [...state.swipedRight, id];
             }
 
             return {
               ...state,
               remaining: newRemaining,
               swiped: newSwiped,
-              leftSwiped: newLeftSwiped,
-              rightSwiped: newRightSwiped,
+              swipedLeft: newSwipedLeft,
+              swipedRight: newSwipedRight,
             };
           });
         },
@@ -156,8 +159,8 @@ export const createSwipableStore = <TItem extends { id: string }>(
         },
         resetSwiped: () => {
           set((state) => {
-            const newLeftSwiped = [];
-            const newSwiped = [...state.rightSwiped];
+            const newSwipedLeft = [];
+            const newSwiped = [...state.swipedRight];
 
             const newRemaining = state.selection.filter(
               (item) => !newSwiped.some((id) => id === item.id)
@@ -170,7 +173,7 @@ export const createSwipableStore = <TItem extends { id: string }>(
               remaining: newRemaining,
               remainingDeferred: newRemainingDeferred,
               swiped: newSwiped,
-              leftSwiped: newLeftSwiped,
+              swipedLeft: newSwipedLeft,
             };
           });
         },

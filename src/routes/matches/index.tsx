@@ -4,17 +4,17 @@ import { producerStore } from "@utils/swipable-store";
 import { Paragraph, View } from "tamagui";
 
 const Matches = () => {
-  const swiped = producerStore.use.rightSwiped();
+  const swipedRight = producerStore.use.swipedRight();
   const { data } = useProducersQuery({});
 
   useEffect(() => {
-    console.log("swiped", swiped);
-  }, [swiped]);
+    console.log("swiped", swipedRight);
+  }, [swipedRight]);
 
   return (
     <View>
       <Paragraph>Matches</Paragraph>
-      <Paragraph>{JSON.stringify(swiped, null, 2)}</Paragraph>
+      <Paragraph>{JSON.stringify(swipedRight, null, 2)}</Paragraph>
     </View>
   );
 };
