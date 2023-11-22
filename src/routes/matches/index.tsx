@@ -16,11 +16,22 @@ import {
   View,
   YStack,
 } from "tamagui";
+import { supabase } from "src/supabase";
+
+const getData = async () => {
+  let { data: location, error } = await supabase.from("location").select("*");
+
+  console.log(location);
+  console.log(error);
+  return location;
+};
 
 const Matches = () => {
   const swipedRight = producerStore.use.swipedRight();
   const { data } = useProducersQuery({});
   useEffect(() => {
+    getData();
+  });
   return (
     <YStack gap="$2" px="$2" py="$4">
       <H1>Heading 1</H1>
