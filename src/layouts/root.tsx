@@ -16,6 +16,7 @@ import { useProducersQuery } from "@hooks/use-producers-query";
 import { useEffect, useRef } from "react";
 import { BodyText } from "@components/layout/body-text";
 import { useLocationWatch } from "@hooks/use-location-watch";
+import { locationStore } from "@utils/location-store";
 
 const Root = () => {
   const setSelection = useRef(true);
@@ -24,6 +25,7 @@ const Root = () => {
 
   const { data } = useProducersQuery({});
 
+  const askForLocation = locationStore.use.askForLocation();
   useLocationWatch();
 
   useEffect(() => {
@@ -79,6 +81,14 @@ const Root = () => {
                   </ul>
                 </XStack>
               </nav>
+              <Button
+                onPress={askForLocation}
+                borderRadius="$full"
+                fontFamily="$button"
+                theme="stromeeGreen"
+              >
+                Ask for permission
+              </Button>
               <Outlet />
             </YStack>
           </Theme>

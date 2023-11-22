@@ -98,7 +98,6 @@ export const createLocationStore = (name: string) => {
                     };
                   });
                 }
-                console.log("Unable to retrieve your location", error);
               }
             );
           }
@@ -106,10 +105,8 @@ export const createLocationStore = (name: string) => {
         watch: () => {
           const { location } = get();
           if (location) {
-            console.log("location watch started");
             const id = navigator.geolocation.watchPosition(
               (position) => {
-                console.log("position", position);
                 set((state) => {
                   return {
                     ...state,
@@ -149,7 +146,6 @@ export const createLocationStore = (name: string) => {
                     };
                   });
                 }
-                console.log("Unable to retrieve your location", error);
               }
             );
 
