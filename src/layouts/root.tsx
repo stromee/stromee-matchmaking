@@ -15,6 +15,7 @@ import { producerStore } from "@utils/swipable-store";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { useEffect, useRef } from "react";
 import { BodyText } from "@components/layout/body-text";
+import { useWatchLocation } from "@hooks/use-location";
 
 const Root = () => {
   const setSelection = useRef(true);
@@ -22,6 +23,9 @@ const Root = () => {
   const updateSelection = producerStore.use.updateSelection();
 
   const { data } = useProducersQuery({});
+
+  useWatchLocation();
+
   useEffect(() => {
     if (data) {
       const items = data.map((producer) => ({

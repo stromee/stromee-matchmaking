@@ -17,9 +17,13 @@ import {
   YStack,
 } from "tamagui";
 import { supabase } from "src/supabase";
+import { locationStore } from "@utils/location-store";
 
 const getData = async () => {
-  let { data: location, error } = await supabase.from("location").select("*");
+  let { data: locations, error } = await supabase
+    .from("locations")
+    .select("*")
+    .eq("Postleit-zahl", "70199");
 
   console.log(location);
   console.log(error);
@@ -27,6 +31,11 @@ const getData = async () => {
 };
 
 const Matches = () => {
+  const askedForLocation = locationStore.use.askedForLocation();
+  const askForLocation = locationStore.use.askForLocation();
+  const locationState = locationStore.use.locationState();
+  const location = locationStore.use.location();
+
   const swipedRight = producerStore.use.swipedRight();
   const { data } = useProducersQuery({});
   useEffect(() => {
@@ -49,7 +58,21 @@ const Matches = () => {
       <Paragraph fontWeight="700">Font 700</Paragraph>
       <Button borderRadius="$full" fontFamily="$button" theme="stromeeGreen">
         Paragraph
+      <Paragraph>
+        Asked for Location {askedForLocation ? "true" : "false"}
+      </Paragraph>
+      <Paragraph>Location State {locationState}</Paragraph>
+      <Button
+        onPress={askForLocation}
+        borderRadius="$full"
+        fontFamily="$button"
+        theme="stromeeGreen"
+      >
+        Ask for permission
       </Button>
+
+      {location && <Paragraph>Location {location.latitude}</Paragraph>}
+      {location && <Paragraph>Location {location.longitude}</Paragraph>}
 
       <Paragraph>Matches</Paragraph>
       <Paragraph>{JSON.stringify(swipedRight, null, 2)}</Paragraph>

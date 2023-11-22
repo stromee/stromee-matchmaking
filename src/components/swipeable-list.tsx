@@ -29,6 +29,8 @@ import { color } from "@theme/tokens";
 import { producerStore } from "@utils/swipable-store";
 import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
+import { locationStore } from "@utils/location-store";
+import { distanceFromLatLonInKm } from "@utils/misc";
 
 const computedStyle = (value: number): DefaultStyle => {
   if (value == 1) {
@@ -99,6 +101,7 @@ const indexAfterActive = ({
 };
 
 const SwipableList = ({ count = 4 }) => {
+  const location = locationStore.use.location();
   const store = useRef().current;
 
   const swipableRef = useRef<SwipableRef | null>(null);
@@ -318,10 +321,47 @@ const SwipableList = ({ count = 4 }) => {
                     }}
                   />
                   <Card.Header padded gap="$2" maxWidth="$full">
-                    <Paragraph userSelect="none">15km entfernt</Paragraph>
+                    {location ? (
+                      <Paragraph>
+                        {distanceFromLatLonInKm(
+                          {
+                            latitude: value.lat,
+                            longitude: value.lon,
+                          },
+                          {
+                            latitude: location.latitude,
+                            longitude: location.longitude,
+                          }
+                        ) < 1
+                          ? distanceFromLatLonInKm(
+                              {
+                                latitude: value.lat,
+                                longitude: value.lon,
+                              },
+                              {
+                                latitude: location.latitude,
+                                longitude: location.longitude,
+                              }
+                            ).toFixed(2)
+                          : distanceFromLatLonInKm(
+                              {
+                                latitude: value.lat,
+                                longitude: value.lon,
+                              },
+                              {
+                                latitude: location.latitude,
+                                longitude: location.longitude,
+                              }
+                            ).toFixed(0)}{" "}
+                        km von dir entfernt
+                      </Paragraph>
+                    ) : (
+                      <Paragraph>{value.city}</Paragraph>
+                    )}
                     <H4 numberOfLines={2} userSelect="none">
                       {value.name}
                     </H4>
+
                     <Paragraph userSelect="none">Windenergie</Paragraph>
                     <Paragraph userSelect="none">Familienbetrieb</Paragraph>
                     <Paragraph userSelect="none">
