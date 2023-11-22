@@ -31,7 +31,7 @@ const Matches = () => {
   const { data } = useProducersQuery({});
   useEffect(() => {
     getData();
-  });
+  }, []);
   return (
     <YStack gap="$2" px="$2" py="$4">
       <H1>Heading 1</H1>
