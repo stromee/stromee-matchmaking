@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production EXTRACT=1 vite build --base=/matchmaking2",
     "preview": "vite preview",
     "final": "npm run build && node build/index.js",
-    "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest",
+    "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.5",
