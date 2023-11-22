@@ -10,6 +10,10 @@ const shouldExtract = process.env.EXTRACT === "1";
 const tamaguiConfig = {
   components: ["tamagui"],
   config: "tamagui/tamagui.config.ts",
+  themeBuilder: {
+    input: "./tamagui/themes-builder.ts",
+    output: "./tamagui/generated-themes.ts",
+  },
 };
 
 export default defineConfig({

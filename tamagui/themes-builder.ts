@@ -17,14 +17,14 @@ const themesBuilder = createThemeBuilder()
       color.baseStromeeNavy, // 2 - color
       color.baseStromeeNavy, // 3 - border
       color.baseStromeeNavyOpacity20, // 4 - shadow
-      color.baseCloudWhiteOpacity80, // 5 - placeholder
+      color.baseStromeeNavyOpacity80, // 5 - placeholder
     ],
     popPetrol: [
       color.transparent, // 0 - transparent
       color.basePopPetrol, // 1 - background
       color.baseCloudWhite, // 2 - color
       color.baseCloudWhiteOpacity20, // 3 - border / shadow
-      color.baseStromeeNavyOpacity80, // 4 - placeholder
+      color.baseCloudWhiteOpacity80, // 4 - placeholder
     ],
     stromeeGreen: [
       color.transparent, // 0 - transparent
@@ -34,12 +34,19 @@ const themesBuilder = createThemeBuilder()
       color.baseStromeeNavyOpacity20, // 4 - shadow
       color.baseStromeeNavyOpacity80, // 5 - placeholder
     ],
+    punchGreen: [
+      color.transparent, // 0 - transparent
+      color.basePunchGreen, // 1 - background
+      color.baseStromeeNavy, // 2 - color
+      color.baseStromeeNavyOpacity20, // 3 - border / shadow
+      color.baseStromeeNavyOpacity80, // 4 - placeholder
+    ],
     lollipopRed: [
       color.transparent, // 0 - transparent
       color.baseLollipopRed, // 1 - background
       color.baseCloudWhite, // 2 - color
       color.baseStromeeNavy, // 3 - border
-      color.baseStromeeNavyOpacity20, // 4 - shadow
+      color.baseCloudWhiteOpacity20, // 4 - shadow
       color.baseCloudWhiteOpacity80, // 5 - placeholder
     ],
   })
@@ -83,6 +90,10 @@ const themesBuilder = createThemeBuilder()
     stromeeGreen: {
       template: "base",
       palette: "stromeeGreen",
+    },
+    punchGreen: {
+      template: "base",
+      palette: "punchGreen",
     },
     lollipopRed: {
       template: "base",

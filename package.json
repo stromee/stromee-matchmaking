@@ -6,11 +6,10 @@
     "dev:vite": "NODE_ENV=development vite --host --clearScreen false",
     "dev:vite:extract": "EXTRACT=1 npm run dev",
     "dev": "npm run dev:vite",
-    "build": "NODE_ENV=production EXTRACT=1 vite build --base=/matchmaking2/",
+    "build": "NODE_ENV=production EXTRACT=1 vite build --base=/matchmaking2",
     "preview": "vite preview",
     "final": "npm run build && node build/index.js",
     "upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest",
-    "themes": "npx tamagui generate-themes ./tamagui/themes-builder.ts ./tamagui/generated-themes.ts"
   },
   "dependencies": {
     "@tamagui/animations-css": "latest",

@@ -16,10 +16,6 @@ const Match = () => {
 
   const isInSwipedRight = swipedRight.some((id) => id === producerId);
 
-  useEffect(() => {
-    console.log("swiped", params);
-  }, [swipedRight]);
-
   return (
     <View>
       <Paragraph>Match {producerId}</Paragraph>
@@ -28,4 +24,4 @@ const Match = () => {
   );
 };
 
-export { Match };
+export { Match as Component };

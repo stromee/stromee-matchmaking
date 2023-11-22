@@ -326,10 +326,11 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
     return (
       <YStack
         f={1}
+        p="$4"
         ai="center"
         jc="center"
-        width="full"
-        height="full"
+        width="$full"
+        height="$full"
         onLayout={(e) => {
           SWIPABLE_DIMENSIONS.current = {
             width: e.nativeEvent.layout.width,
@@ -341,6 +342,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         pointerEvents={enabled ? "auto" : "none"}
       >
         <View
+          maxWidth="$full"
+          maxHeight="$full"
           onLayout={(e) => {
             ELEMENT_DIMENSIONS.current = {
               width: e.nativeEvent.layout.width,
@@ -351,13 +354,16 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           }}
         >
           <GestureDetector gesture={gesture}>
-            <Animated.View style={[animatedStyles]}>
-              <>
-                <Paragraph bg="$background">
-                  enabled: {enabled ? "true" : "false"}; state: {state}
-                </Paragraph>
-                {children}
-              </>
+            <Animated.View
+              style={[
+                animatedStyles,
+                {
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                },
+              ]}
+            >
+              {children}
             </Animated.View>
           </GestureDetector>
         </View>

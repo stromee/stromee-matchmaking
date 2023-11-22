@@ -1,3 +1,32 @@
+@font-face {
+  font-family: gilroy;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/gilroy-regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: gilroy;
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/gilroy-medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: gilroy;
+  font-style: normal;
+  font-weight: 600;
+  src: url("/fonts/gilroy-semibold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: gilroy;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/gilroy-bold.ttf") format("truetype");
+}
+
 /* These styles make the body full-height */
 html,
 body {

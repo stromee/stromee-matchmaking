@@ -2,71 +2,116 @@ import { createFont } from "@tamagui/core";
 
 export const fonts = {
   body: createFont({
-    family: `Helvetica`,
+    family: "gilroy",
     size: {
-      true: 14,
-      1: 10,
+      1: 100,
       2: 12,
-      3: 14,
-      4: 16,
-      5: 18,
-      7: 22,
-      8: 26,
-      9: 32,
-      10: 38,
+      3: 14, // p
+      4: 100,
+      5: 100,
+      7: 100,
+      8: 100,
+      9: 100,
+      10: 100,
+      true: 14, // default
     },
-    letterSpacing: {},
+    letterSpacing: {
+      1: 0,
+      true: 0,
+    },
     weight: {
-      4: "400",
+      1: "500",
+      true: "500",
     },
     lineHeight: {
-      true: 17,
-      2: 15,
-      3: 17,
-      4: 20,
-      5: 24,
-      7: 29,
-      8: 33,
-      9: 39,
-      10: 46,
+      1: 100,
+      2: 22,
+      3: 24,
+      4: 100,
+      5: 100,
+      7: 100,
+      8: 100,
+      9: 100,
+      10: 100,
+      true: 22,
+    },
+  }),
+
+  button: createFont({
+    family: "gilroy",
+    size: {
+      1: 100,
+      2: 100,
+      3: 14, // default
+      true: 14,
+    },
+    letterSpacing: {
+      1: 0,
+      true: 0,
+    },
+    weight: {
+      1: "500",
+      true: "500",
+    },
+    lineHeight: {
+      1: "100%",
+      true: "100%",
+    },
+  }),
+
+  input: createFont({
+    family: "gilroy",
+    size: {
+      1: 100,
+      2: 100,
+      3: 16, // default
+    },
+    letterSpacing: {
+      1: 0,
+    },
+    weight: {
+      1: "500",
+    },
+    lineHeight: {
+      1: "100%",
     },
   }),
 
   heading: createFont({
-    family: `Helvetica`,
+    family: "gilroy",
     size: {
-      true: 20,
-      1: 14,
-      2: 16,
-      3: 20,
-      4: 24,
-      5: 28,
-      6: 32,
-      7: 40,
-      8: 48,
-      9: 56,
-      10: 66,
+      1: 100,
+      2: 100,
+      3: 100,
+      4: 100,
+      5: 14, // h6
+      6: 18, // h5
+      7: 18, // h4
+      8: 24, // h3
+      9: 28, // h2
+      10: 34, // h1
     },
-    letterSpacing: {},
+    letterSpacing: {
+      6: "0.71%",
+      7: "1.11%",
+      8: "0.83%",
+      9: "0.71%",
+      10: "0.59%",
+    },
     lineHeight: {
-      true: 1.5 * 20,
-      2: 1.5 * 16,
-      3: 1.5 * 20,
-      4: 1.5 * 24,
-      5: 1.5 * 28,
-      6: 1.5 * 32,
-      7: 1.5 * 40,
-      8: 1.5 * 48,
-      9: 1.5 * 56,
-      10: 1.5 * 66,
-    },
-    transform: {
-      5: "uppercase",
-      6: "none",
+      1: 100,
+      2: 100,
+      3: 100,
+      4: 100,
+      5: 22,
+      6: 28,
+      7: 28,
+      8: 32,
+      9: 38,
+      10: 44,
     },
     weight: {
-      4: "400",
-      5: "700",
+      1: "600",
     },
   }),
 };

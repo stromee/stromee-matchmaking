@@ -1,30 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SwipableList } from "@components/swipeable-list";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { producerStore } from "@utils/swipable-store";
+import {
+  AlertDialog,
+  Button,
+  Input,
+  Paragraph,
+  Sheet,
+  XStack,
+  YStack,
+} from "tamagui";
+import { color } from "@theme/tokens";
 
 const Home = () => {
-  const updateAllItems = producerStore.use.updateAllItems();
-  const updateSelection = producerStore.use.updateSelection();
-
+  const items = producerStore.use.items();
+  const remaining = producerStore.use.remaining();
   const swiped = producerStore.use.swiped();
-  const { data } = useProducersQuery({});
-  console.log(data);
-  useEffect(() => {
-    if (data) {
-      const items = data.map((producer) => ({
-        id: producer.id.toString(),
-        value: producer,
-        rotate: `${(Math.random() - 0.5) * 6}deg`,
-      }));
-      updateAllItems(items);
-      updateSelection(items);
-    }
-  }, [data]);
+  const swipedLeft = producerStore.use.swipedLeft();
+  const swipedRight = producerStore.use.swipedRight();
 
-  useEffect(() => {
-    console.log("swiped", swiped);
-  }, [swiped]);
+  const selection = producerStore.use.selection();
+  const remainingDeferred = producerStore.use.remainingDeferred();
+
+  const { data } = useProducersQuery({});
+
+  const hasSelection = selection.length > 0;
+  const hasRemaing = remainingDeferred.length > 0;
+  const allSwipedRight = hasSelection && !hasRemaing && swipedLeft.length === 0;
 
   return (
     <>
@@ -32,5 +35,4 @@ const Home = () => {
     </>
   );
 };
-
-export { Home };
+export { Home as Component };
