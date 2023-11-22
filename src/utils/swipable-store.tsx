@@ -201,5 +201,5 @@ export const createSwipableStore = <TItem extends { id: string }>(
   return createSelectors(baseStore);
 };
 
-const EMPTY_PRODUCERS: { id: string; value: Producer; rotate: string }[] = [];
+const EMPTY_PRODUCERS: { id: string; value: Producer }[] = [];
 export const producerStore = createSwipableStore(EMPTY_PRODUCERS, "producers");
