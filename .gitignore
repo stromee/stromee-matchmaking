@@ -26,3 +26,4 @@ dist-ssr
 .tamagui
 dist
 .vscode
+.env
