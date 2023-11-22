@@ -21,7 +21,7 @@ interface Location {
       }
     | undefined;
   askForLocation: () => void;
-  watchLocation: () => number | undefined;
+  watch: () => number | undefined;
   reset: () => void;
 }
 
@@ -103,7 +103,7 @@ export const createLocationStore = (name: string) => {
             );
           }
         },
-        watchLocation: () => {
+        watch: () => {
           const { location } = get();
           if (location) {
             console.log("location watch started");
