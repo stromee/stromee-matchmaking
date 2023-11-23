@@ -9,7 +9,7 @@ export interface Producer {
   description: string;
   picture: string;
   street: string;
-  postcode: string;
+  postalCode: string;
   country: null | string;
   city: string;
   lat: number;
@@ -30,5 +30,11 @@ export interface Producer {
   marketplaceId: number;
   lon2: number;
   lat2: number;
-  distance: number;
+  distance?: number;
+}
+
+export interface City {
+  id: number;
+  postalCode: string;
+  name: string;
 }

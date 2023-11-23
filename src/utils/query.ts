@@ -10,3 +10,9 @@ export const PRODUCER_KEYS = {
     filter,
   ],
 };
+
+export const ADDRESS_KEYS = {
+  all: () => ["postalCode"],
+  cities: (postalCode: string) => [...ADDRESS_KEYS.all(), "city", postalCode],
+  streets: (cityId: number) => [...ADDRESS_KEYS.all(), "streets", cityId],
+};

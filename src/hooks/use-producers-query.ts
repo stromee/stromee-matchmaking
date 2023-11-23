@@ -12,6 +12,16 @@ import {
 } from "@utils/constants";
 import { PRODUCER_KEYS } from "@utils/query";
 import { Producer } from "@utils/types";
+import { postalCodeSyncSchema } from "@utils/schema";
+
+const fixData = (data: any) => {
+  return data.map((producer) => {
+    const p = { ...producer };
+    p.postalCode = producer.postcode;
+    delete p.postcode;
+    return p;
+  });
+};
 
 export const getProducersParams = ({
   orderBy = DEFAULT_ORDER_BY,
@@ -34,15 +44,6 @@ export const getProducersParams = ({
 
   return params as Record<string, string>;
 };
-
-export const postalCodeSyncSchema = z
-  .string()
-  .min(1, "Bitte gib eine Postleitzahl ein")
-  .min(5, "Bitte gib eine gültige Postleitzahl ein")
-  .max(5, "Bitte gib eine gültige Postleitzahl ein")
-  .refine((val) => val.match(/^\d+$/), {
-    message: "Bitte gib eine gültige Postleitzahl ein",
-  });
 
 export const producersSyncSchema = z
   .object({
@@ -83,7 +84,7 @@ export const fetchProducers = async (input: Record<string, unknown>) => {
   )
     .then(async (res) => {
       const data = await res.json();
-      if (res.ok) return data;
+      if (res.ok) return fixData(data);
       const error = new Error("An error occurred while fetching the data.");
       Object.assign(error, { ...data, retry: false });
       throw error;

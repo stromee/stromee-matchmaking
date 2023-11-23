@@ -17,8 +17,11 @@
     "@tamagui/core": "latest",
     "@tamagui/create-theme": "latest",
     "@tamagui/react-native-svg": "latest",
+    "@tanstack/react-form": "^0.9.0",
     "@tanstack/react-query": "^5.8.4",
     "@tanstack/react-query-devtools": "^5.8.4",
+    "@tanstack/zod-form-adapter": "^0.9.0",
+    "expo-linear-gradient": "^12.5.0",
     "i": "^0.3.7",
     "npm": "^10.2.4",
     "react": "^18.2.0",
@@ -30,6 +33,7 @@
     "tamagui": "latest",
     "vite-tsconfig-paths": "^4.2.1",
     "zod": "^3.22.4",
+    "zod-validation-error": "^2.1.0",
     "zustand": "^4.4.6"
   },
   "devDependencies": {

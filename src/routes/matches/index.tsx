@@ -2,13 +2,8 @@ import { useEffect } from "react";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { producerStore } from "@utils/swipable-store";
 import { H1, H2, H3, H4, H5, H6, Input, Paragraph, YStack } from "tamagui";
-import { locationStore } from "@utils/location-store";
 
 const Matches = () => {
-  const askedForLocation = locationStore.use.askedForLocation();
-  const locationState = locationStore.use.locationState();
-  const location = locationStore.use.location();
-
   const swipedRight = producerStore.use.swipedRight();
   const { data } = useProducersQuery({});
 
@@ -27,12 +22,7 @@ const Matches = () => {
       <Paragraph fontWeight="500">Font 500</Paragraph>
       <Paragraph fontWeight="600">Font 600</Paragraph>
       <Paragraph fontWeight="700">Font 700</Paragraph>
-      <Paragraph>
-        Asked for Location {askedForLocation ? "true" : "false"}
-      </Paragraph>
-      <Paragraph>Location State {locationState}</Paragraph>
-      {location && <Paragraph>Location {location.latitude}</Paragraph>}
-      {location && <Paragraph>Location {location.longitude}</Paragraph>}
+
       <Paragraph>{JSON.stringify(swipedRight, null, 2)}</Paragraph>
     </YStack>
   );

@@ -39,13 +39,8 @@ export const createSwipableStore = <TItem extends { id: string }>(
       (set) => ({
         ...initialState,
         updateAllItems: (items) => {
+          // we always need to update all items, because the distance might have changed
           set((state) => {
-            if (isEqualWithId(state.items, items)) {
-              if (__DEV__) {
-                console.info("items are equal");
-              }
-              return state;
-            }
             // filter all items from the current selection and check if the item is included in the items array
             const newSelection = state.selection.filter((item) =>
               items.some((newItem) => newItem.id === item.id)
@@ -82,14 +77,8 @@ export const createSwipableStore = <TItem extends { id: string }>(
           });
         },
         updateSelection: (selection) => {
+          // we always need to update all items, because the distance might have changed
           set((state) => {
-            if (isEqualWithId(state.selection, selection)) {
-              if (__DEV__) {
-                console.info("selection is equal");
-              }
-              return state;
-            }
-
             const newRemaining = selection.filter(
               (item) => !state.swiped.some((id) => id === item.id)
             );

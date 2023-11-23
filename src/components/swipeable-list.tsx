@@ -13,7 +13,10 @@ import {
   H6,
   Input,
   Theme,
+  ZStack,
 } from "tamagui";
+
+import { LinearGradient } from "@tamagui/linear-gradient";
 
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
 
@@ -29,7 +32,6 @@ import { color } from "@theme/tokens";
 import { producerStore } from "@utils/swipable-store";
 import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
-import { locationStore } from "@utils/location-store";
 import { distanceFromLatLonInKm } from "@utils/misc";
 
 const computedStyle = (value: number): DefaultStyle => {
@@ -101,7 +103,6 @@ const indexAfterActive = ({
 };
 
 const SwipableList = ({ count = 4 }) => {
-  const location = locationStore.use.location();
   const store = useRef().current;
 
   const swipableRef = useRef<SwipableRef | null>(null);
@@ -220,7 +221,7 @@ const SwipableList = ({ count = 4 }) => {
   return (
     <>
       <CustomZStack>
-        {remainingDeferred.map(({ id, value }, index) => (
+        {remainingDeferred.map(({ id, value: producer }, index) => (
           <CustomZStackChild key={id}>
             <Swipable
               key={id}
@@ -268,14 +269,11 @@ const SwipableList = ({ count = 4 }) => {
             >
               <Theme name="base">
                 <Card
-                  width="316px"
-                  height="404px"
-                  shadowRadius={8}
-                  shadowOffset={{ width: 0, height: 2 }}
-                  shadowColor={"$baseStromeeNavyOpacity20"}
+                  borderRadius="$6"
+                  overflow="hidden"
+                  width="364px"
+                  height="440px"
                   size="$4"
-                  bordered
-                  borderColor="$transparent"
                   animation="quick"
                   animateOnly={["transform", "boxShadow"]}
                   transform={[
@@ -309,57 +307,22 @@ const SwipableList = ({ count = 4 }) => {
                     },
                   ]}
                 >
-                  <Image
-                    width="$full"
-                    resizeMode="cover"
-                    alignSelf="center"
-                    aspectRatio="2/1"
-                    source={{
-                      // width: 200,
-                      // height: 100,
-                      uri: value.picture,
-                    }}
-                  />
-                  <Card.Header padded gap="$2" maxWidth="$full">
-                    {location ? (
+                  <Card.Footer padded gap="$2" fd="column" theme="popPetrol">
+                    {producer.distance ? (
                       <Paragraph>
-                        {distanceFromLatLonInKm(
-                          {
-                            latitude: value.lat,
-                            longitude: value.lon,
-                          },
-                          {
-                            latitude: location.latitude,
-                            longitude: location.longitude,
-                          }
-                        ) < 1
-                          ? distanceFromLatLonInKm(
-                              {
-                                latitude: value.lat,
-                                longitude: value.lon,
-                              },
-                              {
-                                latitude: location.latitude,
-                                longitude: location.longitude,
-                              }
-                            ).toFixed(2)
-                          : distanceFromLatLonInKm(
-                              {
-                                latitude: value.lat,
-                                longitude: value.lon,
-                              },
-                              {
-                                latitude: location.latitude,
-                                longitude: location.longitude,
-                              }
-                            ).toFixed(0)}{" "}
+                        {producer.distance < 1
+                          ? producer.distance.toFixed(2)
+                          : producer.distance.toFixed(0)}
                         km von dir entfernt
                       </Paragraph>
                     ) : (
-                      <Paragraph>{value.city}</Paragraph>
+                      <Paragraph>
+                        {producer.postalCode} {producer.city}
+                      </Paragraph>
                     )}
+
                     <H4 numberOfLines={2} userSelect="none">
-                      {value.name}
+                      {producer.name}
                     </H4>
 
                     <Paragraph userSelect="none">Windenergie</Paragraph>
@@ -368,7 +331,31 @@ const SwipableList = ({ count = 4 }) => {
                       langfristige Beziehung
                     </Paragraph>
                     <Paragraph userSelect="none">Wahre Liebe</Paragraph>
-                  </Card.Header>
+                  </Card.Footer>
+                  <Card.Background>
+                    <ZStack flex={1}>
+                      <Image
+                        width="$full"
+                        height="$full"
+                        resizeMode="cover"
+                        alignSelf="center"
+                        source={{
+                          // width: 200,
+                          // height: 100,
+                          uri: producer.picture,
+                        }}
+                      />
+                      <View flex={1} ai="flex-end">
+                        <LinearGradient
+                          width="$full"
+                          height="80%"
+                          colors={["$baseStromeeNavyOpacity80", "$transparent"]}
+                          start={[0, 2]}
+                          end={[0, 0]}
+                        />
+                      </View>
+                    </ZStack>
+                  </Card.Background>
                 </Card>
               </Theme>
             </Swipable>
