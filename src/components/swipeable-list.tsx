@@ -311,9 +311,9 @@ const SwipableList = ({ count = 4 }) => {
                     {producer.distance ? (
                       <Paragraph>
                         {producer.distance < 1
-                          ? producer.distance.toFixed(2)
-                          : producer.distance.toFixed(0)}
-                        km von dir entfernt
+                          ? producer.distance.toFixed(1)
+                          : producer.distance.toFixed(0)}{" "}
+                        km entfernt
                       </Paragraph>
                     ) : (
                       <Paragraph>
