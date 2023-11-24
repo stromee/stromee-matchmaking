@@ -6,19 +6,24 @@ import { createSelectors } from "./store";
 import { configSchemaAsync } from "./schema";
 import { fromZodError } from "zod-validation-error";
 import { sleep } from "./misc";
+import { PLANT_TYPE_WITHOUT_DEFAULT, PRODUCER_STATUS } from "./constants";
 
 interface Config {
   valid: boolean;
   initialValidated: boolean;
   fullValidation: () => void;
   postalCode: string;
-  setPostalCode: (postalCode: string) => void;
   cityName: string;
-  setCityName: (cityName: string) => void;
   cityId: number;
-  setCityId: (cityId: number) => void;
+  setAddress: (input: {
+    postalCode: string;
+    cityId: number;
+    cityName: string;
+  }) => void;
   consumption: number;
   setConsumption: (consumption: number) => void;
+  energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[];
+  setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => void;
 }
 
 export const createConfigStore = (name: string) => {
@@ -29,6 +34,7 @@ export const createConfigStore = (name: string) => {
     cityName: "",
     cityId: -1,
     consumption: -1,
+    energyTypes: [],
   };
 
   const baseStore = create<Config>()(
@@ -44,17 +50,17 @@ export const createConfigStore = (name: string) => {
           });
         },
         fullValidation: async () => {
-          const { postalCode, cityId, cityName, consumption } = get();
+          const { postalCode, cityId, cityName, consumption, energyTypes } =
+            get();
+
           try {
-            await sleep(5000);
             await configSchemaAsync.parseAsync({
               postalCode,
               cityId,
               cityName,
               consumption,
+              energyTypes,
             });
-
-            console.log("all good!");
 
             set((state) => {
               return {
@@ -74,41 +80,21 @@ export const createConfigStore = (name: string) => {
               return {
                 ...state,
                 initialValidated: true,
-                valid: true,
+                valid: false,
               };
             });
           }
-
-          console.log("initialValidation", {
-            postalCode,
-            cityId,
-            cityName,
-            consumption,
-          });
         },
-        setPostalCode: (postalCode: string) => {
+        setAddress: ({ postalCode, cityId, cityName }) => {
           set((state) => {
             return {
               ...state,
               postalCode,
-            };
-          });
-        },
-        setCityName: (cityName: string) => {
-          set((state) => {
-            return {
-              ...state,
+              cityId,
               cityName,
             };
           });
-        },
-        setCityId: (cityId: number) => {
-          set((state) => {
-            return {
-              ...state,
-              cityId,
-            };
-          });
+          get().fullValidation();
         },
         setConsumption: (consumption: number) => {
           set((state) => {
@@ -117,6 +103,16 @@ export const createConfigStore = (name: string) => {
               consumption,
             };
           });
+          get().fullValidation();
+        },
+        setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => {
+          set((state) => {
+            return {
+              ...state,
+              energyTypes,
+            };
+          });
+          get().fullValidation();
         },
         reset: () => {
           set((state) => {
@@ -129,7 +125,7 @@ export const createConfigStore = (name: string) => {
       }),
       {
         name,
-        version: 2,
+        version: 3,
         partialize: (state) => ({
           ...state,
           initialValidated: false,

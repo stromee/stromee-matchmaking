@@ -1,17 +1,7 @@
-import { useEffect, useState } from "react";
 import { SwipableList } from "@components/swipeable-list";
 import { useProducersQuery } from "@hooks/use-producers-query";
+import { configStore } from "@utils/config-store";
 import { producerStore } from "@utils/swipable-store";
-import {
-  AlertDialog,
-  Button,
-  Input,
-  Paragraph,
-  Sheet,
-  XStack,
-  YStack,
-} from "tamagui";
-import { color } from "@theme/tokens";
 
 const Home = () => {
   const items = producerStore.use.items();
@@ -23,7 +13,11 @@ const Home = () => {
   const selection = producerStore.use.selection();
   const remainingDeferred = producerStore.use.remainingDeferred();
 
-  const { data } = useProducersQuery({});
+  const postalCode = configStore.use.postalCode();
+  console.log("postalCode", postalCode);
+  const { data } = useProducersQuery({
+    postalCode,
+  });
 
   const hasSelection = selection.length > 0;
   const hasRemaing = remainingDeferred.length > 0;

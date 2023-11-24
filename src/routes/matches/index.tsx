@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { producerStore } from "@utils/swipable-store";
-import { H1, H2, H3, H4, H5, H6, Input, Paragraph, YStack } from "tamagui";
+import { H1, H2, H3, H4, H5, H6, Paragraph, YStack } from "tamagui";
+import { Input } from "@components/themed/input";
 
 const Matches = () => {
   const swipedRight = producerStore.use.swipedRight();
@@ -15,7 +16,7 @@ const Matches = () => {
       <H4>Heading 4</H4>
       <H5>Heading 5</H5>
       <H6>Heading 6</H6>
-      <Input fontFamily="$input" placeholder="Input" />
+      <Input placeholder="Input" />
       <Paragraph>Paragraph</Paragraph>
       <Paragraph fontWeight="bold">Paragraph</Paragraph>
       <Paragraph fontWeight="400">Font 400</Paragraph>

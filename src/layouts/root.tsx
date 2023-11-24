@@ -1,12 +1,4 @@
-import {
-  Button,
-  TamaguiProvider,
-  Text,
-  Theme,
-  View,
-  XStack,
-  YStack,
-} from "tamagui";
+import { TamaguiProvider, Theme, View, XStack, YStack } from "tamagui";
 
 import { Link, Outlet } from "react-router-dom";
 import config from "@theme/tamagui.config";
@@ -14,13 +6,15 @@ import { AppStateProvider } from "@providers/app-state-provider";
 import { producerStore } from "@utils/swipable-store";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { useEffect, useRef } from "react";
-import { BodyText } from "@components/layout/body-text";
 import { useCitiesQuery } from "@hooks/use-cities-query";
 import { configStore } from "@utils/config-store";
 import { Onboarding } from "@components/onboarding/onboarding";
+import { BodyText } from "@components/themed/body-text";
+import { shuffle } from "@utils/misc";
 
 const Root = () => {
   const valid = configStore.use.valid();
+  const postalCode = configStore.use.postalCode();
 
   useEffect(() => {
     const unsub = configStore.subscribe((state) => {
@@ -32,15 +26,16 @@ const Root = () => {
   const setSelection = useRef(true);
   const updateAllItems = producerStore.use.updateAllItems();
   const updateSelection = producerStore.use.updateSelection();
-  const { data: po } = useCitiesQuery("70199");
-  const { data } = useProducersQuery({});
+  const { data } = useProducersQuery({ postalCode });
 
   useEffect(() => {
     if (data) {
-      const items = data.map((producer) => ({
-        id: producer.id.toString(),
-        value: producer,
-      }));
+      const items = shuffle(data)
+        .map((producer) => ({
+          id: producer.id.toString(),
+          value: producer,
+        }))
+        .sort();
       updateAllItems(items);
 
       // TODO: figure out if this is good once we add some filters and reordering stuff...
@@ -68,7 +63,7 @@ const Root = () => {
               maxHeight="800px"
               overflow="hidden"
             >
-              {!valid || false ? (
+              {!valid ? (
                 <Onboarding />
               ) : (
                 <>

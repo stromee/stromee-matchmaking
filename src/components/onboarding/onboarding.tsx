@@ -4,6 +4,7 @@ import { configStore } from "@utils/config-store";
 import { useEffect } from "react";
 import { Spinner, Text, View, YStack } from "tamagui";
 import * as z from "zod";
+import { OnboardingCarousel } from "./onboarding-carousel";
 
 const Onboarding = () => {
   const initalValidated = configStore.use.initialValidated();
@@ -17,9 +18,13 @@ const Onboarding = () => {
   }, [initalValidated]);
 
   return (
-    <YStack flex={1} bg="blue">
-      <Text>Onboarding</Text>
-      {!initalValidated && <Spinner size="large" />}
+    <YStack flex={1}>
+      {!initalValidated && (
+        <View flex={1} px="$4" py="$8" jc="center" ai="center">
+          <Spinner size="large" />
+        </View>
+      )}
+      {initalValidated && <OnboardingCarousel />}
     </YStack>
   );
 };

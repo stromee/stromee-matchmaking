@@ -9,36 +9,29 @@ export const isEqualWithId = (a: { id: unknown }[], b: { id: unknown }[]) => {
   return false;
 };
 
-export const distanceFromLatLonInKm = (
-  {
-    latitude: latitude1,
-    longitude: longitude1,
-  }: {
-    latitude: number;
-    longitude: number;
-  },
-  {
-    latitude: latitude2,
-    longitude: longitude2,
-  }: {
-    latitude: number;
-    longitude: number;
-  }
-) => {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(latitude2 - latitude1); // deg2rad below
-  var dLon = deg2rad(longitude2 - longitude1);
-  var a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(deg2rad(latitude1)) *
-      Math.cos(deg2rad(latitude2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c; // Distance in km
-  return d;
+export const assertUnreachable = (v: never): never => {
+  throw new Error("Didn't expect to get here");
 };
 
-function deg2rad(deg) {
-  return deg * (Math.PI / 180);
-}
+export const shuffle = <T>(array: T[]) => {
+  const newArray = [...array];
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [newArray[currentIndex], newArray[randomIndex]] = [
+      newArray[randomIndex],
+      newArray[currentIndex],
+    ];
+  }
+
+  console.log(newArray);
+
+  return newArray;
+};

@@ -3,7 +3,6 @@ import {
   View,
   Card,
   Paragraph,
-  Button,
   Image,
   clamp,
   SizableText,
@@ -32,7 +31,7 @@ import { color } from "@theme/tokens";
 import { producerStore } from "@utils/swipable-store";
 import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
-import { distanceFromLatLonInKm } from "@utils/misc";
+import { Button } from "./themed/button";
 
 const computedStyle = (value: number): DefaultStyle => {
   if (value == 1) {
@@ -273,7 +272,6 @@ const SwipableList = ({ count = 4 }) => {
                   overflow="hidden"
                   width="364px"
                   height="440px"
-                  size="$4"
                   animation="quick"
                   animateOnly={["transform", "boxShadow"]}
                   transform={[
@@ -307,7 +305,12 @@ const SwipableList = ({ count = 4 }) => {
                     },
                   ]}
                 >
-                  <Card.Footer padded gap="$2" fd="column" theme="popPetrol">
+                  <Card.Footer
+                    padding="$4"
+                    gap="$2"
+                    fd="column"
+                    theme="popPetrol"
+                  >
                     {producer.distance ? (
                       <Paragraph>
                         {producer.distance < 1
@@ -420,9 +423,7 @@ const SwipableList = ({ count = 4 }) => {
         </Button>
 
         <Button
-          theme="stromeeGreen"
           p="$0"
-          borderRadius="$full"
           backgroundColor="$transparent"
           animation="bouncy"
           animateOnly={["transform", "shadowOpacity", "shadowRadius"]}
