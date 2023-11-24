@@ -6,7 +6,6 @@ import { AppStateProvider } from "@providers/app-state-provider";
 import { producerStore } from "@utils/producer-store";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { useEffect, useRef } from "react";
-import { useCitiesQuery } from "@hooks/use-cities-query";
 import { configStore } from "@utils/config-store";
 import { Onboarding } from "@components/onboarding/onboarding";
 import { BodyText } from "@components/themed/body-text";
@@ -48,6 +47,8 @@ const Root = () => {
     return () => {
       setSelection.current = true;
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

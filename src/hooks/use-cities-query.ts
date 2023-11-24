@@ -6,6 +6,7 @@ import { ADDRESS_KEYS } from "@utils/query";
 import { ADDRESS_SERVICE_API } from "@utils/constants";
 import { City } from "@utils/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fixData = (data: any) => {
   return data.map((city) => {
     return {

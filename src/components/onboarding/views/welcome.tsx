@@ -1,4 +1,4 @@
-import { H2, YStack, getTokenValue } from "tamagui";
+import { H2, YStack } from "tamagui";
 import { OnboardingCarouselProps } from "../constants";
 import { Button } from "@components/themed/button";
 

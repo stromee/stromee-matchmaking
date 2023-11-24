@@ -1,4 +1,4 @@
-import { AnimatePresence, Text, View, XStack, YStack, styled } from "tamagui";
+import { AnimatePresence, XStack, YStack, styled } from "tamagui";
 import { ONBOARDING_VIEWS } from "./constants";
 import { useState } from "react";
 import { Welcome } from "./views/welcome";
@@ -6,7 +6,6 @@ import { Address } from "./views/address";
 import { Consumption } from "./views/consumption";
 import { EnergyType } from "./views/energy-type";
 import { assertUnreachable } from "@utils/misc";
-import { set } from "zod";
 
 const YStackEnterable = styled(YStack, {
   variants: {

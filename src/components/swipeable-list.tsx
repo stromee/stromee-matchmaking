@@ -1,16 +1,11 @@
 import {
-  XStack,
   View,
   Card,
   Paragraph,
   Image,
   clamp,
   SizableText,
-  H3,
   H4,
-  H1,
-  H6,
-  Input,
   Theme,
   ZStack,
 } from "tamagui";
@@ -28,7 +23,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { color } from "@theme/tokens";
-import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
 import { Button } from "./themed/button";
 import { producerStore } from "@utils/producer-store";
@@ -70,20 +64,6 @@ const computedStyle = (value: number): DefaultStyle => {
       },
     ],
   };
-};
-
-const createSwipables = (length: number) => {
-  const swipables: { id: string; name: string }[] = [];
-  for (let i = 0; i < length; i++) {
-    swipables.push({
-      id: `${i.toString().padStart(3, "0")}`,
-      name: generateName(),
-    });
-  }
-
-  swipables.reverse();
-
-  return swipables;
 };
 
 const indexAfterActive = ({
@@ -212,12 +192,13 @@ const SwipableList = ({ count = 4 }) => {
       leftButtonTransform.value = withTiming(1);
       rightButtonTransform.value = interpolated;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <CustomZStack>
-        {remainingDeferred.map(({ id, value: producer }, index) => (
+        {remainingDeferred.map(({ id, value: producer }) => (
           <CustomZStackChild key={id}>
             <Swipable
               key={id}

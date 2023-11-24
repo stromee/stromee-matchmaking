@@ -1,9 +1,6 @@
-import { FieldApi, useForm } from "@tanstack/react-form";
-import { zodValidator } from "@tanstack/zod-form-adapter";
 import { configStore } from "@utils/config-store";
 import { useEffect } from "react";
-import { Spinner, Text, View, YStack } from "tamagui";
-import * as z from "zod";
+import { Spinner, View, YStack } from "tamagui";
 import { OnboardingCarousel } from "./onboarding-carousel";
 
 const Onboarding = () => {
@@ -15,6 +12,7 @@ const Onboarding = () => {
     if (initalValidated === false) {
       fullValidation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initalValidated]);
 
   return (

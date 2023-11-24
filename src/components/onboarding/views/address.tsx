@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import { H1, Paragraph, Spinner, Text, Theme, View, YStack } from "tamagui";
+import { H1, Paragraph, Spinner, View, YStack } from "tamagui";
 import * as z from "zod";
 import { configStore } from "@utils/config-store";
 
-import {
-  OnboardingCarouselProps,
-  getEnterStyle,
-  getExitStyle,
-} from "../constants";
+import { OnboardingCarouselProps } from "../constants";
 import {
   postalCodeSyncSchema,
   cityIdSyncSchema,
@@ -31,28 +27,24 @@ const validateInput = async ({
   cityId: number;
   cityName: string;
 }) => {
-  try {
-    postalCodeSyncSchema.parse(postalCode);
-    await postalCodeAsyncSchema.parseAsync(postalCode);
+  postalCodeSyncSchema.parse(postalCode);
+  await postalCodeAsyncSchema.parseAsync(postalCode);
 
-    cityIdSyncSchema.parse(cityId);
-    cityNameSyncSchema.parse(cityName);
-    const cityIdPromise = cityIdSyncSchema.parseAsync(cityId);
-    const cityNamePromise = cityNameSyncSchema.parseAsync(cityName);
+  cityIdSyncSchema.parse(cityId);
+  cityNameSyncSchema.parse(cityName);
+  const cityIdPromise = cityIdSyncSchema.parseAsync(cityId);
+  const cityNamePromise = cityNameSyncSchema.parseAsync(cityName);
 
-    const [cityIdResult, cityNameResult] = await Promise.allSettled([
-      cityIdPromise,
-      cityNamePromise,
-    ]);
+  const [cityIdResult, cityNameResult] = await Promise.allSettled([
+    cityIdPromise,
+    cityNamePromise,
+  ]);
 
-    if (cityIdResult.status === "rejected") {
-      throw cityIdResult.reason;
-    }
-    if (cityNameResult.status === "rejected") {
-      throw cityNameResult.reason;
-    }
-  } catch (error) {
-    throw error;
+  if (cityIdResult.status === "rejected") {
+    throw cityIdResult.reason;
+  }
+  if (cityNameResult.status === "rejected") {
+    throw cityNameResult.reason;
   }
 };
 

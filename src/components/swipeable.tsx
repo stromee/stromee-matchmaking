@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { Gesture, GestureDetector, State } from "react-native-gesture-handler";
-import { YStack, View, clamp, Paragraph } from "tamagui";
+import { YStack, View, clamp } from "tamagui";
 
 import Animated, {
   Extrapolate,
@@ -97,6 +97,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
 
       setState(State.UNDETERMINED);
       gestureStartDimensions.value = GESTURE_DEFAULT_DIMENSIONS;
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -118,6 +120,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           },
         };
       }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enabled]);
 
     const handleEndState = () => {
@@ -160,8 +164,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         });
 
         swipingCount.current = 0;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const gesture = Gesture.Pan()
@@ -253,7 +257,7 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
         }
       })
 
-      .onFinalize((e) => {
+      .onFinalize(() => {
         if (enabled) {
           handleEndState();
         }
@@ -321,6 +325,8 @@ const Swipable = forwardRef<SwipableRef, SwipableProps>(
           angle.value = withSpring(newX > 0 ? 30 : -30);
         }
       }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
 
     return (

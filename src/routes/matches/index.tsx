@@ -1,12 +1,9 @@
-import { useEffect } from "react";
-import { useProducersQuery } from "@hooks/use-producers-query";
 import { producerStore } from "@utils/producer-store";
 import { H1, H2, H3, H4, H5, H6, Paragraph, YStack } from "tamagui";
 import { Input } from "@components/themed/input";
 
 const Matches = () => {
   const swipedRight = producerStore.use.swipedRight();
-  const { data } = useProducersQuery({});
 
   return (
     <YStack gap="$2" px="$2" py="$4">

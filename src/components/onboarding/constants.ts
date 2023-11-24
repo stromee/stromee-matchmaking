@@ -1,4 +1,3 @@
-import { assertUnreachable } from "@utils/misc";
 import * as z from "zod";
 
 export const ONBOARDING_VIEWS = z.enum([

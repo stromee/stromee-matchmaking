@@ -9,7 +9,8 @@ export const isEqualWithId = (a: { id: unknown }[], b: { id: unknown }[]) => {
   return false;
 };
 
-export const assertUnreachable = (v: never): never => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const assertUnreachable = (_: never): never => {
   throw new Error("Didn't expect to get here");
 };
 

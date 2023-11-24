@@ -1,15 +1,7 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import * as z from "zod";
 
-import {
-  BACKEND_API,
-  DEFAULT_MARKETPLACE_ID,
-  DEFAULT_ORDER_BY,
-  DEFAULT_SORT_DIRECTION,
-  DEFAULT_ZIP,
-  ORDER_BY,
-  SORT_DIRECTION,
-} from "@utils/constants";
+import { BACKEND_API } from "@utils/constants";
 import { PRODUCER_KEYS } from "@utils/query";
 import { Producer } from "@utils/types";
 
@@ -36,7 +28,7 @@ export const producerSyncSchema = z
   .required();
 
 export const fetchProducers = async (input: Record<string, unknown>) => {
-  let fixedInput = getProducerParams(input);
+  const fixedInput = getProducerParams(input);
 
   try {
     producerSyncSchema.parse(fixedInput);

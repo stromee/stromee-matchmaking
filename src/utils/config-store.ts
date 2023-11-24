@@ -5,8 +5,7 @@ import * as z from "zod";
 import { createSelectors } from "./store";
 import { configSchemaAsync } from "./schema";
 import { fromZodError } from "zod-validation-error";
-import { sleep } from "./misc";
-import { PLANT_TYPE_WITHOUT_DEFAULT, PRODUCER_STATUS } from "./constants";
+import { PLANT_TYPE_WITHOUT_DEFAULT } from "./constants";
 
 interface Config {
   valid: boolean;

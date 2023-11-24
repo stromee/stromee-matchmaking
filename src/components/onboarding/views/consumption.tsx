@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { H1, Paragraph, Slider, Text, YStack } from "tamagui";
+import { H1, Paragraph, Slider, YStack } from "tamagui";
 import * as z from "zod";
 
 import { configStore } from "@utils/config-store";

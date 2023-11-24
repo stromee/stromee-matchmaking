@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import * as z from "zod";
 
 import {
@@ -14,6 +14,7 @@ import { PRODUCER_KEYS } from "@utils/query";
 import { Producer } from "@utils/types";
 import { postalCodeSyncSchema } from "@utils/schema";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fixData = (data: any) => {
   return data.map((producer) => {
     const p = { ...producer };
@@ -58,7 +59,7 @@ export const producersSyncSchema = z
   .required();
 
 export const fetchProducers = async (input: Record<string, unknown>) => {
-  let fixedInput = getProducersParams(input);
+  const fixedInput = getProducersParams(input);
 
   try {
     producersSyncSchema.parse(fixedInput);
