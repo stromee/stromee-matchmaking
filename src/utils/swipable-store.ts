@@ -2,10 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import { createSelectors } from "./store";
-import { Producer } from "./types";
-import { isEqualWithId } from "./misc";
 
-interface State<TItem extends { id: string }> {
+export interface State<TItem extends { id: string }> {
   items: TItem[]; // all items
   selection: TItem[]; // selected items
   remaining: TItem[]; // remaining items (selected - swiped)
@@ -189,6 +187,3 @@ export const createSwipableStore = <TItem extends { id: string }>(
 
   return createSelectors(baseStore);
 };
-
-const EMPTY_PRODUCERS: { id: string; value: Producer }[] = [];
-export const producerStore = createSwipableStore(EMPTY_PRODUCERS, "producers");

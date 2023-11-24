@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useProducersQuery } from "@hooks/use-producers-query";
-import { producerStore } from "@utils/swipable-store";
+import { producerStore } from "@utils/producer-store";
 import { Paragraph, View } from "tamagui";
 import { useParams } from "react-router-dom";
 import { useDefinedParam } from "@hooks/use-defined-param";

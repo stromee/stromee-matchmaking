@@ -3,7 +3,7 @@ import { TamaguiProvider, Theme, View, XStack, YStack } from "tamagui";
 import { Link, Outlet } from "react-router-dom";
 import config from "@theme/tamagui.config";
 import { AppStateProvider } from "@providers/app-state-provider";
-import { producerStore } from "@utils/swipable-store";
+import { producerStore } from "@utils/producer-store";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { useEffect, useRef } from "react";
 import { useCitiesQuery } from "@hooks/use-cities-query";

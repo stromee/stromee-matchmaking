@@ -28,10 +28,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { color } from "@theme/tokens";
-import { producerStore } from "@utils/swipable-store";
 import { generateName } from "@utils/name";
 import { CustomZStack, CustomZStackChild } from "./z-stack";
 import { Button } from "./themed/button";
+import { producerStore } from "@utils/producer-store";
 
 const computedStyle = (value: number): DefaultStyle => {
   if (value == 1) {
@@ -102,8 +102,6 @@ const indexAfterActive = ({
 };
 
 const SwipableList = ({ count = 4 }) => {
-  const store = useRef().current;
-
   const swipableRef = useRef<SwipableRef | null>(null);
   const [isSwiping, setIsSwiping] = useState(false);
 
@@ -120,7 +118,6 @@ const SwipableList = ({ count = 4 }) => {
     [rightButtonTransform]
   );
 
-  const items = producerStore.use.items();
   const remaining = producerStore.use.remaining();
   const remainingDeferred = producerStore.use
     .remainingDeferred()

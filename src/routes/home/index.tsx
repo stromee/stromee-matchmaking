@@ -1,7 +1,7 @@
 import { SwipableList } from "@components/swipeable-list";
 import { useProducersQuery } from "@hooks/use-producers-query";
 import { configStore } from "@utils/config-store";
-import { producerStore } from "@utils/swipable-store";
+import { producerStore } from "@utils/producer-store";
 
 const Home = () => {
   const items = producerStore.use.items();

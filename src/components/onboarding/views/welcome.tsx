@@ -1,11 +1,6 @@
 import { H2, YStack, getTokenValue } from "tamagui";
-import {
-  OnboardingCarouselProps,
-  getEnterStyle,
-  getExitStyle,
-} from "../constants";
+import { OnboardingCarouselProps } from "../constants";
 import { Button } from "@components/themed/button";
-import { getAnimatedStyle } from "react-native-reanimated";
 
 type WelcomeProps = OnboardingCarouselProps;
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useProducersQuery } from "@hooks/use-producers-query";
-import { producerStore } from "@utils/swipable-store";
+import { producerStore } from "@utils/producer-store";
 import { H1, H2, H3, H4, H5, H6, Paragraph, YStack } from "tamagui";
 import { Input } from "@components/themed/input";
 
