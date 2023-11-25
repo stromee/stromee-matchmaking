@@ -1,103 +1,152 @@
-import { TamaguiProvider, Theme, View, XStack, YStack } from "tamagui";
+import { useEffect, useRef } from 'react';
 
-import { Link, Outlet } from "react-router-dom";
-import config from "@theme/tamagui.config";
-import { AppStateProvider } from "@providers/app-state-provider";
-import { producerStore } from "@utils/producer-store";
-import { useProducersQuery } from "@hooks/use-producers-query";
-import { useEffect, useRef } from "react";
-import { configStore } from "@utils/config-store";
-import { Onboarding } from "@components/onboarding/onboarding";
-import { BodyText } from "@components/themed/body-text";
-import { shuffle } from "@utils/misc";
+import { Link, Outlet } from 'react-router-dom';
+import { Spinner, TamaguiProvider, Theme, View, XStack, YStack } from 'tamagui';
+
+import config from '@theme/tamagui.config';
+
+import { AppStateProvider } from '@providers/app-state-provider';
+
+import { Onboarding } from '@components/onboarding/onboarding';
+import { BodyText } from '@components/themed/body-text';
+
+import { usePriceQuery } from '@hooks/use-price-query';
+import { useProducersQuery } from '@hooks/use-producers-query';
+
+import { configStore } from '@utils/config-store';
+import {
+	CAMPAIGN_IDENTIFIER,
+	ENERGY_TYPE,
+	PRODUCT_CODE,
+} from '@utils/constants';
+import { shuffle } from '@utils/misc';
+import { producerStore } from '@utils/producer-store';
 
 const Root = () => {
-  const valid = configStore.use.valid();
-  const postalCode = configStore.use.postalCode();
+	const valid = configStore.use.valid();
+	const postalCode = configStore.use.postalCode();
+	const consumption = configStore.use.consumption();
 
-  useEffect(() => {
-    const unsub = configStore.subscribe((state) => {
-      console.log("state", state);
-    });
-    return unsub;
-  }, []);
+	const initalValidated = configStore.use.initialValidated();
+	const fullValidation = configStore.use.fullValidation();
 
-  const setSelection = useRef(true);
-  const updateAllItems = producerStore.use.updateAllItems();
-  const updateSelection = producerStore.use.updateSelection();
-  const { data } = useProducersQuery({ postalCode });
+	useEffect(() => {
+		if (initalValidated === false) {
+			fullValidation();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [initalValidated]);
 
-  useEffect(() => {
-    if (data) {
-      const items = shuffle(data)
-        .map((producer) => ({
-          id: producer.id.toString(),
-          value: producer,
-        }))
-        .sort();
-      updateAllItems(items);
+	const { data: producers, isLoading } = useProducersQuery({ postalCode });
 
-      // TODO: figure out if this is good once we add some filters and reordering stuff...
-      if (setSelection.current) {
-        updateSelection(items);
-        setSelection.current = false;
-      }
-    }
+	const { data: price } = usePriceQuery({
+		postalCode,
+		consumption,
+		energyType: ENERGY_TYPE.Values.electricity,
+		productCode: PRODUCT_CODE,
+		campaignIdentifier: CAMPAIGN_IDENTIFIER,
+	});
 
-    return () => {
-      setSelection.current = true;
-    };
+	const setSelection = useRef(true);
+	const updateAllItems = producerStore.use.updateAllItems();
+	const updateSelection = producerStore.use.updateSelection();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+	useEffect(() => {
+		if (producers) {
+			const items = shuffle(producers).map((producer) => ({
+				id: producer.id.toString(),
+				value: producer,
+			}));
 
-  return (
-    <TamaguiProvider config={config} defaultTheme="popPetrol">
-      <AppStateProvider>
-        <View flex={1} bg="$background" ai="center" jc="center">
-          <Theme name="base">
-            <YStack
-              bg="$background"
-              fullscreen
-              margin="auto"
-              maxWidth="400px"
-              maxHeight="800px"
-              overflow="hidden"
-            >
-              {!valid ? (
-                <Onboarding />
-              ) : (
-                <>
-                  <nav>
-                    <XStack asChild gap="$2" p="$2" m="$0">
-                      <ul>
-                        <View asChild>
-                          <li>
-                            <Link to="/">
-                              <BodyText>home</BodyText>
-                            </Link>
-                          </li>
-                        </View>
-                        <View asChild>
-                          <li>
-                            <Link to="/matches">
-                              <BodyText>matches</BodyText>
-                            </Link>
-                          </li>
-                        </View>
-                      </ul>
-                    </XStack>
-                  </nav>
+			updateAllItems(items);
 
-                  <Outlet />
-                </>
-              )}
-            </YStack>
-          </Theme>
-        </View>
-      </AppStateProvider>
-    </TamaguiProvider>
-  );
+			// TODO: figure out if this is good once we add some filters and reordering stuff...
+			if (setSelection.current) {
+				updateSelection(items);
+				setSelection.current = false;
+			}
+		}
+
+		return () => {
+			setSelection.current = true;
+		};
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [producers]);
+
+	useEffect(() => {
+		console.log('price', price);
+	}, [price]);
+
+	const handleContent = () => {
+		if (!initalValidated) {
+			return (
+				<View flex={1} px="$4" py="$8" jc="center" ai="center">
+					<Spinner size="large" />
+				</View>
+			);
+		}
+
+		if (!valid) {
+			return <Onboarding />;
+		}
+
+		if (isLoading) {
+			return (
+				<View flex={1} px="$4" py="$8" jc="center" ai="center">
+					<Spinner size="large" />
+				</View>
+			);
+		}
+
+		return (
+			<>
+				<nav>
+					<XStack asChild gap="$2" p="$2" m="$0">
+						<ul>
+							<View asChild>
+								<li>
+									<Link to="/">
+										<BodyText>home</BodyText>
+									</Link>
+								</li>
+							</View>
+							<View asChild>
+								<li>
+									<Link to="/matches">
+										<BodyText>matches</BodyText>
+									</Link>
+								</li>
+							</View>
+						</ul>
+					</XStack>
+				</nav>
+
+				<Outlet />
+			</>
+		);
+	};
+
+	return (
+		<TamaguiProvider config={config} defaultTheme="popPetrol">
+			<AppStateProvider>
+				<View flex={1} bg="$background" ai="center" jc="center">
+					<Theme name="base">
+						<YStack
+							bg="$background"
+							fullscreen
+							margin="auto"
+							maxWidth="400px"
+							maxHeight="800px"
+							overflow="hidden"
+						>
+							{handleContent()}
+						</YStack>
+					</Theme>
+				</View>
+			</AppStateProvider>
+		</TamaguiProvider>
+	);
 };
 
 export { Root };

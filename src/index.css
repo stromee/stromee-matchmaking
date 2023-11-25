@@ -1,48 +1,48 @@
 @font-face {
-  font-family: gilroy;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/gilroy-regular.ttf") format("truetype");
+	font-family: gilroy;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/gilroy-regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: gilroy;
-  font-style: normal;
-  font-weight: 500;
-  src: url("/fonts/gilroy-medium.ttf") format("truetype");
+	font-family: gilroy;
+	font-style: normal;
+	font-weight: 500;
+	src: url('/fonts/gilroy-medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: gilroy;
-  font-style: normal;
-  font-weight: 600;
-  src: url("/fonts/gilroy-semibold.ttf") format("truetype");
+	font-family: gilroy;
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/gilroy-semibold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: gilroy;
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/gilroy-bold.ttf") format("truetype");
+	font-family: gilroy;
+	font-style: normal;
+	font-weight: 700;
+	src: url('/fonts/gilroy-bold.ttf') format('truetype');
 }
 
 /* These styles make the body full-height */
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 /* These styles disable body scrolling if you are using <ScrollView> */
 body {
-  overflow: hidden;
+	overflow: hidden;
 }
 /* These styles make the root element full-height */
 #root {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
 }
 
 .removePointerEventsForDirectChildren > * {
-  pointer-events: none;
+	pointer-events: none;
 }

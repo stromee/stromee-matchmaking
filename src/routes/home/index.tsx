@@ -1,14 +1,15 @@
-import { SwipableList } from "@components/swipeable-list";
-import { configStore } from "@utils/config-store";
+import { SwipableList } from '@components/swipeable-list';
+
+import { configStore } from '@utils/config-store';
 
 const Home = () => {
-  const postalCode = configStore.use.postalCode();
-  console.log("postalCode", postalCode);
+	const postalCode = configStore.use.postalCode();
+	console.log('postalCode', postalCode);
 
-  return (
-    <>
-      <SwipableList />
-    </>
-  );
+	return (
+		<>
+			<SwipableList />
+		</>
+	);
 };
 export { Home as Component };

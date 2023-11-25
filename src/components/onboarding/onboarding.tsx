@@ -1,30 +1,171 @@
-import { configStore } from "@utils/config-store";
-import { useEffect } from "react";
-import { Spinner, View, YStack } from "tamagui";
-import { OnboardingCarousel } from "./onboarding-carousel";
+import { useMemo, useState } from 'react';
+
+import { AnimatePresence, XStack, YStack, styled } from 'tamagui';
+
+import { assertUnreachable } from '@utils/misc';
+
+import { ONBOARDING_VIEWS } from './constants';
+import { Address } from './views/address';
+import { Consumption } from './views/consumption';
+import { EnergyType } from './views/energy-type';
+import { Welcome } from './views/welcome';
+
+const YStackEnterable = styled(YStack, {
+	variants: {
+		toLeft: {
+			true: {
+				// @ts-expect-error - this value works but throws a typescript error
+				transform: [{ translateX: '100%' }, { translateY: '0%' }],
+				opacity: 0,
+			},
+		},
+		toRight: {
+			true: {
+				transform: [
+					// @ts-expect-error - this value works but throws a typescript error
+					{ translateX: '-100%' },
+					{
+						// @ts-expect-error - this value works but throws a typescript error
+						translateY: '0%',
+					},
+				],
+				opacity: 0,
+			},
+		},
+		idle: {
+			true: {
+				transform: [
+					// @ts-expect-error - this value works but throws a typescript error
+					{ translateX: '0%' },
+					{
+						// @ts-expect-error - this value works but throws a typescript error
+						translateY: '0%',
+					},
+				],
+				opacity: 1,
+			},
+		},
+	} as const,
+});
+
+const getEnterMode = (direction: -1 | 0 | 1) => {
+	if (direction === 0) {
+		return 'idle';
+	}
+	if (direction === 1) {
+		return 'toLeft';
+	}
+	if (direction === -1) {
+		return 'toRight';
+	}
+};
+
+const getExitMode = (direction: -1 | 0 | 1) => {
+	if (direction === 0) {
+		return 'idle';
+	}
+	if (direction === 1) {
+		return 'toRight';
+	}
+	if (direction === -1) {
+		return 'toLeft';
+	}
+};
 
 const Onboarding = () => {
-  const initalValidated = configStore.use.initialValidated();
-  const fullValidation = configStore.use.fullValidation();
+	const [view, setView] = useState<ONBOARDING_VIEWS>(
+		ONBOARDING_VIEWS.Values.welcome,
+	);
+	const [direction, setDirection] = useState<-1 | 0 | 1>(0);
 
-  useEffect(() => {
-    console.log("initalValidated", initalValidated);
-    if (initalValidated === false) {
-      fullValidation();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initalValidated]);
+	const onboardView = useMemo(() => {
+		switch (view) {
+			case ONBOARDING_VIEWS.Values.welcome:
+				return (
+					<Welcome
+						onNext={() => {
+							setView(ONBOARDING_VIEWS.Values.address);
+							setDirection(1);
+						}}
+						onPrev={() => {
+							console.log('first');
+						}}
+					/>
+				);
+			case ONBOARDING_VIEWS.Values.address:
+				return (
+					<Address
+						onNext={() => {
+							setView(ONBOARDING_VIEWS.Values.consumption);
+							setDirection(1);
+						}}
+						onPrev={() => {
+							setView(ONBOARDING_VIEWS.Values.welcome);
+							setDirection(-1);
+						}}
+					/>
+				);
+			case ONBOARDING_VIEWS.Values.consumption:
+				return (
+					<Consumption
+						onNext={() => {
+							setView(ONBOARDING_VIEWS.Values.energyType);
+							setDirection(1);
+						}}
+						onPrev={() => {
+							setView(ONBOARDING_VIEWS.Values.address);
+							setDirection(-1);
+						}}
+					/>
+				);
+			case ONBOARDING_VIEWS.Values.energyType:
+				return (
+					<EnergyType
+						onNext={() => {
+							console.log('done');
+							setDirection(0);
+						}}
+						onPrev={() => {
+							setView(ONBOARDING_VIEWS.Values.consumption);
+							setDirection(-1);
+						}}
+					/>
+				);
 
-  return (
-    <YStack flex={1}>
-      {!initalValidated && (
-        <View flex={1} px="$4" py="$8" jc="center" ai="center">
-          <Spinner size="large" />
-        </View>
-      )}
-      {initalValidated && <OnboardingCarousel />}
-    </YStack>
-  );
+			default:
+				return assertUnreachable(view);
+		}
+	}, [view]);
+
+	const enterVariant = getEnterMode(direction);
+	const exitVariant = getExitMode(direction);
+
+	return (
+		<XStack
+			overflow="hidden"
+			flex={1}
+			position="relative"
+			width="100%"
+			alignItems="center"
+		>
+			<AnimatePresence
+				enterVariant={enterVariant}
+				exitVariant={exitVariant}
+			>
+				<YStackEnterable
+					fullscreen
+					flex={1}
+					key={view}
+					width="$full"
+					height="$full"
+					animation="medium"
+					opacity={1}
+				>
+					{onboardView}
+				</YStackEnterable>
+			</AnimatePresence>
+		</XStack>
+	);
 };
 
 export { Onboarding };

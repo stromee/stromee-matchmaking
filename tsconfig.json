@@ -1,44 +1,44 @@
 {
-  "compilerOptions": {
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "downlevelIteration": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "preserveSymlinks": true,
-    "jsx": "react-jsx",
-    "module": "system",
-    "moduleResolution": "node",
-    "noEmitOnError": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "preserveConstEnums": true,
-    "removeComments": false,
-    "skipLibCheck": true,
-    "sourceMap": false,
-    "strictNullChecks": true,
-    "target": "es2020",
-    "types": ["node", "react"],
-    "lib": ["dom", "esnext"],
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@providers/*": ["src/providers/*"],
-      "@routes/*": ["src/routes/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@theme/*": ["tamagui/*"]
-    }
-  },
-  "exclude": ["**/test", "**/dist", "**/types", "**/__tests__"],
-  "typeAcquisition": {
-    "enable": true
-  }
+	"compilerOptions": {
+		"importHelpers": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"declaration": true,
+		"downlevelIteration": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"inlineSourceMap": true,
+		"preserveSymlinks": true,
+		"jsx": "react-jsx",
+		"module": "system",
+		"moduleResolution": "node",
+		"noEmitOnError": false,
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"preserveConstEnums": true,
+		"removeComments": false,
+		"skipLibCheck": true,
+		"sourceMap": false,
+		"strictNullChecks": true,
+		"target": "es2020",
+		"types": ["node", "react"],
+		"lib": ["dom", "esnext"],
+		"baseUrl": ".",
+		"paths": {
+			"@theme/*": ["tamagui/*"],
+			"@components/*": ["src/components/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@layouts/*": ["src/layouts/*"],
+			"@providers/*": ["src/providers/*"],
+			"@routes/*": ["src/routes/*"],
+			"@types/*": ["src/types/*"],
+			"@utils/*": ["src/utils/*"]
+		}
+	},
+	"exclude": ["**/test", "**/dist", "**/types", "**/__tests__"],
+	"typeAcquisition": {
+		"enable": true
+	}
 }

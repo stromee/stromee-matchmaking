@@ -1,8 +1,9 @@
-import { useDefinedContext } from "./use-defined-context";
-import { AppStateContext } from "@providers/app-state-provider";
+import { AppStateContext } from '@providers/app-state-provider';
+
+import { useDefinedContext } from './use-defined-context';
 
 const useAppState = () => {
-  return useDefinedContext(AppStateContext);
+	return useDefinedContext(AppStateContext);
 };
 
 export { useAppState };
