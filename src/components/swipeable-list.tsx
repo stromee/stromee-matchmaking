@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
 import { Link } from 'react-router-dom';
-import { Sheet, SizableText, View, clamp } from 'tamagui';
+import { SizableText, View, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
@@ -374,12 +374,15 @@ const SwipableList = ({ count = 4 }) => {
 			</View>
 
 			<PresenceStack condition={!!producerDetail}>
-				<ProducerDetail
-					producer={producerDetail as Producer}
-					onBack={() => {
-						setProducerDetail(undefined);
-					}}
-				/>
+				{producerDetail && (
+					<ProducerDetail
+						producer={producerDetail}
+						onBack={() => {
+							setProducerDetail(undefined);
+						}}
+						floatingButton
+					/>
+				)}
 			</PresenceStack>
 		</>
 	);

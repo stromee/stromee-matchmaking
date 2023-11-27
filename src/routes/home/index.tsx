@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, H1, View } from 'tamagui';
+import { H1, View } from 'tamagui';
 import { YStack } from 'tamagui';
 
 import { PresenceStack } from '@components/presence-stack';

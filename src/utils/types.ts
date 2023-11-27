@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import type { PLANT_TYPE } from './constants';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -43,7 +43,6 @@ const vs = [
   '#6ddc91',
   '#caf2a3',
   '#b33349',
-  '#ffffff66',
 ]
 
 const ks = [

@@ -6,15 +6,19 @@ import Left from '@components/icons/chevron-left.svg?react';
 
 import { Producer } from '@utils/types';
 
+import { Button as ThemedButton } from './themed/button';
+
 const ProducerDetail = ({
 	producer,
 	onBack: handleBack,
+	floatingButton = false,
 }: {
 	producer: Producer;
 	onBack?: () => void;
+	floatingButton?: boolean;
 }) => {
 	return (
-		<ScrollView>
+		<ScrollView pos="relative">
 			<View pos="relative" aspectRatio="2/1">
 				<Image
 					width="$full"
@@ -27,49 +31,78 @@ const ProducerDetail = ({
 						uri: producer.picture,
 					}}
 				/>
-				<Button
-					unstyled
-					pos="absolute"
-					top="$4"
-					left="$2"
-					ai="center"
-					jc="center"
-					width="initial"
-					height="initial"
-					minHeight="$0"
-					minWidth="$0"
-					p="$1"
-					color="$baseStromeeNavy"
-					bg="$baseCloudWhiteOpacity60"
-					borderStyle="solid"
-					borderWidth="1px"
-					borderColor="$transparent"
-					circular
-					// hoverStyle={{
-					// 	bg: '$baseCloudWhiteOpacity60',
-					// 	borderColor: '$baseStromeeNavy',
-					// }}
-					// focusStyle={{
-					// 	bg: '$baseCloudWhiteOpacity60',
-					// 	borderColor: '$baseStromeeNavy',
-					// 	outlineColor: '$baseStromeeNavy',
-					// 	outlineWidth: '2px',
-					// 	outlineStyle: 'solid',
-					// }}
-					onPress={() => {
-						if (handleBack) {
-							handleBack();
-						}
-					}}
-				>
-					<Left style={{ color: color.baseStromeeNavy }} />
-				</Button>
+				{!floatingButton && (
+					<Button
+						unstyled
+						pos="absolute"
+						top="$4"
+						left="$2"
+						ai="center"
+						jc="center"
+						width="initial"
+						height="initial"
+						minHeight="$0"
+						minWidth="$0"
+						p="$1"
+						color="$baseStromeeNavy"
+						bg="$baseCloudWhiteOpacity60"
+						borderStyle="solid"
+						borderWidth="1px"
+						borderColor="$transparent"
+						circular
+						// hoverStyle={{
+						// 	bg: '$baseCloudWhiteOpacity60',
+						// 	borderColor: '$baseStromeeNavy',
+						// }}
+						// focusStyle={{
+						// 	bg: '$baseCloudWhiteOpacity60',
+						// 	borderColor: '$baseStromeeNavy',
+						// 	outlineColor: '$baseStromeeNavy',
+						// 	outlineWidth: '2px',
+						// 	outlineStyle: 'solid',
+						// }}
+						onPress={() => {
+							if (handleBack) {
+								handleBack();
+							}
+						}}
+					>
+						<Left style={{ color: color.baseStromeeNavy }} />
+					</Button>
+				)}
 			</View>
 
 			<YStack px="$4" py="$8" gap="$4">
 				<Paragraph>Match {producer.id}</Paragraph>
 				<Paragraph>{JSON.stringify(producer, null, 2)}</Paragraph>
 			</YStack>
+			{floatingButton && (
+				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$2">
+					<ThemedButton
+						ai="center"
+						jc="center"
+						circular
+						// hoverStyle={{
+						// 	bg: '$baseCloudWhiteOpacity60',
+						// 	borderColor: '$baseStromeeNavy',
+						// }}
+						// focusStyle={{
+						// 	bg: '$baseCloudWhiteOpacity60',
+						// 	borderColor: '$baseStromeeNavy',
+						// 	outlineColor: '$baseStromeeNavy',
+						// 	outlineWidth: '2px',
+						// 	outlineStyle: 'solid',
+						// }}
+						onPress={() => {
+							if (handleBack) {
+								handleBack();
+							}
+						}}
+					>
+						<Left style={{ color: color.baseStromeeNavy }} />
+					</ThemedButton>
+				</View>
+			)}
 		</ScrollView>
 	);
 };

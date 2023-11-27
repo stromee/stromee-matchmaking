@@ -7,13 +7,11 @@ import {
 	Image,
 	Paragraph,
 	Popover,
-	Sheet,
 	Theme,
 	View,
 	XStack,
 	YStack,
 } from 'tamagui';
-import { set } from 'zod';
 
 import { Producer } from '@utils/types';
 
@@ -68,7 +66,6 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							<Chip>Hallo</Chip>
 
 							<Popover
-								modal={false}
 								placement="bottom-end"
 								allowFlip={true}
 								stayInFrame

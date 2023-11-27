@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { Link, Outlet } from 'react-router-dom';
-import { Spinner, TamaguiProvider, Theme, View, XStack, YStack } from 'tamagui';
+import { Spinner, TamaguiProvider, Theme, View, YStack } from 'tamagui';
 
 import config from '@theme/tamagui.config';
 
@@ -88,11 +88,13 @@ const Root = () => {
 		return (
 			<>
 				<Outlet />
-				<nav>
-					<Link to="/dev">
-						<BodyText>dev</BodyText>
-					</Link>
-				</nav>
+				{__DEV__ && (
+					<nav>
+						<Link to="/dev">
+							<BodyText>dev</BodyText>
+						</Link>
+					</nav>
+				)}
 			</>
 		);
 	};
