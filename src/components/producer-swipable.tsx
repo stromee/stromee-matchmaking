@@ -14,7 +14,7 @@ import {
 import { formatDistance } from '@utils/format';
 import { Producer } from '@utils/types';
 
-const SwipableProducer = ({
+const ProducerSwipable = ({
 	producer,
 	indexAfterActive,
 }: {
@@ -108,4 +108,4 @@ const SwipableProducer = ({
 	);
 };
 
-export { SwipableProducer };
+export { ProducerSwipable };

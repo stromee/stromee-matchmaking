@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '@layouts/root';
+import { Swiped } from '@layouts/swiped';
 
 const router = createBrowserRouter(
 	[
@@ -11,8 +12,19 @@ const router = createBrowserRouter(
 			children: [
 				{
 					path: 'matches/:producerId',
-					lazy: () => import('@routes/match'),
+					element: <Swiped />,
+					children: [
+						{
+							path: 'detail',
+							lazy: () => import('@routes/swiped/detail'),
+						},
+						{
+							path: '',
+							lazy: () => import('@routes/swiped/match'),
+						},
+					],
 				},
+
 				{
 					path: 'matches',
 					lazy: () => import('@routes/matches'),

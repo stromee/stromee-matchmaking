@@ -32,7 +32,5 @@ export const shuffle = <T>(array: T[]) => {
 		];
 	}
 
-	console.log(newArray);
-
 	return newArray;
 };

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { DotLottiePlayer } from '@dotlottie/react-player';
-import { AnimatePresence, H1, View, ZStack } from 'tamagui';
+import { Link } from 'react-router-dom';
+import { AnimatePresence, H1, View } from 'tamagui';
 import { YStack } from 'tamagui';
 
 import { SwipableList } from '@components/swipeable-list';
+import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 
 import { configStore } from '@utils/config-store';
@@ -47,17 +49,22 @@ const Home = () => {
 						}}
 						enterStyle={{
 							opacity: 1,
+							// @ts-expect-error - this value works but throws a typescript error
 							transform: [{ translateX: '-100%' }],
 						}}
 						exitStyle={{
 							opacity: 0,
+							// @ts-expect-error - this value works but throws a typescript error
 							transform: [{ translateX: '100%' }],
 						}}
 					>
 						<View px="$4" py="$8">
 							<H1
+								// @ts-expect-error - this value works but throws a typescript error
 								fontSize="$display"
+								// @ts-expect-error - this value works but throws a typescript error
 								lineHeight="$display"
+								// @ts-expect-error - this value works but throws a typescript error
 								letterSpacing="$display"
 							>
 								Du hast ein Match!
@@ -71,13 +78,9 @@ const Home = () => {
 						/>
 
 						<YStack px="$4" py="$8" gap="$2">
-							<Button
-								onPress={() => {
-									setCurrentSwipe(undefined);
-								}}
-							>
-								Jetzt kennenlernen
-							</Button>
+							<Link to={`/matches/${currentSwipe}`}>
+								<BodyText>Jetzt kennenlernen</BodyText>
+							</Link>
 							<Button
 								onPress={() => {
 									setCurrentSwipe(undefined);

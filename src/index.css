@@ -43,6 +43,11 @@ body {
 	flex-direction: column;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
 .float {
 	--reverse: 1;
 	--duration: 6s;

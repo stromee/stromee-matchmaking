@@ -99,10 +99,14 @@ export const fetchProducers = async (input: Record<string, unknown>) => {
 	return result as Producer[];
 };
 
-export const useProducersQuery = (input: Record<string, unknown>) => {
+export const useProducersQuery = <TData = Producer[]>(
+	input: Record<string, unknown>,
+	select?: (data: Producer[]) => TData,
+) => {
 	const query = useQuery({
 		queryFn: () => fetchProducers(input),
 		queryKey: PRODUCER_KEYS.producers(getProducersParams(input)),
+		select,
 		staleTime: 1000 * 60 * 5,
 		gcTime: Infinity,
 		refetchOnWindowFocus: true,

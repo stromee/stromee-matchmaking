@@ -11,16 +11,9 @@ import { Onboarding } from '@components/onboarding/onboarding';
 import { BodyText } from '@components/themed/body-text';
 
 import { usePrice } from '@hooks/use-price';
-import { usePriceQuery } from '@hooks/use-price-query';
 import { useProducers } from '@hooks/use-producers';
-import { useProducersQuery } from '@hooks/use-producers-query';
 
 import { configStore } from '@utils/config-store';
-import {
-	CAMPAIGN_IDENTIFIER,
-	ENERGY_TYPE,
-	PRODUCT_CODE,
-} from '@utils/constants';
 import { shuffle } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 

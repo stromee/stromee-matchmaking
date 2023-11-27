@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { LinearGradient } from '@tamagui/linear-gradient';
 import Animated, {
 	interpolate,
 	useAnimatedStyle,
@@ -8,24 +7,13 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
-import {
-	Card,
-	H4,
-	Image,
-	Paragraph,
-	SizableText,
-	Theme,
-	View,
-	ZStack,
-	clamp,
-} from 'tamagui';
+import { SizableText, View, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
-import { formatDistance } from '@utils/format';
 import { producerStore } from '@utils/producer-store';
 
-import { SwipableProducer } from './swipable-producer';
+import { ProducerSwipable } from './producer-swipable';
 import { Pan, Swipable, SwipableRef } from './swipeable';
 import { Button } from './themed/button';
 import { CustomZStack, CustomZStackChild } from './z-stack';
@@ -249,7 +237,7 @@ const SwipableList = ({ count = 4 }) => {
 							bottomOffset={138}
 							topOffset={60}
 						>
-							<SwipableProducer
+							<ProducerSwipable
 								indexAfterActive={indexAfterActive({
 									swipables: remaining,
 									activeId: activeSwipableId,
