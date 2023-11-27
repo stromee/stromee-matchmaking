@@ -93,6 +93,7 @@ export const fonts = {
 			8: 24, // h3
 			9: 28, // h2
 			10: 34, // h1
+			display: 44,
 		},
 		letterSpacing: {
 			// @ts-expect-error - this value works but throws a typescript error
@@ -105,6 +106,8 @@ export const fonts = {
 			9: '0.71%',
 			// @ts-expect-error - this value works but throws a typescript error
 			10: '0.59%',
+			// @ts-expect-error - this value works but throws a typescript error
+			display: '0.2%',
 		},
 		lineHeight: {
 			1: 100,
@@ -117,6 +120,7 @@ export const fonts = {
 			8: 32,
 			9: 38,
 			10: 44,
+			display: 52,
 		},
 		weight: {
 			1: '600',
