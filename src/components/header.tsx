@@ -38,7 +38,7 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 				minWidth="$0"
 				p="$1"
 				color="$baseStromeeNavy"
-				bg="$baseCloudWhiteOpacity60"
+				bg="$transparent"
 				borderStyle="solid"
 				borderWidth="1px"
 				borderColor="$transparent"
