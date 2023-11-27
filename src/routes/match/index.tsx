@@ -1,12 +1,12 @@
 import { Paragraph, View } from 'tamagui';
 
 import { useDefinedParam } from '@hooks/use-defined-param';
-import { useProducerQuery } from '@hooks/use-producer-query';
+import { useProducer } from '@hooks/use-producer';
 
 const Match = () => {
 	const producerId = useDefinedParam('producerId');
-
-	const { data } = useProducerQuery({ producerId });
+	const parsedProducerId = parseInt(producerId);
+	const { data } = useProducer(parsedProducerId);
 
 	return (
 		<View>

@@ -1,21 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import * as z from 'zod';
 
-import { LITION_BACKEND_URL } from '@utils/constants';
 import { PRODUCER_KEYS } from '@utils/query';
+import { postalCodeSyncSchema } from '@utils/schema';
 import { Producer } from '@utils/types';
 
-export const getProducerParams = ({ producerId }: Record<string, unknown>) => {
+import { fetchProducers } from './use-producers-query';
+
+export const getProducerParams = ({
+	producerId,
+	postalCode,
+}: Record<string, unknown>) => {
 	const params = {
 		producerId,
+		postalCode,
 	};
-	Object.entries(params).forEach(([key, value]) => {
-		if (typeof value !== 'string') {
-			params[key] = String(value);
-		}
-	});
 
-	return params as Record<string, string>;
+	return params as Record<string, unknown>;
 };
 
 export const producerSyncSchema = z
@@ -24,10 +25,11 @@ export const producerSyncSchema = z
 			.string()
 			.min(1)
 			.refine((val) => val.match(/^\d+$/)),
+		postalCode: postalCodeSyncSchema,
 	})
 	.required();
 
-export const fetchProducers = async (input: Record<string, unknown>) => {
+export const fetchProducer = async (input: Record<string, unknown>) => {
 	const fixedInput = getProducerParams(input);
 
 	try {
@@ -39,37 +41,23 @@ export const fetchProducers = async (input: Record<string, unknown>) => {
 		throw error;
 	}
 
-	const { producerId } = fixedInput;
+	const producers = await fetchProducers(fixedInput);
 
-	const result = await fetch(
-		`${LITION_BACKEND_URL}/producers/get/${producerId}`,
-		{
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		},
-	)
-		.then(async (res) => {
-			const data = await res.json();
-			if (res.ok) return data;
-			const error = new Error(
-				'An error occurred while fetching the data.',
-			);
-			Object.assign(error, { ...data, retry: false });
-			throw error;
-		})
-		.catch((error) => {
-			throw error;
-		});
+	const producer = producers.find((p) => p.id === fixedInput.producerId);
+	if (!producer) {
+		const error = new Error('Producer not found');
+		Object.assign(error, { retry: false });
+		throw error;
+	}
 
-	return result as Producer;
+	return producer;
 };
 
 export const useProducerQuery = (input: Record<string, unknown>) => {
 	const query = useQuery({
-		queryFn: () => fetchProducers(input),
+		queryFn: () => fetchProducer(input),
 		select: (data) => data,
-		queryKey: PRODUCER_KEYS.producers(getProducerParams(input)),
+		queryKey: PRODUCER_KEYS.producer(getProducerParams(input)),
 		staleTime: 1000 * 60 * 5, // 5 minutes
 		gcTime: Infinity,
 		refetchOnWindowFocus: true,

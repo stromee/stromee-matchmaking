@@ -3,7 +3,12 @@ import * as z from 'zod';
 
 import { ENERGY_TYPE, PRICE_LOCATOR_URL } from '@utils/constants';
 import { PRICE_KEYS } from '@utils/query';
-import { conumptionSyncSchema, postalCodeSyncSchema } from '@utils/schema';
+import {
+	cityIdSyncSchema,
+	cityNameSyncSchema,
+	conumptionSyncSchema,
+	postalCodeSyncSchema,
+} from '@utils/schema';
 import { Price } from '@utils/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,6 +18,8 @@ const fixData = (data: any) => {
 
 export const getPriceParams = ({
 	postalCode,
+	cityId,
+	cityName,
 	energyType,
 	consumption,
 	productCode,
@@ -20,6 +27,8 @@ export const getPriceParams = ({
 }: Record<string, unknown>) => {
 	return {
 		postalCode,
+		cityId,
+		cityName,
 		energyType,
 		consumption,
 		productCode,
@@ -30,6 +39,8 @@ export const getPriceParams = ({
 export const priceSyncSchema = z
 	.object({
 		postalCode: postalCodeSyncSchema,
+		cityId: cityIdSyncSchema,
+		cityName: cityNameSyncSchema,
 		energyType: z.string().refine((val) => ENERGY_TYPE.enum[val]),
 		consumption: conumptionSyncSchema,
 		productCode: z.string().min(1),

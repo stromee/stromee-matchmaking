@@ -102,7 +102,6 @@ export const fetchProducers = async (input: Record<string, unknown>) => {
 export const useProducersQuery = (input: Record<string, unknown>) => {
 	const query = useQuery({
 		queryFn: () => fetchProducers(input),
-		select: (data) => data,
 		queryKey: PRODUCER_KEYS.producers(getProducersParams(input)),
 		staleTime: 1000 * 60 * 5,
 		gcTime: Infinity,

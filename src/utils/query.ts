@@ -9,7 +9,7 @@ export const PRODUCER_KEYS = {
 		...PRODUCER_KEYS.all(),
 		filter,
 	],
-	producer: (filter: Record<string, string>) => [
+	producer: (filter: Record<string, unknown>) => [
 		...PRODUCER_KEYS.all(),
 		'producer',
 		filter,

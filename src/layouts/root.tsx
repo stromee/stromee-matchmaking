@@ -10,7 +10,9 @@ import { AppStateProvider } from '@providers/app-state-provider';
 import { Onboarding } from '@components/onboarding/onboarding';
 import { BodyText } from '@components/themed/body-text';
 
+import { usePrice } from '@hooks/use-price';
 import { usePriceQuery } from '@hooks/use-price-query';
+import { useProducers } from '@hooks/use-producers';
 import { useProducersQuery } from '@hooks/use-producers-query';
 
 import { configStore } from '@utils/config-store';
@@ -24,8 +26,6 @@ import { producerStore } from '@utils/producer-store';
 
 const Root = () => {
 	const valid = configStore.use.valid();
-	const postalCode = configStore.use.postalCode();
-	const consumption = configStore.use.consumption();
 
 	const initalValidated = configStore.use.initialValidated();
 	const fullValidation = configStore.use.fullValidation();
@@ -37,15 +37,8 @@ const Root = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [initalValidated]);
 
-	const { data: producers, isLoading } = useProducersQuery({ postalCode });
-
-	const { data: price } = usePriceQuery({
-		postalCode,
-		consumption,
-		energyType: ENERGY_TYPE.Values.electricity,
-		productCode: PRODUCT_CODE,
-		campaignIdentifier: CAMPAIGN_IDENTIFIER,
-	});
+	const { data: producers, isLoading } = useProducers();
+	const { data: price } = usePrice();
 
 	const setSelection = useRef(true);
 	const updateAllItems = producerStore.use.updateAllItems();
