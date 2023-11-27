@@ -43,6 +43,22 @@ body {
 	flex-direction: column;
 }
 
-.removePointerEventsForDirectChildren > * {
-	pointer-events: none;
+.float {
+	--reverse: 1;
+	--duration: 6s;
+	--distance: 60px;
+	--start-distance: calc(var(--distance) / 2 * var(--reverse));
+	--end-distance: calc(var(--start-distance) * -1);
+	animation: float var(--duration) ease-in-out infinite;
+}
+@keyframes float {
+	0% {
+		transform: translateY(var(--start-distance));
+	}
+	50% {
+		transform: translateY(var(--end-distance));
+	}
+	100% {
+		transform: translateY(var(--start-distance));
+	}
 }
