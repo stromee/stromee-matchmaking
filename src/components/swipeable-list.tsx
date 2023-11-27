@@ -8,12 +8,15 @@ import Animated, {
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
 import { Link } from 'react-router-dom';
-import { SizableText, View, clamp } from 'tamagui';
+import { Sheet, SizableText, View, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
 import { producerStore } from '@utils/producer-store';
+import { Producer } from '@utils/types';
 
+import { PresenceStack } from './presence-stack';
+import { ProducerDetail } from './producer-detail';
 import { ProducerSwipable } from './producer-swipable';
 import { Pan, Swipable, SwipableRef } from './swipeable';
 import { BodyText } from './themed/body-text';
@@ -105,6 +108,10 @@ const SwipableList = ({ count = 4 }) => {
 	// we need to copy the swipable id to a ref, so we can use the value in swipabled callbacks
 	// with the current value
 	const activeSwipableIdRef = useRef(activeSwipableId);
+
+	const [producerDetail, setProducerDetail] = useState<
+		Producer | undefined
+	>();
 
 	useEffect(() => {
 		activeSwipableIdRef.current = activeSwipableId;
@@ -244,6 +251,10 @@ const SwipableList = ({ count = 4 }) => {
 									id,
 								})}
 								producer={producer}
+								onProducerDetailClick={(producer) => {
+									setProducerDetail(producer);
+									console.log('producer', producer);
+								}}
 							/>
 						</Swipable>
 					</CustomZStackChild>
@@ -361,6 +372,15 @@ const SwipableList = ({ count = 4 }) => {
 					</Animated.View>
 				</Button>
 			</View>
+
+			<PresenceStack condition={!!producerDetail}>
+				<ProducerDetail
+					producer={producerDetail as Producer}
+					onBack={() => {
+						setProducerDetail(undefined);
+					}}
+				/>
+			</PresenceStack>
 		</>
 	);
 };
