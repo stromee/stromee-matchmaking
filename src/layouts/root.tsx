@@ -87,28 +87,12 @@ const Root = () => {
 
 		return (
 			<>
-				<nav>
-					<XStack asChild gap="$2" p="$2" m="$0">
-						<ul>
-							<View asChild>
-								<li>
-									<Link to="/">
-										<BodyText>home</BodyText>
-									</Link>
-								</li>
-							</View>
-							<View asChild>
-								<li>
-									<Link to="/matches">
-										<BodyText>matches</BodyText>
-									</Link>
-								</li>
-							</View>
-						</ul>
-					</XStack>
-				</nav>
-
 				<Outlet />
+				<nav>
+					<Link to="/dev">
+						<BodyText>dev</BodyText>
+					</Link>
+				</nav>
 			</>
 		);
 	};

@@ -2,6 +2,7 @@ import { LinearGradient } from '@tamagui/linear-gradient';
 import { interpolate } from 'react-native-reanimated';
 import {
 	Card,
+	Dialog,
 	H4,
 	Image,
 	Paragraph,
@@ -13,6 +14,9 @@ import {
 
 import { formatDistance } from '@utils/format';
 import { Producer } from '@utils/types';
+
+import { ProducerDetail } from './producer-detail';
+import { Button } from './themed/button';
 
 const ProducerSwipable = ({
 	producer,
@@ -75,6 +79,21 @@ const ProducerSwipable = ({
 						langfristige Beziehung
 					</Paragraph>
 					<Paragraph userSelect="none">Wahre Liebe</Paragraph>
+					<Dialog modal={false}>
+						<Dialog.Trigger>
+							<Button>Open</Button>
+						</Dialog.Trigger>
+						<Dialog.Portal>
+							<Dialog.Content position="absolute">
+								<ProducerDetail
+									producer={producer}
+									onBack={() => {
+										console.log('back');
+									}}
+								/>
+							</Dialog.Content>
+						</Dialog.Portal>
+					</Dialog>
 				</Card.Footer>
 				<Card.Background>
 					<ZStack flex={1}>

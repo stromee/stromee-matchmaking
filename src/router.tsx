@@ -30,6 +30,15 @@ const router = createBrowserRouter(
 					lazy: () => import('@routes/matches'),
 				},
 
+				...(__DEV__
+					? [
+							{
+								path: 'dev',
+								lazy: () => import('@routes/dev'),
+							},
+					  ]
+					: []),
+
 				{
 					path: '',
 					lazy: () => import('@routes/home'),

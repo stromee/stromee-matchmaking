@@ -41,7 +41,7 @@ const Match = () => {
 			</Header>
 
 			<YStack px="$4" py="$8" gap="$4">
-				<Link to={`/matchs/${producerId}/detail`}>
+				<Link to={`/matches/${producerId}/detail`}>
 					<Avatar circular size="$10">
 						<Avatar.Image
 							accessibilityLabel={data.name}

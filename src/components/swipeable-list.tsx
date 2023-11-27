@@ -7,6 +7,7 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
+import { Link } from 'react-router-dom';
 import { SizableText, View, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
@@ -15,6 +16,7 @@ import { producerStore } from '@utils/producer-store';
 
 import { ProducerSwipable } from './producer-swipable';
 import { Pan, Swipable, SwipableRef } from './swipeable';
+import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 import { CustomZStack, CustomZStackChild } from './z-stack';
 
@@ -98,8 +100,6 @@ const SwipableList = ({ count = 4 }) => {
 
 	const onSwipe = producerStore.use.onSwipe();
 	const onSwipeFinished = producerStore.use.onSwipeFinished();
-	const resetSwiped = producerStore.use.resetSwiped();
-	const reset = producerStore.use.reset();
 
 	const activeSwipableId = remaining[remaining.length - 1]?.id || '';
 	// we need to copy the swipable id to a ref, so we can use the value in swipabled callbacks
@@ -234,7 +234,7 @@ const SwipableList = ({ count = 4 }) => {
 								});
 							}}
 							onPan={handlePan}
-							bottomOffset={138}
+							bottomOffset={76}
 							topOffset={60}
 						>
 							<ProducerSwipable
@@ -305,7 +305,9 @@ const SwipableList = ({ count = 4 }) => {
 						<SizableText>Nope</SizableText>
 					</Animated.View>
 				</Button>
-
+				<Link to="/matches">
+					<BodyText>M</BodyText>
+				</Link>
 				<Button
 					p="$0"
 					backgroundColor="$transparent"
@@ -357,18 +359,6 @@ const SwipableList = ({ count = 4 }) => {
 					>
 						<SizableText>Yes!</SizableText>
 					</Animated.View>
-				</Button>
-			</View>
-			<View jc="center" p="$2">
-				<Button
-					theme="popPetrol"
-					onPress={resetSwiped}
-					borderRadius="$full"
-				>
-					Reset Selection
-				</Button>
-				<Button theme="popPetrol" onPress={reset} borderRadius="$full">
-					Reset all
 				</Button>
 			</View>
 		</>

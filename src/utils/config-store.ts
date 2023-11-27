@@ -23,6 +23,7 @@ interface Config {
 	setConsumption: (consumption: number) => void;
 	energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[];
 	setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => void;
+	reset: () => void;
 }
 
 export const createConfigStore = (name: string) => {

@@ -1,5 +1,19 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
-import { Card, Image, Paragraph, Theme, View, XStack, YStack } from 'tamagui';
+import {
+	Button,
+	Card,
+	Image,
+	Paragraph,
+	Popover,
+	Sheet,
+	Theme,
+	View,
+	XStack,
+	YStack,
+} from 'tamagui';
+import { set } from 'zod';
 
 import { Producer } from '@utils/types';
 
@@ -7,6 +21,7 @@ import { Chip } from './chip';
 import { BodyText } from './themed/body-text';
 
 const ProducerPreview = ({ producer }: { producer: Producer }) => {
+	const [open, setOpen] = useState(false);
 	return (
 		<Theme name="secondary">
 			<Link to={`/matches/${producer.id}`}>
@@ -51,6 +66,60 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 								{producer.name}
 							</Paragraph>
 							<Chip>Hallo</Chip>
+
+							<Popover
+								modal={false}
+								placement="bottom-end"
+								allowFlip={true}
+								stayInFrame
+								open={open}
+								onOpenChange={setOpen}
+							>
+								<Popover.Trigger
+									position="absolute"
+									right={0}
+									alignSelf="flex-start"
+									onPress={(e) => {
+										e.preventDefault();
+										setOpen(true);
+									}}
+								>
+									<BodyText>Trigger</BodyText>
+								</Popover.Trigger>
+
+								<Popover.Content
+									borderWidth={1}
+									borderColor="$borderColor"
+									enterStyle={{ y: -10, opacity: 0 }}
+									exitStyle={{ y: -10, opacity: 0 }}
+									elevate
+									animation={[
+										'quick',
+										{
+											opacity: {
+												overshootClamping: true,
+											},
+										},
+									]}
+								>
+									<Popover.Arrow
+										borderWidth={1}
+										borderColor="$borderColor"
+									/>
+
+									<YStack space="$3">
+										<Popover.Close asChild>
+											<Button
+												onPress={() => {
+													/* Custom code goes here, does not interfere with popover closure */
+												}}
+											>
+												Submit
+											</Button>
+										</Popover.Close>
+									</YStack>
+								</Popover.Content>
+							</Popover>
 						</YStack>
 					</XStack>
 				</Card>

@@ -16,6 +16,8 @@ export interface State<TItem extends { id: string }> {
 	updateSelection: (selection: TItem[]) => void;
 	updateAllItems: (items: TItem[]) => void;
 	resetSwiped: () => void;
+	resetLeftSwiped: () => void;
+	resetRightSwiped: () => void;
 	reset: () => void;
 }
 
@@ -157,6 +159,26 @@ export const createSwipableStore = <TItem extends { id: string }>(
 				resetSwiped: () => {
 					set((state) => {
 						const newSwipedLeft = [];
+						const newSwiped = [];
+						const newSwipedRight = [];
+
+						const newRemaining = [...state.selection];
+
+						const newRemainingDeferred = [...newRemaining];
+
+						return {
+							...state,
+							remaining: newRemaining,
+							remainingDeferred: newRemainingDeferred,
+							swiped: newSwiped,
+							swipedLeft: newSwipedLeft,
+							swipedRight: newSwipedRight,
+						};
+					});
+				},
+				resetLeftSwiped: () => {
+					set((state) => {
+						const newSwipedLeft = [];
 						const newSwiped = [...state.swipedRight];
 
 						const newRemaining = state.selection.filter(
@@ -171,6 +193,26 @@ export const createSwipableStore = <TItem extends { id: string }>(
 							remainingDeferred: newRemainingDeferred,
 							swiped: newSwiped,
 							swipedLeft: newSwipedLeft,
+						};
+					});
+				},
+				resetRightSwiped: () => {
+					set((state) => {
+						const newSwipedRight = [];
+						const newSwiped = [...state.swipedLeft];
+
+						const newRemaining = state.selection.filter(
+							(item) => !newSwiped.some((id) => id === item.id),
+						);
+
+						const newRemainingDeferred = [...newRemaining];
+
+						return {
+							...state,
+							remaining: newRemaining,
+							remainingDeferred: newRemainingDeferred,
+							swiped: newSwiped,
+							swipedRight: newSwipedRight,
 						};
 					});
 				},

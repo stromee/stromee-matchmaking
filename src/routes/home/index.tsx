@@ -43,19 +43,16 @@ const Home = () => {
 						jc="space-between"
 						fullscreen
 						animateOnly={['opacity', 'transform']}
-						animation="medium"
-						style={{
-							transformOrigin: 'center left',
-						}}
+						animation="easeInOutSine"
 						enterStyle={{
-							opacity: 1,
+							opacity: 0,
 							// @ts-expect-error - this value works but throws a typescript error
-							transform: [{ translateX: '-100%' }],
+							transform: [{ translateY: '60%' }],
 						}}
 						exitStyle={{
 							opacity: 0,
 							// @ts-expect-error - this value works but throws a typescript error
-							transform: [{ translateX: '100%' }],
+							transform: [{ translateY: '60%' }],
 						}}
 					>
 						<View px="$4" py="$8">
