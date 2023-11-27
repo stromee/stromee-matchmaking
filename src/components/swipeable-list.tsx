@@ -22,8 +22,10 @@ import {
 
 import { color } from '@theme/tokens';
 
+import { formatDistance } from '@utils/format';
 import { producerStore } from '@utils/producer-store';
 
+import { SwipableProducer } from './swipable-producer';
 import { Pan, Swipable, SwipableRef } from './swipeable';
 import { Button } from './themed/button';
 import { CustomZStack, CustomZStackChild } from './z-stack';
@@ -247,117 +249,14 @@ const SwipableList = ({ count = 4 }) => {
 							bottomOffset={138}
 							topOffset={60}
 						>
-							<Theme name="base">
-								<Card
-									borderRadius="$6"
-									overflow="hidden"
-									width="364px"
-									height="440px"
-									animation="quick"
-									animateOnly={['transform', 'boxShadow']}
-									transform={[
-										{
-											translateY: interpolate(
-												clamp(
-													indexAfterActive({
-														swipables: remaining,
-														activeId:
-															activeSwipableId,
-														id,
-													}),
-													[0, 3],
-												),
-												[0, 3],
-												[0, 64],
-											),
-										},
-										{
-											scale: interpolate(
-												clamp(
-													indexAfterActive({
-														swipables: remaining,
-														activeId:
-															activeSwipableId,
-														id,
-													}),
-													[0, 3],
-												),
-												[0, 3],
-												[1, 0.8],
-											),
-										},
-									]}
-								>
-									<Card.Footer
-										padding="$4"
-										gap="$2"
-										fd="column"
-										theme="popPetrol"
-									>
-										{producer.distance ? (
-											<Paragraph>
-												{producer.distance < 1
-													? producer.distance.toFixed(
-															1,
-													  )
-													: producer.distance.toFixed(
-															0,
-													  )}{' '}
-												km entfernt
-											</Paragraph>
-										) : (
-											<Paragraph>
-												{producer.postalCode}{' '}
-												{producer.city}
-											</Paragraph>
-										)}
-
-										<H4 numberOfLines={2} userSelect="none">
-											{producer.name}
-										</H4>
-
-										<Paragraph userSelect="none">
-											Windenergie
-										</Paragraph>
-										<Paragraph userSelect="none">
-											Familienbetrieb
-										</Paragraph>
-										<Paragraph userSelect="none">
-											langfristige Beziehung
-										</Paragraph>
-										<Paragraph userSelect="none">
-											Wahre Liebe
-										</Paragraph>
-									</Card.Footer>
-									<Card.Background>
-										<ZStack flex={1}>
-											<Image
-												width="$full"
-												height="$full"
-												resizeMode="cover"
-												alignSelf="center"
-												source={{
-													// width: 200,
-													// height: 100,
-													uri: producer.picture,
-												}}
-											/>
-											<View flex={1} ai="flex-end">
-												<LinearGradient
-													width="$full"
-													height="80%"
-													colors={[
-														'$baseStromeeNavyOpacity80',
-														'$transparent',
-													]}
-													start={[0, 2]}
-													end={[0, 0]}
-												/>
-											</View>
-										</ZStack>
-									</Card.Background>
-								</Card>
-							</Theme>
+							<SwipableProducer
+								indexAfterActive={indexAfterActive({
+									swipables: remaining,
+									activeId: activeSwipableId,
+									id,
+								})}
+								producer={producer}
+							/>
 						</Swipable>
 					</CustomZStackChild>
 				))}
