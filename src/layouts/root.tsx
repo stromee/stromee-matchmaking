@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Spinner, TamaguiProvider, Theme, View, YStack } from 'tamagui';
 
 import config from '@theme/tamagui.config';
@@ -9,6 +9,7 @@ import { AppStateProvider } from '@providers/app-state-provider';
 
 import { Onboarding } from '@components/onboarding/onboarding';
 import { BodyText } from '@components/themed/body-text';
+import { Link } from '@components/themed/link';
 
 import { usePrice } from '@hooks/use-price';
 import { useProducers } from '@hooks/use-producers';
@@ -90,7 +91,21 @@ const Root = () => {
 				<Outlet />
 				{__DEV__ && (
 					<nav>
-						<Link to="/dev">
+						<Link
+							to="/dev"
+							size={undefined}
+							height="unset"
+							borderTopLeftRadius="$4"
+							borderTopRightRadius="$4"
+							borderBottomLeftRadius="$0"
+							borderBottomRightRadius="$0"
+							borderWidth="1px"
+							borderColor="$transparent"
+							p="$2"
+							pr="$4"
+							ai="center"
+							jc="flex-start"
+						>
 							<BodyText>dev</BodyText>
 						</Link>
 					</nav>
@@ -100,7 +115,7 @@ const Root = () => {
 	};
 
 	return (
-		<TamaguiProvider config={config} defaultTheme="popPetrol">
+		<TamaguiProvider config={config} defaultTheme="tanLight">
 			<AppStateProvider>
 				<View flex={1} bg="$background" ai="center" jc="center">
 					<Theme name="base">

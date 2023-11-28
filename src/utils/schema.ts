@@ -95,6 +95,7 @@ export const configSchemaAsync = z
 		cityId: cityIdSyncSchema,
 		consumption: conumptionSyncSchema,
 		energyTypes: energyTypesSyncSchema,
+		showMatchAfterSwipe: z.boolean(),
 	})
 	.refine(
 		async ({ postalCode, cityName }) => {

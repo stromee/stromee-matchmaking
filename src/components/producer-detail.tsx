@@ -2,6 +2,7 @@ import { Button, Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
+import ArrowUp from '@components/icons/arrow-up.svg?react';
 import Left from '@components/icons/chevron-left.svg?react';
 
 import { Producer } from '@utils/types';
@@ -79,27 +80,20 @@ const ProducerDetail = ({
 			{floatingButton && (
 				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$2">
 					<ThemedButton
-						ai="center"
-						jc="center"
-						circular
-						// hoverStyle={{
-						// 	bg: '$baseCloudWhiteOpacity60',
-						// 	borderColor: '$baseStromeeNavy',
-						// }}
-						// focusStyle={{
-						// 	bg: '$baseCloudWhiteOpacity60',
-						// 	borderColor: '$baseStromeeNavy',
-						// 	outlineColor: '$baseStromeeNavy',
-						// 	outlineWidth: '2px',
-						// 	outlineStyle: 'solid',
-						// }}
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
 							}
 						}}
+						circular
+						size={undefined}
+						height="unset"
+						width="unset"
+						maxWidth="unset"
+						maxHeight="unset"
+						p="$1"
 					>
-						<Left style={{ color: color.baseStromeeNavy }} />
+						<ArrowUp style={{ color: color.baseStromeeNavy }} />
 					</ThemedButton>
 				</View>
 			)}

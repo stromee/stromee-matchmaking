@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, Paragraph, ScrollView, YStack } from 'tamagui';
 
 import { Header } from '@components/header';
+import { Link } from '@components/themed/link';
 
 import { useDefinedParam } from '@hooks/use-defined-param';
 import { useProducer } from '@hooks/use-producer';
@@ -41,8 +42,19 @@ const Match = () => {
 			</Header>
 
 			<YStack px="$4" py="$8" gap="$4">
-				<Link to={`/matches/${producerId}/detail`}>
-					<Avatar circular size="$10">
+				<Link
+					alignSelf="flex-start"
+					to={`/matches/${producerId}/detail`}
+					borderRadius="$full"
+					ai="center"
+					jc="center"
+					focusStyle={{
+						outlineStyle: 'solid',
+						outlineWidth: 2,
+						outlineColor: '$baseStromeeNavy',
+					}}
+				>
+					<Avatar circular size="$16">
 						<Avatar.Image
 							accessibilityLabel={data.name}
 							src={data.picture}

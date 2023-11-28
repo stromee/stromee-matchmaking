@@ -23,6 +23,8 @@ interface Config {
 	setConsumption: (consumption: number) => void;
 	energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[];
 	setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => void;
+	showMatchAfterSwipe: boolean;
+	setShowMatchAfterSwipe: (showMatch: boolean) => void;
 	reset: () => void;
 }
 
@@ -35,6 +37,7 @@ export const createConfigStore = (name: string) => {
 		cityId: -1,
 		consumption: -1,
 		energyTypes: [],
+		showMatchAfterSwipe: true,
 	};
 
 	const baseStore = create<Config>()(
@@ -56,6 +59,7 @@ export const createConfigStore = (name: string) => {
 						cityName,
 						consumption,
 						energyTypes,
+						showMatchAfterSwipe,
 					} = get();
 
 					try {
@@ -65,6 +69,7 @@ export const createConfigStore = (name: string) => {
 							cityName,
 							consumption,
 							energyTypes,
+							showMatchAfterSwipe,
 						});
 
 						set((state) => {
@@ -119,6 +124,14 @@ export const createConfigStore = (name: string) => {
 					});
 					get().fullValidation();
 				},
+				setShowMatchAfterSwipe: (showMatchAfterSwipe: boolean) => {
+					set((state) => {
+						return {
+							...state,
+							showMatchAfterSwipe,
+						};
+					});
+				},
 				reset: () => {
 					set((state) => {
 						return {
@@ -130,11 +143,12 @@ export const createConfigStore = (name: string) => {
 			}),
 			{
 				name,
-				version: 3,
+				version: 4,
 				partialize: (state) => ({
 					...state,
 					initialValidated: false,
 					valid: false,
+					showMatchAfterSwipe: true,
 				}),
 			},
 		),

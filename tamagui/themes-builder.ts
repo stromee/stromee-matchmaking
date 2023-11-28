@@ -50,6 +50,13 @@ const themesBuilder = createThemeBuilder()
 			color.baseCloudWhiteOpacity20, // 4 - shadow
 			color.baseCloudWhiteOpacity80, // 5 - placeholder
 		],
+		tanLight: [
+			color.transparent, // 0 - transparent
+			color.baseTanDark, // 1 - background
+			color.baseStromeeNavy, // 2 - color
+			color.baseStromeeNavyOpacity20, // 3 - border / shadow
+			color.baseStromeeNavyOpacity80, // 4 - placeholder
+		],
 	})
 	.addTemplates({
 		base: {
@@ -99,6 +106,10 @@ const themesBuilder = createThemeBuilder()
 		lollipopRed: {
 			template: 'base',
 			palette: 'lollipopRed',
+		},
+		tanLight: {
+			template: 'base',
+			palette: 'tanLight',
 		},
 	});
 

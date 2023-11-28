@@ -1,25 +1,65 @@
-import { H1, H2, H3, H4, H5, H6, Paragraph, ScrollView, YStack } from 'tamagui';
+import {
+	AnimatePresence,
+	H1,
+	H2,
+	H3,
+	H4,
+	H5,
+	H6,
+	Paragraph,
+	ScrollView,
+	YStack,
+} from 'tamagui';
 
 import { Header } from '@components/header';
 import { ProducerPreview } from '@components/producer-preview';
 import { Input } from '@components/themed/input';
 
 import { producerStore } from '@utils/producer-store';
+import { Producer } from '@utils/types';
 
 const Matches = () => {
 	const items = producerStore.use.items();
 	const swipedRight = producerStore.use.swipedRight();
-	const resolvedItems = items.filter((item) => swipedRight.includes(item.id));
+	const resolvedItems = swipedRight
+		.map((id) => items.find((item) => item.id === id))
+		.filter(
+			(
+				item,
+			): item is {
+				id: string;
+				value: Producer;
+			} => !!item,
+		);
 	return (
 		<ScrollView>
 			<Header defaultTo="/" canGoBack={false}>
 				Deine Matches
 			</Header>
 			<YStack px="$4" py="$8" gap="$4">
-				{resolvedItems.map(({ id, value }) => (
-					<ProducerPreview producer={value} key={id} />
-				))}
-
+				<AnimatePresence>
+					{resolvedItems
+						.slice()
+						.reverse()
+						.map(({ id, value }) => (
+							<YStack
+								animation="medium"
+								width="$full"
+								key={id}
+								exitStyle={{
+									transform: [
+										{
+											// @ts-expect-error - this value works but throws a typescript error
+											translateX: '-60%',
+										},
+									],
+									opacity: 0,
+								}}
+							>
+								<ProducerPreview producer={value} />
+							</YStack>
+						))}
+				</AnimatePresence>
 				<H1>Heading 1</H1>
 				<H2>Heading 2</H2>
 				<H3>Heading 3</H3>

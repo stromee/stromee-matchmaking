@@ -13,6 +13,7 @@ export interface State<TItem extends { id: string }> {
 	swipedRight: TItem['id'][];
 	onSwipe: (swipe: { direction: 'left' | 'right'; id: TItem['id'] }) => void;
 	onSwipeFinished: ({ id }: { id: TItem['id'] }) => void;
+	updateSwipe: ({ id }: { id: TItem['id'] }) => void;
 	updateSelection: (selection: TItem[]) => void;
 	updateAllItems: (items: TItem[]) => void;
 	resetSwiped: () => void;
@@ -153,6 +154,42 @@ export const createSwipableStore = <TItem extends { id: string }>(
 						return {
 							...state,
 							remainingDeferred: newRemainingDeferred,
+						};
+					});
+				},
+				updateSwipe: ({ id }) => {
+					set((state) => {
+						const isLeft = state.swipedLeft.includes(id);
+						const isRight = state.swipedRight.includes(id);
+
+						if (!isLeft && !isRight) {
+							throw new Error('Item not found');
+						}
+
+						let newSwipedLeft = state.swipedLeft;
+						let newSwipedRight = state.swipedRight;
+						if (isLeft) {
+							newSwipedLeft = [
+								...state.swipedLeft.filter(
+									(item) => item !== id,
+								),
+							];
+							newSwipedRight = [...state.swipedRight, id];
+						}
+
+						if (isRight) {
+							newSwipedLeft = [...state.swipedLeft, id];
+							newSwipedRight = [
+								...state.swipedRight.filter(
+									(item) => item !== id,
+								),
+							];
+						}
+
+						return {
+							...state,
+							swipedLeft: newSwipedLeft,
+							swipedRight: newSwipedRight,
 						};
 					});
 				},

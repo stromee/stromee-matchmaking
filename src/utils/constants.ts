@@ -1,9 +1,10 @@
 import * as z from 'zod';
 
 export const LITION_BACKEND_URL = import.meta.env.VITE_LITION_BACKEND_URL;
-
 export const ADDRESS_SERVICE_URL = import.meta.env.VITE_ADDRESS_SERVICE_URL;
 export const PRICE_LOCATOR_URL = import.meta.env.VITE_PRICE_LOCATOR_URL;
+
+export const LANDING_PAGE_URL = import.meta.env.VITE_LANDING_PAGE_URL;
 
 export const PRODUCT_CODE = import.meta.env.VITE_PRODUCT_CODE;
 export const CAMPAIGN_IDENTIFIER = import.meta.env.VITE_CAMPAIGN_IDENTIFIER;

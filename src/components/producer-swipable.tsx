@@ -11,6 +11,10 @@ import {
 	clamp,
 } from 'tamagui';
 
+import { color } from '@theme/tokens';
+
+import ArrowDown from '@components/icons/arrow-down.svg?react';
+
 import { formatDistance } from '@utils/format';
 import { Producer } from '@utils/types';
 
@@ -28,8 +32,8 @@ const ProducerSwipable = ({
 	return (
 		<Theme name="base">
 			<Card
+				position="relative"
 				borderRadius="$6"
-				overflow="hidden"
 				width="364px"
 				height="440px"
 				maxWidth="$full"
@@ -79,15 +83,27 @@ const ProducerSwipable = ({
 						langfristige Beziehung
 					</Paragraph>
 					<Paragraph userSelect="none">Wahre Liebe</Paragraph>
+
 					<Button
+						theme="base"
+						right="$4"
+						bottom="$4"
+						position="absolute"
 						onPress={() => {
 							handleProducerDetailClick(producer);
 						}}
+						circular
+						size={undefined}
+						height="unset"
+						width="unset"
+						maxWidth="unset"
+						maxHeight="unset"
+						p="$1"
 					>
-						open
+						<ArrowDown style={{ color: color.baseStromeeNavy }} />
 					</Button>
 				</Card.Footer>
-				<Card.Background>
+				<Card.Background overflow="hidden" borderRadius="$6">
 					<ZStack flex={1}>
 						<Image
 							width="$full"

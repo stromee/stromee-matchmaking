@@ -7,10 +7,12 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
-import { Link } from 'react-router-dom';
-import { SizableText, View, clamp } from 'tamagui';
+import { XStack, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
+
+import Close from '@components/icons/close.svg?react';
+import HeartFilled from '@components/icons/heart-filled.svg?react';
 
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
@@ -21,6 +23,7 @@ import { ProducerSwipable } from './producer-swipable';
 import { Pan, Swipable, SwipableRef } from './swipeable';
 import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
+import { Link } from './themed/link';
 import { CustomZStack, CustomZStackChild } from './z-stack';
 
 const computedStyle = (value: number): DefaultStyle => {
@@ -41,7 +44,6 @@ const computedStyle = (value: number): DefaultStyle => {
 			// backgroundColor: color,
 			shadowOpacity: withTiming(1),
 			shadowRadius: withTiming(12),
-
 			transform: [
 				{
 					scale,
@@ -261,19 +263,24 @@ const SwipableList = ({ count = 4 }) => {
 				))}
 			</CustomZStack>
 
-			<View flex={0} padding="$4" justifyContent="space-around">
+			<XStack flex={0} padding="$4" justifyContent="space-around">
 				<Button
-					theme="lollipopRed"
 					p="$0"
-					borderRadius="$full"
+					size={undefined}
+					width="64px"
+					height="64px"
+					circular
 					backgroundColor="$transparent"
-					animation="bouncy"
+					animation="easeInOutSine"
 					animateOnly={['transform', 'shadowOpacity', 'shadowRadius']}
 					shadowColor={color.baseLollipopRed}
 					shadowOpacity={0}
 					shadowRadius={4}
-					borderWidth="$0"
+					borderWidth="$0.5"
+					borderColor="$transparent"
 					hoverStyle={{
+						borderWidth: '$0',
+						borderColor: '$transparent',
 						backgroundColor: '$transparent',
 					}}
 					pressStyle={{
@@ -300,35 +307,58 @@ const SwipableList = ({ count = 4 }) => {
 						style={[
 							{
 								borderRadius: 99999,
-								height: 44,
-								paddingHorizontal: 16,
-								paddingVertical: 8,
+								height: 64,
+								width: 64,
 								alignItems: 'center',
 								justifyContent: 'center',
 								backgroundColor: color.baseLollipopRed,
 								borderWidth: 2,
-								borderColor: color.baseCloudWhite,
 								shadowColor: color.baseLollipopRed,
 							},
 							leftButtonStyle,
 						]}
 					>
-						<SizableText>Nope</SizableText>
+						<Close />
 					</Animated.View>
 				</Button>
-				<Link to="/matches">
-					<BodyText>M</BodyText>
+				<Link
+					to="/matches"
+					theme="secondary"
+					size={undefined}
+					display="flex"
+					borderRadius="$full"
+					borderWidth="1px"
+					borderColor="$baseStromeeNavy"
+					p="$2"
+					ai="center"
+					jc="center"
+					m="auto"
+					aspectRatio="1"
+					focusStyle={{
+						outlineStyle: 'solid',
+						outlineWidth: 2,
+						outlineColor: '$baseStromeeNavy',
+					}}
+				>
+					<span>M</span>
 				</Link>
 				<Button
 					p="$0"
+					size={undefined}
+					width="64px"
+					height="64px"
+					circular
 					backgroundColor="$transparent"
-					animation="bouncy"
+					animation="easeInOutSine"
 					animateOnly={['transform', 'shadowOpacity', 'shadowRadius']}
 					shadowColor={color.baseStromeeGreen}
 					shadowOpacity={0}
 					shadowRadius={4}
-					borderWidth="$0"
+					borderWidth="$0.5"
+					borderColor="$transparent"
 					hoverStyle={{
+						borderWidth: '$0',
+						borderColor: '$transparent',
 						backgroundColor: '$transparent',
 					}}
 					pressStyle={{
@@ -355,12 +385,11 @@ const SwipableList = ({ count = 4 }) => {
 						style={[
 							{
 								borderRadius: 99999,
-								height: 44,
-								paddingHorizontal: 16,
-								paddingVertical: 8,
+								height: 64,
+								width: 64,
 								alignItems: 'center',
 								justifyContent: 'center',
-								backgroundColor: color.baseStromeeGreen,
+								backgroundColor: color.baseStromeeNavy,
 								borderWidth: 2,
 								borderColor: color.baseCloudWhite,
 								shadowColor: color.baseStromeeGreen,
@@ -368,10 +397,10 @@ const SwipableList = ({ count = 4 }) => {
 							rightButtonStyle,
 						]}
 					>
-						<SizableText>Yes!</SizableText>
+						<HeartFilled />
 					</Animated.View>
 				</Button>
-			</View>
+			</XStack>
 
 			<PresenceStack condition={!!producerDetail}>
 				{producerDetail && (
