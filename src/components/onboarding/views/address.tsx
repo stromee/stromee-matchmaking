@@ -176,7 +176,7 @@ const Address = ({
 				</select>
 			</View>
 			{(isLoading || isValidating) && (
-				<Spinner size="large" color="$baseStrommeeNavy" />
+				<Spinner size="large" color="$baseStromeeNavy" />
 			)}
 			<Button disabled={isLoading || isValidating} onPress={onNext}>
 				Weiter
