@@ -125,8 +125,10 @@ const ProducerSwipable = ({
 						onPress={() => {
 							handleProducerDetailClick(producer);
 						}}
+						height="initial"
 						minHeight="initial"
 						p="$1"
+						borderRadius="$full"
 						bg="$baseCloudWhiteOpacity80"
 					>
 						<ArrowDown style={{ color: color.baseStromeeNavy }} />

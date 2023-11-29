@@ -106,22 +106,32 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							>
 								<Popover.Trigger
 									position="absolute"
-									p="$2"
-									top="$0"
-									right="$0"
 									alignSelf="flex-start"
-									onPress={(e) => {
-										e.preventDefault();
-										setOpen(true);
-									}}
+									asChild
+									top="$2"
+									right="$1"
 								>
-									<More
-										style={{ color: color.baseStromeeNavy }}
-									/>
+									<Button
+										theme="secondary"
+										p="$0"
+										height="initial"
+										minHeight="initial"
+										onPress={(e) => {
+											e.preventDefault();
+											setOpen(true);
+										}}
+									>
+										<More
+											style={{
+												color: color.baseStromeeNavy,
+											}}
+										/>
+									</Button>
 								</Popover.Trigger>
 
 								<Popover.Content
 									p="$0"
+									mr="$-1"
 									enterStyle={{ y: -10, opacity: 0 }}
 									exitStyle={{ y: -10, opacity: 0 }}
 									shadowColor="$baseStromeeNavyOpacity20"
@@ -244,8 +254,8 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 											<Button
 												theme="secondary"
 												size="$true"
+												height="initial"
 												minHeight="initial"
-												height="inital"
 												borderTopLeftRadius="$0"
 												borderTopRightRadius="$0"
 												borderBottomLeftRadius="$4"

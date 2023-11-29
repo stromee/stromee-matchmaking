@@ -20,9 +20,9 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 			mx="$4"
 			mt="$4"
 			py="$2"
-			px="$8"
+			pl="$12"
 		>
-			<H4 textAlign="center" width="$full" numberOfLines={1}>
+			<H4 textAlign="left" width="$full" numberOfLines={1}>
 				{children}
 			</H4>
 			<Button
@@ -32,13 +32,14 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 				ai="center"
 				jc="center"
 				minHeight="initial"
+				height="initial"
 				p="$1"
+				borderRadius="$full"
 				color="$baseStromeeNavy"
 				bg="$transparent"
 				borderStyle="solid"
 				borderWidth="1px"
 				borderColor="$transparent"
-				circular
 				hoverStyle={{
 					bg: '$transparent',
 				}}

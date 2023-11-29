@@ -33,7 +33,6 @@ const Home = () => {
 		}
 	}, [swipedRight]);
 
-	console.log(import.meta.env.BASE_URL);
 	return (
 		<>
 			<SwipableList />

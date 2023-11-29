@@ -48,6 +48,7 @@ const ProducerDetail = ({
 					<Button
 						theme="base"
 						minHeight="initial"
+						height="initial"
 						pos="absolute"
 						top="$4"
 						left="$4"
@@ -111,6 +112,7 @@ const ProducerDetail = ({
 				>
 					<Button
 						minHeight="initial"
+						height="initial"
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
