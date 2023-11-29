@@ -61,10 +61,6 @@ const Root = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [producers]);
 
-	useEffect(() => {
-		console.log('price', price);
-	}, [price]);
-
 	const handleContent = () => {
 		if (!initalValidated) {
 			return (

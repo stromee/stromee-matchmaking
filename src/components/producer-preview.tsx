@@ -143,7 +143,6 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 											<Link
 												to={`/matches/${producer.id}`}
 												theme="secondary"
-												size={undefined}
 												display="flex"
 												height="unset"
 												borderTopLeftRadius="$4"
@@ -192,7 +191,6 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 										>
 											<Link
 												theme="secondary"
-												size={undefined}
 												height="unset"
 												display="flex"
 												borderTopLeftRadius="$0"
@@ -245,8 +243,9 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 										>
 											<Button
 												theme="secondary"
-												size={undefined}
-												height="unset"
+												size="$true"
+												minHeight="initial"
+												height="inital"
 												borderTopLeftRadius="$0"
 												borderTopRightRadius="$0"
 												borderBottomLeftRadius="$4"
@@ -256,7 +255,6 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 												ai="center"
 												jc="flex-start"
 												onPress={(e) => {
-													console.log('press in');
 													updateSwipe({
 														id: producer.id.toString(),
 													});

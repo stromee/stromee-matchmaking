@@ -142,8 +142,10 @@ const Match = () => {
 									{formatUnit(
 										formatNumber(
 											Math.round(
-												mergedPrice.priceData
-													.basePriceBrutto * 100,
+												(mergedPrice.priceData
+													.basePriceBrutto /
+													12) *
+													100,
 											) / 100,
 										),
 										'€/Monat',

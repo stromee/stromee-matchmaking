@@ -31,11 +31,7 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 				left="$0"
 				ai="center"
 				jc="center"
-				size={undefined}
-				height="unset"
-				width="unset"
-				maxWidth="unset"
-				maxHeight="unset"
+				minHeight="initial"
 				p="$1"
 				color="$baseStromeeNavy"
 				bg="$transparent"

@@ -144,7 +144,6 @@ const Address = ({
 						cities.length === 1
 					}
 					onChange={(e) => {
-						console.log(e.target.value);
 						if (cities) {
 							const id = parseInt(e.target.value);
 							setCityId(id);

@@ -123,7 +123,6 @@ const Onboarding = () => {
 					<EnergyType
 						onNext={() => {
 							console.log('done');
-							setDirection(0);
 						}}
 						onPrev={() => {
 							setView(ONBOARDING_VIEWS.Values.consumption);

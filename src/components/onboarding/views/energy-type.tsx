@@ -74,9 +74,7 @@ const EnergyType = ({
 							id={`onbarding-carousel-${plantType}-checkbox`}
 							checked={energyTypes.includes(plantType)}
 							onCheckedChange={(checked) => {
-								console.log(checked, plantType);
 								if (checked) {
-									console.log(energyTypes);
 									if (!energyTypes.includes(plantType)) {
 										setEnergyTypes([
 											...energyTypes,

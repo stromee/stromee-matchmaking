@@ -35,12 +35,10 @@ const ProducerSwipable = ({
 	onProducerDetailClick: (producer: Producer) => void;
 }) => {
 	const price = usePrice();
-	console.log('price', price.data);
 	const mergedPrice = price.data
 		? priceWithDelta(price.data, producer.deltaPrice)
 		: undefined;
 
-	console.log('deposit', mergedPrice);
 	return (
 		<Theme name="base">
 			<Card
@@ -127,12 +125,7 @@ const ProducerSwipable = ({
 						onPress={() => {
 							handleProducerDetailClick(producer);
 						}}
-						circular
-						size={undefined}
-						height="unset"
-						width="unset"
-						maxWidth="unset"
-						maxHeight="unset"
+						minHeight="initial"
 						p="$1"
 						bg="$baseCloudWhiteOpacity80"
 					>

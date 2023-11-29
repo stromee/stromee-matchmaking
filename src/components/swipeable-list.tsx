@@ -254,7 +254,6 @@ const SwipableList = ({ count = 4 }) => {
 								producer={producer}
 								onProducerDetailClick={(producer) => {
 									setProducerDetail(producer);
-									console.log('producer', producer);
 								}}
 							/>
 						</Swipable>
@@ -323,7 +322,6 @@ const SwipableList = ({ count = 4 }) => {
 				<Link
 					to="/matches"
 					theme="secondary"
-					size={undefined}
 					display="flex"
 					borderRadius="$full"
 					borderWidth="1px"

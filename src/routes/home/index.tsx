@@ -13,10 +13,8 @@ import { configStore } from '@utils/config-store';
 import { producerStore } from '@utils/producer-store';
 
 const Home = () => {
-	const postalCode = configStore.use.postalCode();
 	const showMatchAfterSwipe = configStore.use.showMatchAfterSwipe();
 	const setShowMatchAfterSwipe = configStore.use.setShowMatchAfterSwipe();
-	console.log('postalCode', postalCode);
 
 	const lastLength = useRef(-1);
 	const [currentSwipe, setCurrentSwipe] = useState<string | undefined>(
@@ -34,7 +32,6 @@ const Home = () => {
 			lastLength.current = swipedRight.length;
 		}
 	}, [swipedRight]);
-	console.log('swipedRight', swipedRight);
 	return (
 		<>
 			<SwipableList />

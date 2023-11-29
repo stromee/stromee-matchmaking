@@ -35,12 +35,12 @@ const ProducerDetail = ({
 				{!floatingButton && (
 					<Button
 						theme="base"
+						minHeight="initial"
 						pos="absolute"
 						top="$4"
 						left="$4"
 						ai="center"
 						jc="center"
-						size={undefined}
 						height="unset"
 						width="unset"
 						maxWidth="unset"
@@ -51,7 +51,6 @@ const ProducerDetail = ({
 						borderStyle="solid"
 						borderWidth="1px"
 						borderColor="$transparent"
-						circular
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
@@ -71,17 +70,12 @@ const ProducerDetail = ({
 				// @ts-expect-error - this value works but throws a typescript error
 				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$4">
 					<Button
+						minHeight="initial"
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
 							}
 						}}
-						circular
-						size={undefined}
-						height="unset"
-						width="unset"
-						maxWidth="unset"
-						maxHeight="unset"
 						p="$1"
 					>
 						<ArrowUp style={{ color: color.baseStromeeNavy }} />
