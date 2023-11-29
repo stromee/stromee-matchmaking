@@ -69,7 +69,7 @@ const Root = () => {
 		if (!initalValidated) {
 			return (
 				<View flex={1} px="$4" py="$8" jc="center" ai="center">
-					<Spinner size="large" />
+					<Spinner size="large" color="$baseStromeeNavy" />
 				</View>
 			);
 		}
@@ -81,7 +81,7 @@ const Root = () => {
 		if (isLoading) {
 			return (
 				<View flex={1} px="$4" py="$8" jc="center" ai="center">
-					<Spinner size="large" />
+					<Spinner size="large" color="$baseStromeeNavy" />
 				</View>
 			);
 		}

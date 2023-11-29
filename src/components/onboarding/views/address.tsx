@@ -176,7 +176,9 @@ const Address = ({
 						))}
 				</select>
 			</View>
-			{(isLoading || isValidating) && <Spinner size="large" />}
+			{(isLoading || isValidating) && (
+				<Spinner size="large" color="$baseStrommeeNavy" />
+			)}
 			<Button disabled={isLoading || isValidating} onPress={onNext}>
 				Weiter
 			</Button>

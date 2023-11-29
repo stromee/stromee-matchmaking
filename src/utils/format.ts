@@ -1,4 +1,4 @@
-const formatNumber = (number: number | string) => {
+export const formatNumber = (number: number | string) => {
 	if (typeof number === 'number') {
 		return formatNumber(number.toString());
 	}
@@ -14,6 +14,6 @@ export const formatDistance = (distance: number) => {
 	return formatNumber(distance.toFixed());
 };
 
-export const formatUnit = (value: string, unit: string) => {
+export const formatUnit = (value: string | number, unit: string) => {
 	return `${value} ${unit}`;
 };

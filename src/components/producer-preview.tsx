@@ -42,7 +42,6 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 		? priceWithDelta(price.data, producer.deltaPrice)
 		: undefined;
 
-	console.log(funnelHref);
 	return (
 		<Theme name="secondary">
 			<Link to={`/matches/${producer.id}`}>

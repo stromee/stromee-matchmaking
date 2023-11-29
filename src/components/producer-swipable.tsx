@@ -1,7 +1,6 @@
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { interpolate } from 'react-native-reanimated';
 import {
-	AnimatePresence,
 	Card,
 	H4,
 	Image,

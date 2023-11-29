@@ -105,7 +105,7 @@ const EnergyType = ({
 				);
 			})}
 
-			{isValidating && <Spinner size="large" />}
+			{isValidating && <Spinner size="large" color="$baseStromeeNavy" />}
 			<Button onPress={onNext}>Weiter</Button>
 			<Button onPress={handlePrev}>Zurück</Button>
 		</YStack>

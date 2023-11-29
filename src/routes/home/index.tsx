@@ -67,7 +67,7 @@ const Home = () => {
 
 					<YStack px="$4" py="$8" gap="$2">
 						<Link
-							to="/matches"
+							to={`/matches/${currentSwipe}`}
 							theme="stromeeGreen"
 							height="$11"
 							bg="$background"
