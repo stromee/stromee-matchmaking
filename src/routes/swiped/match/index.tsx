@@ -43,7 +43,10 @@ const Match = () => {
 	const producer = useProducer(parsedProducerId);
 
 	const price = usePrice();
-	const initialPriceState = useRef(price.status);
+
+	// TODO: animate the messages if the intial price is loading
+	// const initialPriceState = useRef(price.status);
+
 	useEffect(() => {
 		const isMatch = swipedRight.some((id) => id === producerId);
 		if (!isMatch) {

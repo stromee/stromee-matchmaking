@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import { Error } from '@layouts/error';
 import { Root } from '@layouts/root';
 import { Swiped } from '@layouts/swiped';
 
@@ -8,7 +9,7 @@ const router = createBrowserRouter(
 		{
 			path: '/',
 			element: <Root />,
-			//   errorElement: <ErrorPage />,
+			errorElement: <Error />,
 			children: [
 				{
 					path: 'matches/:producerId',

@@ -31,8 +31,9 @@ const Root = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [initalValidated]);
 
+	// fetch Data top level
 	const { data: producers, isLoading } = useProducers();
-	const { data: price } = usePrice();
+	usePrice();
 
 	const setSelection = useRef(true);
 	const updateAllItems = producerStore.use.updateAllItems();
@@ -61,7 +62,7 @@ const Root = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [producers]);
 
-	const handleContent = () => {
+	const handleDynamicContent = () => {
 		if (!initalValidated) {
 			return (
 				<View flex={1} px="$4" py="$8" jc="center" ai="center">
@@ -123,7 +124,7 @@ const Root = () => {
 							maxHeight="800px"
 							overflow="hidden"
 						>
-							{handleContent()}
+							{handleDynamicContent()}
 						</YStack>
 					</Theme>
 				</View>
