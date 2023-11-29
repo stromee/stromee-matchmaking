@@ -400,11 +400,12 @@ const SwipableList = ({ count = 4 }) => {
 				</Button>
 				<Link
 					to="/matches"
-					theme="secondary"
+					theme="base"
 					display="flex"
 					borderRadius="$full"
 					borderWidth="1px"
 					borderColor="$baseStromeeNavy"
+					backgroundColor="$background"
 					p="$2"
 					ai="center"
 					jc="center"
@@ -416,7 +417,7 @@ const SwipableList = ({ count = 4 }) => {
 						outlineColor: '$baseStromeeNavy',
 					}}
 				>
-					<span>M</span>
+					M
 				</Link>
 				<Button
 					p="$0"

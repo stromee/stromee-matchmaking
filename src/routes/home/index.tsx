@@ -32,6 +32,8 @@ const Home = () => {
 			lastLength.current = swipedRight.length;
 		}
 	}, [swipedRight]);
+
+	console.log(import.meta.env.BASE_URL);
 	return (
 		<>
 			<SwipableList />
@@ -54,7 +56,9 @@ const Home = () => {
 					<DotLottiePlayer
 						autoplay
 						loop
-						src="./animations/watermelon.lottie"
+						src={`${
+							import.meta.env.BASE_URL
+						}animations/watermelon.lottie`}
 						style={{
 							aspectRatio: '3/1',
 							width: '100%',
