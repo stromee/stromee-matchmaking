@@ -1,3 +1,7 @@
+export const TAG_KEYS = {
+	all: () => ['producers-tahs'],
+};
+
 export const PRICE_KEYS = {
 	all: () => ['prices'],
 	price: (filter: Record<string, unknown>) => [...PRICE_KEYS.all(), filter],
@@ -7,11 +11,6 @@ export const PRODUCER_KEYS = {
 	all: () => ['producers'],
 	producers: (filter: Record<string, string>) => [
 		...PRODUCER_KEYS.all(),
-		filter,
-	],
-	producer: (filter: Record<string, unknown>) => [
-		...PRODUCER_KEYS.all(),
-		'producer',
 		filter,
 	],
 };

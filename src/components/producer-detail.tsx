@@ -11,7 +11,7 @@ import { usePrice } from '@hooks/use-price';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
-import { Chip } from './chip';
+import { ProducerTag } from './producer-tag';
 import { Prose } from './prose';
 import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
@@ -47,8 +47,6 @@ const ProducerDetail = ({
 				{!floatingButton && (
 					<Button
 						theme="base"
-						minHeight="initial"
-						height="initial"
 						pos="absolute"
 						top="$4"
 						left="$4"
@@ -92,7 +90,7 @@ const ProducerDetail = ({
 						</View>
 					)}
 
-					<Chip>Hallo</Chip>
+					<ProducerTag producer={producer} />
 					<H4>{producer.name}</H4>
 				</YStack>
 				<YStack gap="$2">

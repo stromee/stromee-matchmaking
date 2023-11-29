@@ -16,12 +16,14 @@ import { Producer } from '@utils/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fixData = (data: any) => {
-	return data.map((producer) => {
-		const p = { ...producer };
-		p.postalCode = producer.postcode;
-		delete p.postcode;
-		return p;
-	});
+	return data
+		.map((producer) => {
+			const p = { ...producer };
+			p.postalCode = producer.postcode;
+			delete p.postcode;
+			return p;
+		})
+		.filter((producer) => producer.status === 'active');
 };
 
 export const getProducersParams = ({

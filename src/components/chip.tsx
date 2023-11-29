@@ -4,10 +4,11 @@ import { View, XStack } from 'tamagui';
 import { BodyText } from './themed/body-text';
 
 export type ChipProps = {
-	icon?: unknown;
+	icon?: React.ReactNode;
 	children: string;
 };
-const Chip = ({ children }: ChipProps) => {
+const Chip = ({ icon, children }: ChipProps) => {
+	console.log('Chip', icon);
 	return (
 		<View
 			theme="base"
@@ -16,7 +17,8 @@ const Chip = ({ children }: ChipProps) => {
 			pos="relative"
 			borderRadius="$full"
 			py="$1"
-			px="$2"
+			pl={icon ? '$2' : '$4'}
+			pr="$4"
 		>
 			<LinearGradient
 				top={0}
@@ -29,6 +31,7 @@ const Chip = ({ children }: ChipProps) => {
 				end={[0, 0]}
 			/>
 			<XStack gap="$2" maxWidth="$full">
+				{icon}
 				<BodyText fontSize="$2" numberOfLines={1} userSelect="none">
 					{children}
 				</BodyText>

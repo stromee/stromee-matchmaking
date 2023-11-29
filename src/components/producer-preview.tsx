@@ -26,7 +26,7 @@ import { priceWithDelta } from '@utils/prices';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
 
-import { Chip } from './chip';
+import { ProducerTag } from './producer-tag';
 import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 import { Link } from './themed/link';
@@ -81,7 +81,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 								<Paragraph>
 									<BodyText fontWeight="bold">
 										{mergedPrice.priceData.deposit.brutto}€
-									</BodyText>{' '}
+									</BodyText>
 									<BodyText>/Monat</BodyText>
 								</Paragraph>
 							) : (
@@ -95,8 +95,8 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							<Paragraph numberOfLines={1}>
 								{producer.name}
 							</Paragraph>
-							<Chip>Hallo</Chip>
 
+							<ProducerTag producer={producer} />
 							<Popover
 								placement="bottom-end"
 								allowFlip={true}

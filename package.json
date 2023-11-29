@@ -26,8 +26,6 @@
 		"@tanstack/react-query-devtools": "^5.8.4",
 		"@tanstack/zod-form-adapter": "^0.9.0",
 		"expo-linear-gradient": "^12.5.0",
-		"i": "^0.3.7",
-		"npm": "^10.2.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-native-gesture-handler": "^2.13.4",
@@ -50,6 +48,7 @@
 		"eslint-plugin-import": "^2.29.0",
 		"eslint-plugin-react-refresh": "^0.4.4",
 		"react-refresh": "^0.14.0",
+		"supabase": "^1.115.4",
 		"vite": "^4.3.0",
 		"vite-plugin-svgr": "^4.2.0"
 	}

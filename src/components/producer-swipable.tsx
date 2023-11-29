@@ -21,7 +21,7 @@ import { formatDistance } from '@utils/format';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
-import { Chip } from './chip';
+import { ProducerTag } from './producer-tag';
 import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 
@@ -94,9 +94,10 @@ const ProducerSwipable = ({
 							<BodyText>/Monat</BodyText>
 						</Paragraph>
 					)}
-					<Chip>langfristige Beziehung</Chip>
 
-					<H4 numberOfLines={2} userSelect="none">
+					<ProducerTag producer={producer} />
+
+					<H4 numberOfLines={1} userSelect="none">
 						{producer.name}
 					</H4>
 

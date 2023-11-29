@@ -13,6 +13,7 @@ import { Link } from '@components/themed/link';
 
 import { usePrice } from '@hooks/use-price';
 import { useProducers } from '@hooks/use-producers';
+import { useProducersTagQuery } from '@hooks/use-producers-tag-query';
 
 import { configStore } from '@utils/config-store';
 import { shuffle } from '@utils/misc';
@@ -32,7 +33,10 @@ const Root = () => {
 	}, [initalValidated]);
 
 	// fetch Data top level
-	const { data: producers, isLoading } = useProducers();
+	const { data: producers, isLoading: isProducersLoading } = useProducers();
+	const { isLoading: isProducersTagTagLoading } = useProducersTagQuery();
+	const isLoading = isProducersLoading || isProducersTagTagLoading;
+
 	usePrice();
 
 	const setSelection = useRef(true);
