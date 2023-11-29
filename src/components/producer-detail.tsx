@@ -1,12 +1,19 @@
-import { Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
+import { H4, Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
 import ArrowUp from '@components/icons/arrow-up.svg?react';
 import Left from '@components/icons/chevron-left.svg?react';
+import MoreHorizontal from '@components/icons/more-horizontal.svg?react';
 
+import { usePrice } from '@hooks/use-price';
+
+import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
+import { Chip } from './chip';
+import { Prose } from './prose';
+import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 
 const ProducerDetail = ({
@@ -18,8 +25,13 @@ const ProducerDetail = ({
 	onBack?: () => void;
 	floatingButton?: boolean;
 }) => {
+	const price = usePrice();
+	const mergedPrice = price.data
+		? priceWithDelta(price.data, producer.deltaPrice)
+		: undefined;
+
 	return (
-		<ScrollView pos="relative">
+		<ScrollView pos="relative" flex={1} contentContainerStyle={{ flex: 1 }}>
 			<View pos="relative" aspectRatio="2/1">
 				<Image
 					width="$full"
@@ -63,12 +75,40 @@ const ProducerDetail = ({
 			</View>
 
 			<YStack px="$4" py="$8" gap="$4">
-				<Paragraph>Match {producer.id}</Paragraph>
-				<Paragraph>{JSON.stringify(producer, null, 2)}</Paragraph>
+				<YStack gap="$2">
+					{mergedPrice ? (
+						<Paragraph>
+							<BodyText fontWeight="bold">
+								{mergedPrice.priceData.deposit.brutto}€
+							</BodyText>{' '}
+							<BodyText>/Monat</BodyText>
+						</Paragraph>
+					) : (
+						<View h="$6">
+							<MoreHorizontal
+								style={{ color: color.baseStromeeNavy }}
+							/>
+						</View>
+					)}
+
+					<Chip>Hallo</Chip>
+					<H4>{producer.name}</H4>
+				</YStack>
+				<YStack gap="$2">
+					<Paragraph fontWeight="bold">Über uns</Paragraph>
+					<Prose>{producer.extendedDescription}</Prose>
+				</YStack>
 			</YStack>
 			{floatingButton && (
-				// @ts-expect-error - this value works but throws a typescript error
-				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$4">
+				<View
+					// @ts-expect-error - this value works but throws a typescript error
+					pos="sticky"
+					bottom="$0"
+					jc="flex-end"
+					ai="center"
+					p="$4"
+					mt="auto"
+				>
 					<Button
 						minHeight="initial"
 						onPress={() => {

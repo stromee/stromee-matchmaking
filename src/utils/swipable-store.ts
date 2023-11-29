@@ -17,8 +17,8 @@ export interface State<TItem extends { id: string }> {
 	updateSelection: (selection: TItem[]) => void;
 	updateAllItems: (items: TItem[]) => void;
 	resetSwiped: () => void;
-	resetLeftSwiped: () => void;
-	resetRightSwiped: () => void;
+	resetSwipedLeft: () => void;
+	resetSwipedRight: () => void;
 	reset: () => void;
 }
 
@@ -166,19 +166,28 @@ export const createSwipableStore = <TItem extends { id: string }>(
 							throw new Error('Item not found');
 						}
 
+						const newSwiped = state.swiped.filter(
+							(item) => item !== id,
+						);
+
+						const newRemaining = state.selection.filter(
+							(item) => !newSwiped.some((id) => id === item.id),
+						);
+
+						const newRemainingDeferred = [...newRemaining];
+
 						let newSwipedLeft = state.swipedLeft;
-						let newSwipedRight = state.swipedRight;
 						if (isLeft) {
 							newSwipedLeft = [
 								...state.swipedLeft.filter(
 									(item) => item !== id,
 								),
 							];
-							newSwipedRight = [...state.swipedRight, id];
 						}
 
+						let newSwipedRight = state.swipedRight;
+
 						if (isRight) {
-							newSwipedLeft = [...state.swipedLeft, id];
 							newSwipedRight = [
 								...state.swipedRight.filter(
 									(item) => item !== id,
@@ -188,6 +197,9 @@ export const createSwipableStore = <TItem extends { id: string }>(
 
 						return {
 							...state,
+							remaining: newRemaining,
+							remainingDeferred: newRemainingDeferred,
+							swiped: newSwiped,
 							swipedLeft: newSwipedLeft,
 							swipedRight: newSwipedRight,
 						};
@@ -213,7 +225,7 @@ export const createSwipableStore = <TItem extends { id: string }>(
 						};
 					});
 				},
-				resetLeftSwiped: () => {
+				resetSwipedLeft: () => {
 					set((state) => {
 						const newSwipedLeft = [];
 						const newSwiped = [...state.swipedRight];
@@ -233,7 +245,7 @@ export const createSwipableStore = <TItem extends { id: string }>(
 						};
 					});
 				},
-				resetRightSwiped: () => {
+				resetSwipedRight: () => {
 					set((state) => {
 						const newSwipedRight = [];
 						const newSwiped = [...state.swipedLeft];
@@ -264,7 +276,7 @@ export const createSwipableStore = <TItem extends { id: string }>(
 			}),
 			{
 				name,
-				version: 1,
+				version: 2,
 				// take care of race conditions
 				partialize: (state) => ({
 					...state,

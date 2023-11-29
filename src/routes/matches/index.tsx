@@ -1,7 +1,8 @@
-import { AnimatePresence, Paragraph, ScrollView, YStack } from 'tamagui';
+import { AnimatePresence, H4, Paragraph, ScrollView, YStack } from 'tamagui';
 
 import { Header } from '@components/header';
 import { ProducerPreview } from '@components/producer-preview';
+import { Link } from '@components/themed/link';
 
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
@@ -20,11 +21,11 @@ const Matches = () => {
 			} => !!item,
 		);
 	return (
-		<ScrollView>
+		<ScrollView contentContainerStyle={{ flex: 1 }}>
 			<Header defaultTo="/" canGoBack={false}>
 				Deine Matches
 			</Header>
-			<YStack px="$4" py="$8" gap="$4">
+			<YStack px="$4" py="$8" gap="$4" flex={1}>
 				<AnimatePresence>
 					{resolvedItems
 						.slice()
@@ -49,7 +50,37 @@ const Matches = () => {
 						))}
 				</AnimatePresence>
 				{resolvedItems.length === 0 && (
-					<Paragraph>Noch keine matches</Paragraph>
+					<>
+						<H4 mt="auto">Ganz schön leer hier</H4>
+						<Paragraph>
+							Finde erst ein paar Matches und schau dann nochmal
+							vorbei!
+						</Paragraph>
+						<Link
+							theme="stromeeGreen"
+							display="flex"
+							borderRadius="$full"
+							borderWidth="1px"
+							borderColor="$transparent"
+							minHeight="$11"
+							ai="center"
+							jc="center"
+							to="/"
+							px="$4"
+							py="$2"
+							bg="$background"
+							hoverStyle={{
+								borderColor: '$baseStromeeNavy',
+							}}
+							focusStyle={{
+								outlineStyle: 'solid',
+								outlineWidth: 2,
+								outlineColor: '$baseStromeeNavy',
+							}}
+						>
+							Zurück zur Startseite
+						</Link>
+					</>
 				)}
 			</YStack>
 		</ScrollView>

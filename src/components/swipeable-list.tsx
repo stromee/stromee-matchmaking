@@ -7,7 +7,7 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
-import { XStack, clamp } from 'tamagui';
+import { H4, Paragraph, XStack, YStack, clamp } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
@@ -96,6 +96,10 @@ const SwipableList = ({ count = 4 }) => {
 		() => computedStyle(rightButtonTransform.value),
 		[rightButtonTransform],
 	);
+
+	const swipedRight = producerStore.use.swipedRight();
+	const swipedLeft = producerStore.use.swipedLeft();
+	const resetSwipedLeft = producerStore.use.resetSwipedLeft();
 
 	const remaining = producerStore.use.remaining();
 	const remainingDeferred = producerStore.use
@@ -199,6 +203,81 @@ const SwipableList = ({ count = 4 }) => {
 	return (
 		<>
 			<CustomZStack>
+				{remaining.length === 0 && (
+					<CustomZStackChild>
+						<YStack
+							px="$4"
+							py="$8"
+							gap="$4"
+							flex={1}
+							pointerEvents="auto"
+						>
+							<H4 mt="auto">Ganz schön leer hier</H4>
+							{swipedRight.length > 0 ? (
+								<Paragraph>
+									Das waren alle unsere Produzenten. Schau dir
+									doch mal deine matches an. Vielleicht ist ja
+									die richtige Anlage dabei!
+								</Paragraph>
+							) : (
+								<Paragraph>
+									Das waren alle unsere Produzenten. Es sieht
+									so aus als wäre nix für dich dabei gewesen.
+									Schau doch einfach nochmal!
+								</Paragraph>
+							)}
+							{swipedRight.length > 0 && (
+								<Link
+									to="/matches"
+									theme="stromeeGreen"
+									display="flex"
+									borderRadius="$full"
+									borderWidth="1px"
+									borderColor="$transparent"
+									minHeight="$11"
+									ai="center"
+									jc="center"
+									px="$4"
+									py="$2"
+									bg="$background"
+									hoverStyle={{
+										borderColor: '$baseStromeeNavy',
+									}}
+									focusStyle={{
+										outlineStyle: 'solid',
+										outlineWidth: 2,
+										outlineColor: '$baseStromeeNavy',
+									}}
+								>
+									Zu deinen Matches
+								</Link>
+							)}
+							{swipedRight.length === 0 && (
+								<Button
+									onPress={() => {
+										console.log('reset');
+										resetSwipedLeft();
+									}}
+								>
+									Zeig mir was ich verpasst habe
+								</Button>
+							)}
+							{swipedLeft.length > 0 &&
+								swipedRight.length !== 0 && (
+									<Button
+										theme="base"
+										borderColor="$baseStromeeNavy"
+										onPress={() => {
+											console.log('reset');
+											resetSwipedLeft();
+										}}
+									>
+										Zeig mir was ich verpasst habe
+									</Button>
+								)}
+						</YStack>
+					</CustomZStackChild>
+				)}
 				{remainingDeferred.map(({ id, value: producer }) => (
 					<CustomZStackChild key={id}>
 						<Swipable
