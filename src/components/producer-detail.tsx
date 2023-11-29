@@ -1,4 +1,4 @@
-import { Button, Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
+import { Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
@@ -7,7 +7,7 @@ import Left from '@components/icons/chevron-left.svg?react';
 
 import { Producer } from '@utils/types';
 
-import { Button as ThemedButton } from './themed/button';
+import { Button } from './themed/button';
 
 const ProducerDetail = ({
 	producer,
@@ -34,34 +34,24 @@ const ProducerDetail = ({
 				/>
 				{!floatingButton && (
 					<Button
-						unstyled
+						theme="base"
 						pos="absolute"
 						top="$4"
-						left="$2"
+						left="$4"
 						ai="center"
 						jc="center"
-						width="initial"
-						height="initial"
-						minHeight="$0"
-						minWidth="$0"
+						size={undefined}
+						height="unset"
+						width="unset"
+						maxWidth="unset"
+						maxHeight="unset"
 						p="$1"
 						color="$baseStromeeNavy"
-						bg="$baseCloudWhiteOpacity60"
+						bg="$baseCloudWhiteOpacity80"
 						borderStyle="solid"
 						borderWidth="1px"
 						borderColor="$transparent"
 						circular
-						// hoverStyle={{
-						// 	bg: '$baseCloudWhiteOpacity60',
-						// 	borderColor: '$baseStromeeNavy',
-						// }}
-						// focusStyle={{
-						// 	bg: '$baseCloudWhiteOpacity60',
-						// 	borderColor: '$baseStromeeNavy',
-						// 	outlineColor: '$baseStromeeNavy',
-						// 	outlineWidth: '2px',
-						// 	outlineStyle: 'solid',
-						// }}
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
@@ -78,8 +68,8 @@ const ProducerDetail = ({
 				<Paragraph>{JSON.stringify(producer, null, 2)}</Paragraph>
 			</YStack>
 			{floatingButton && (
-				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$2">
-					<ThemedButton
+				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$4">
+					<Button
 						onPress={() => {
 							if (handleBack) {
 								handleBack();
@@ -94,7 +84,7 @@ const ProducerDetail = ({
 						p="$1"
 					>
 						<ArrowUp style={{ color: color.baseStromeeNavy }} />
-					</ThemedButton>
+					</Button>
 				</View>
 			)}
 		</ScrollView>

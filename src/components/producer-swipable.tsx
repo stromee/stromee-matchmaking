@@ -99,6 +99,7 @@ const ProducerSwipable = ({
 						maxWidth="unset"
 						maxHeight="unset"
 						p="$1"
+						bg="$baseCloudWhiteOpacity80"
 					>
 						<ArrowDown style={{ color: color.baseStromeeNavy }} />
 					</Button>

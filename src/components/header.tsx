@@ -26,16 +26,16 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 				{children}
 			</H4>
 			<Button
-				unstyled
 				pos="absolute"
-				top="$0"
+				top="$2"
 				left="$0"
 				ai="center"
 				jc="center"
-				width="initial"
-				height="$full"
-				minHeight="$0"
-				minWidth="$0"
+				size={undefined}
+				height="unset"
+				width="unset"
+				maxWidth="unset"
+				maxHeight="unset"
 				p="$1"
 				color="$baseStromeeNavy"
 				bg="$transparent"
@@ -43,8 +43,12 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 				borderWidth="1px"
 				borderColor="$transparent"
 				circular
-				hoverStyle={{}}
-				focusStyle={{}}
+				hoverStyle={{
+					bg: '$transparent',
+				}}
+				focusStyle={{
+					bg: '$transparent',
+				}}
 				onPress={() => {
 					if (location.key !== 'default' && canGoBack) {
 						navigate(-1);
