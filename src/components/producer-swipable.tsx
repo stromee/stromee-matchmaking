@@ -77,38 +77,26 @@ const ProducerSwipable = ({
 					fd="column"
 					theme="popPetrol"
 				>
-					<AnimatePresence>
-						{mergedPrice && (
-							<Paragraph
-								theme="secondary"
-								borderTopLeftRadius="$full"
-								borderBottomLeftRadius="$full"
-								p="$2"
-								pl="$4"
-								mr="$-4"
-								bg="$background"
-								display="flex"
-								key={producer.id}
-								animation="easeOutExpo"
-								enterStyle={{
-									opacity: 0,
-									transform: [
-										{
-											translateY: -24,
-										},
-									],
-								}}
-								alignSelf="flex-end"
-								ai="center"
-								jc="center"
-							>
-								<BodyText fontWeight="bold">
-									{mergedPrice.priceData.deposit.brutto}€
-								</BodyText>{' '}
-								<BodyText>/Monat</BodyText>
-							</Paragraph>
-						)}
-					</AnimatePresence>
+					{mergedPrice && (
+						<Paragraph
+							theme="secondary"
+							borderTopLeftRadius="$full"
+							borderBottomLeftRadius="$full"
+							p="$2"
+							pl="$4"
+							mr="$-4"
+							bg="$background"
+							display="flex"
+							alignSelf="flex-end"
+							ai="center"
+							jc="center"
+						>
+							<BodyText fontWeight="bold">
+								{mergedPrice.priceData.deposit.brutto}€
+							</BodyText>{' '}
+							<BodyText>/Monat</BodyText>
+						</Paragraph>
+					)}
 					<Chip>langfristige Beziehung</Chip>
 
 					<H4 numberOfLines={2} userSelect="none">

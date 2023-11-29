@@ -79,12 +79,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							gap="$1"
 						>
 							{mergedPrice ? (
-								<Paragraph
-									animation="easeOutExpo"
-									enterStyle={{
-										opacity: 0,
-									}}
-								>
+								<Paragraph>
 									<BodyText fontWeight="bold">
 										{mergedPrice.priceData.deposit.brutto}€
 									</BodyText>{' '}
@@ -188,9 +183,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 															color: color.baseStromeeNavy,
 														}}
 													/>
-													<span>
-														Details anzeigen
-													</span>
+													<span>Details ansehen</span>
 												</View>
 											</Link>
 										</Popover.Close>
