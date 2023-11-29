@@ -11,13 +11,18 @@ import {
 	YStack,
 } from 'tamagui';
 
-import More from '@components/icons//more.svg?react';
+import { color } from '@theme/tokens';
+
 import ArrowRight from '@components/icons/arrow-right.svg?react';
 import Basket from '@components/icons/basket.svg?react';
 import Bin from '@components/icons/bin.svg?react';
+import MoreHorizontal from '@components/icons/more-horizontal.svg?react';
+import More from '@components/icons/more.svg?react';
 
 import { useFunnelHref } from '@hooks/use-funnel-href';
+import { usePrice } from '@hooks/use-price';
 
+import { priceWithDelta } from '@utils/prices';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
 
@@ -27,10 +32,15 @@ import { Button } from './themed/button';
 import { Link } from './themed/link';
 
 const ProducerPreview = ({ producer }: { producer: Producer }) => {
+	const price = usePrice();
 	const updateSwipe = producerStore.use.updateSwipe();
 
 	const [open, setOpen] = useState(false);
 	const funnelHref = useFunnelHref(producer.id);
+
+	const mergedPrice = price.data
+		? priceWithDelta(price.data, producer.deltaPrice)
+		: undefined;
 
 	console.log(funnelHref);
 	return (
@@ -68,10 +78,25 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							p="$2"
 							gap="$1"
 						>
-							<Paragraph numberOfLines={1}>
-								<BodyText fontWeight="bold">XXX€</BodyText>{' '}
-								/Monat
-							</Paragraph>
+							{mergedPrice ? (
+								<Paragraph
+									animation="easeOutExpo"
+									enterStyle={{
+										opacity: 0,
+									}}
+								>
+									<BodyText fontWeight="bold">
+										{mergedPrice.priceData.deposit.brutto}€
+									</BodyText>{' '}
+									<BodyText>/Monat</BodyText>
+								</Paragraph>
+							) : (
+								<View h="$6">
+									<MoreHorizontal
+										style={{ color: color.baseStromeeNavy }}
+									/>
+								</View>
+							)}
 
 							<Paragraph numberOfLines={1}>
 								{producer.name}
@@ -96,7 +121,9 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 										setOpen(true);
 									}}
 								>
-									<More />
+									<More
+										style={{ color: color.baseStromeeNavy }}
+									/>
 								</Popover.Trigger>
 
 								<Popover.Content
@@ -156,7 +183,11 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 													ai="center"
 													jc="center"
 												>
-													<ArrowRight />
+													<ArrowRight
+														style={{
+															color: color.baseStromeeNavy,
+														}}
+													/>
 													<span>
 														Details anzeigen
 													</span>
@@ -205,7 +236,11 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 													ai="center"
 													jc="center"
 												>
-													<Basket />
+													<Basket
+														style={{
+															color: color.baseStromeeNavy,
+														}}
+													/>
 													<span>
 														Vertrag abschließen
 													</span>
@@ -245,7 +280,11 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 													ai="center"
 													jc="center"
 												>
-													<Bin />
+													<Bin
+														style={{
+															color: color.baseStromeeNavy,
+														}}
+													/>
 													<span>Match auflösen</span>
 												</View>
 											</Button>
