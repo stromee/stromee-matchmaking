@@ -1,6 +1,7 @@
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { interpolate } from 'react-native-reanimated';
 import {
+	AnimatePresence,
 	Card,
 	H4,
 	Image,
@@ -15,9 +16,14 @@ import { color } from '@theme/tokens';
 
 import ArrowDown from '@components/icons/arrow-down.svg?react';
 
+import { usePrice } from '@hooks/use-price';
+
 import { formatDistance } from '@utils/format';
+import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
+import { Chip } from './chip';
+import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 
 const ProducerSwipable = ({
@@ -29,9 +35,17 @@ const ProducerSwipable = ({
 	indexAfterActive: number;
 	onProducerDetailClick: (producer: Producer) => void;
 }) => {
+	const price = usePrice();
+	console.log('price', price.data);
+	const mergedPrice = price.data
+		? priceWithDelta(price.data, producer.deltaPrice)
+		: undefined;
+
+	console.log('deposit', mergedPrice);
 	return (
 		<Theme name="base">
 			<Card
+				overflow="hidden"
 				position="relative"
 				borderRadius="$6"
 				width="364px"
@@ -63,26 +77,60 @@ const ProducerSwipable = ({
 					fd="column"
 					theme="popPetrol"
 				>
-					{producer.distance ? (
-						<Paragraph>
-							{formatDistance(producer.distance)} km entfernt
-						</Paragraph>
-					) : (
-						<Paragraph>
-							{producer.postalCode} {producer.city}
-						</Paragraph>
-					)}
+					<AnimatePresence>
+						{mergedPrice && (
+							<Paragraph
+								theme="secondary"
+								borderTopLeftRadius="$full"
+								borderBottomLeftRadius="$full"
+								p="$2"
+								pl="$4"
+								mr="$-4"
+								bg="$background"
+								display="flex"
+								key={producer.id}
+								animation="easeOutExpo"
+								enterStyle={{
+									opacity: 0,
+									transform: [
+										{
+											translateY: -24,
+										},
+									],
+								}}
+								alignSelf="flex-end"
+								ai="center"
+								jc="center"
+							>
+								<BodyText fontWeight="bold">
+									{mergedPrice.priceData.deposit.brutto}€
+								</BodyText>{' '}
+								<BodyText>/Monat</BodyText>
+							</Paragraph>
+						)}
+					</AnimatePresence>
+					<Chip>langfristige Beziehung</Chip>
 
 					<H4 numberOfLines={2} userSelect="none">
 						{producer.name}
 					</H4>
 
-					<Paragraph userSelect="none">Windenergie</Paragraph>
-					<Paragraph userSelect="none">Familienbetrieb</Paragraph>
-					<Paragraph userSelect="none">
-						langfristige Beziehung
+					<Paragraph numberOfLines={1} userSelect="none">
+						Halloooo
 					</Paragraph>
-					<Paragraph userSelect="none">Wahre Liebe</Paragraph>
+
+					<View flexWrap="wrap" pr="$10" rowGap="$2" columnGap="$4">
+						<Paragraph numberOfLines={1} userSelect="none">
+							{producer.distance
+								? `${formatDistance(
+										producer.distance,
+								  )} km entfernt`
+								: `${producer.postalCode} ${producer.city}`}
+						</Paragraph>
+						<Paragraph numberOfLines={1} userSelect="none">
+							Familienbetrieb
+						</Paragraph>
+					</View>
 
 					<Button
 						theme="base"
@@ -104,7 +152,7 @@ const ProducerSwipable = ({
 						<ArrowDown style={{ color: color.baseStromeeNavy }} />
 					</Button>
 				</Card.Footer>
-				<Card.Background overflow="hidden" borderRadius="$6">
+				<Card.Background>
 					<ZStack flex={1}>
 						<Image
 							width="$full"

@@ -21,7 +21,6 @@ import { PresenceStack } from './presence-stack';
 import { ProducerDetail } from './producer-detail';
 import { ProducerSwipable } from './producer-swipable';
 import { Pan, Swipable, SwipableRef } from './swipeable';
-import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
 import { Link } from './themed/link';
 import { CustomZStack, CustomZStackChild } from './z-stack';

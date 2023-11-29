@@ -68,6 +68,7 @@ const ProducerDetail = ({
 				<Paragraph>{JSON.stringify(producer, null, 2)}</Paragraph>
 			</YStack>
 			{floatingButton && (
+				// @ts-expect-error - this value works but throws a typescript error
 				<View pos="sticky" bottom="$0" jc="flex-end" ai="center" p="$4">
 					<Button
 						onPress={() => {

@@ -10,6 +10,7 @@ export type ChipProps = {
 const Chip = ({ children }: ChipProps) => {
 	return (
 		<View
+			theme="base"
 			alignSelf="flex-start"
 			overflow="hidden"
 			pos="relative"
@@ -28,7 +29,7 @@ const Chip = ({ children }: ChipProps) => {
 				end={[0, 0]}
 			/>
 			<XStack gap="$2" maxWidth="$full">
-				<BodyText fontSize="$2" numberOfLines={1}>
+				<BodyText fontSize="$2" numberOfLines={1} userSelect="none">
 					{children}
 				</BodyText>
 			</XStack>
