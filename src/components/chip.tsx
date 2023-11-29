@@ -8,7 +8,6 @@ export type ChipProps = {
 	children: string;
 };
 const Chip = ({ icon, children }: ChipProps) => {
-	console.log('Chip', icon);
 	return (
 		<View
 			theme="base"
