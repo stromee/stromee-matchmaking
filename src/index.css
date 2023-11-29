@@ -48,6 +48,22 @@ a {
 	color: inherit;
 }
 
+.prose {
+	color: #1d2445;
+}
+.prose p {
+	font-family: 'gilroy';
+	margin: 0;
+	font-size: 14px;
+	line-height: 24px;
+	font-weight: 500;
+	text-align: left;
+}
+.prose a {
+	color: #1d2445;
+	text-decoration: underline;
+}
+
 .float {
 	--reverse: 1;
 	--duration: 6s;
