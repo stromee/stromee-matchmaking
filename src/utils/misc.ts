@@ -34,3 +34,20 @@ export const shuffle = <T>(array: T[]) => {
 
 	return newArray;
 };
+
+const fixStoyblokUrl = (url: string) =>
+	url
+		.replace(/(\/\/)(.*)(\.storyblok.com)/, '//a.storyblok.com')
+		.replace(/\/m\//, '');
+
+export const handleStoryblokImage = (
+	url: string,
+	width: number,
+	height: number,
+) => {
+	if (!url.includes('a.storyblok.com')) return url;
+
+	const fixedUrl = fixStoyblokUrl(url);
+	const modifiedUrl = `${fixedUrl}/m/${width * 2}x${height * 2}`;
+	return modifiedUrl;
+};

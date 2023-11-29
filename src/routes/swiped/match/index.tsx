@@ -24,7 +24,7 @@ import { useProducer } from '@hooks/use-producer';
 
 import { configStore } from '@utils/config-store';
 import { formatNumber, formatUnit } from '@utils/format';
-import { assertUnreachable } from '@utils/misc';
+import { assertUnreachable, handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { producerStore } from '@utils/producer-store';
 
@@ -228,7 +228,11 @@ const Match = () => {
 					<Avatar circular size="$11">
 						<Avatar.Image
 							accessibilityLabel={producer.data.name}
-							src={producer.data.picture}
+							src={handleStoryblokImage(
+								producer.data.picture,
+								100,
+								100,
+							)}
 						/>
 						<Avatar.Fallback backgroundColor="$baseStromeeNavy" />
 					</Avatar>

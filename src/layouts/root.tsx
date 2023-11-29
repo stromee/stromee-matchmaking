@@ -33,10 +33,8 @@ const Root = () => {
 	}, [initalValidated]);
 
 	// fetch Data top level
-	const { data: producers, isLoading: isProducersLoading } = useProducers();
-	const { isLoading: isProducersTagTagLoading } = useProducersTagQuery();
-	const isLoading = isProducersLoading || isProducersTagTagLoading;
-
+	const { data: producers, isLoading } = useProducers();
+	useProducersTagQuery();
 	usePrice();
 
 	const setSelection = useRef(true);

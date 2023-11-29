@@ -22,6 +22,7 @@ import More from '@components/icons/more.svg?react';
 import { useFunnelHref } from '@hooks/use-funnel-href';
 import { usePrice } from '@hooks/use-price';
 
+import { handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
@@ -66,7 +67,11 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 								source={{
 									// width: 200,
 									// height: 100,
-									uri: producer.picture,
+									uri: handleStoryblokImage(
+										producer.picture,
+										200,
+										0,
+									),
 								}}
 							/>
 						</View>

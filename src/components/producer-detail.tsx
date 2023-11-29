@@ -8,6 +8,7 @@ import MoreHorizontal from '@components/icons/more-horizontal.svg?react';
 
 import { usePrice } from '@hooks/use-price';
 
+import { handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
@@ -31,8 +32,13 @@ const ProducerDetail = ({
 		: undefined;
 
 	return (
-		<ScrollView pos="relative" flex={1} contentContainerStyle={{ flex: 1 }}>
-			<View pos="relative" aspectRatio="2/1">
+		<ScrollView
+			pos="relative"
+			flex={1}
+			minHeight="$full"
+			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
+		>
+			<View pos="relative" width="$full" aspectRatio="2/1">
 				<Image
 					width="$full"
 					height="$full"
@@ -41,7 +47,7 @@ const ProducerDetail = ({
 					source={{
 						// width: 200,
 						// height: 100,
-						uri: producer.picture,
+						uri: handleStoryblokImage(producer.picture, 400, 0),
 					}}
 				/>
 				{!floatingButton && (
@@ -54,8 +60,8 @@ const ProducerDetail = ({
 						jc="center"
 						height="unset"
 						width="unset"
-						maxWidth="unset"
-						maxHeight="unset"
+						minWidth="unset"
+						minHeight="unset"
 						p="$1"
 						color="$baseStromeeNavy"
 						bg="$baseCloudWhiteOpacity80"

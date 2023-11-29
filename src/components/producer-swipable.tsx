@@ -18,6 +18,7 @@ import ArrowDown from '@components/icons/arrow-down.svg?react';
 import { usePrice } from '@hooks/use-price';
 
 import { formatDistance } from '@utils/format';
+import { handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
@@ -145,7 +146,11 @@ const ProducerSwipable = ({
 							source={{
 								// width: 200,
 								// height: 100,
-								uri: producer.picture,
+								uri: handleStoryblokImage(
+									producer.picture,
+									500,
+									500,
+								),
 							}}
 						/>
 						<View flex={1} ai="flex-end">
