@@ -1,3 +1,4 @@
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { interpolate } from 'react-native-reanimated';
 import {
@@ -7,6 +8,7 @@ import {
 	Paragraph,
 	Theme,
 	View,
+	YStack,
 	ZStack,
 	clamp,
 } from 'tamagui';
@@ -17,11 +19,12 @@ import ArrowDown from '@components/icons/arrow-down.svg?react';
 
 import { usePrice } from '@hooks/use-price';
 
-import { formatDistance } from '@utils/format';
 import { handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
+import { ProducerDistance } from './producer-distance';
+import { ProducerPlantType } from './producer-plant';
 import { ProducerShort } from './producer-short';
 import { ProducerTag } from './producer-tag';
 import { BodyText } from './themed/body-text';
@@ -72,7 +75,7 @@ const ProducerSwipable = ({
 			>
 				<Card.Footer
 					padding="$4"
-					gap="$2"
+					gap="$4"
 					fd="column"
 					theme="popPetrol"
 				>
@@ -99,28 +102,25 @@ const ProducerSwipable = ({
 
 					<ProducerTag producer={producer} />
 
-					<H4 numberOfLines={1} userSelect="none">
-						{producer.name}
-					</H4>
+					<YStack gap="$2">
+						<H4 numberOfLines={1} userSelect="none">
+							{producer.name}
+						</H4>
+						<ProducerShort id={producer.id} />
 
-					<ProducerShort producer={producer} />
-
-					<Paragraph numberOfLines={1} userSelect="none">
-						Halloooo
-					</Paragraph>
-
-					<View flexWrap="wrap" pr="$10" rowGap="$2" columnGap="$4">
-						<Paragraph numberOfLines={1} userSelect="none">
-							{producer.distance
-								? `${formatDistance(
-										producer.distance,
-								  )} km entfernt`
-								: `${producer.postalCode} ${producer.city}`}
-						</Paragraph>
-						<Paragraph numberOfLines={1} userSelect="none">
-							Familienbetrieb
-						</Paragraph>
-					</View>
+						<View
+							flexWrap="wrap"
+							pr="$10"
+							rowGap="$2"
+							columnGap="$4"
+						>
+							<ProducerDistance
+								distance={producer.distance}
+								fallback={`${producer.postalCode} ${producer.city}`}
+							/>
+							<ProducerPlantType type={producer.plantType} />
+						</View>
+					</YStack>
 
 					<Button
 						theme="base"
@@ -136,7 +136,11 @@ const ProducerSwipable = ({
 						borderRadius="$full"
 						bg="$baseCloudWhiteOpacity80"
 					>
-						<ArrowDown style={{ color: color.baseStromeeNavy }} />
+						<AccessibleIcon label="Mehr anzeigen">
+							<ArrowDown
+								style={{ color: color.baseStromeeNavy }}
+							/>
+						</AccessibleIcon>
 					</Button>
 				</Card.Footer>
 				<Card.Background>

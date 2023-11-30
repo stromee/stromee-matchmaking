@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { DotLottiePlayer } from '@dotlottie/react-player';
-import { H1, Theme, View } from 'tamagui';
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
+import { H1, H2, Theme, View } from 'tamagui';
 import { YStack } from 'tamagui';
 
+import Logo from '@components/icons/logo.svg?react';
 import { PresenceStack } from '@components/presence-stack';
 import { SwipableList } from '@components/swipeable-list';
 import { Button } from '@components/themed/button';
@@ -35,13 +37,18 @@ const Home = () => {
 
 	return (
 		<>
+			<H1>
+				<AccessibleIcon label="stromee powermatch">
+					<Logo />
+				</AccessibleIcon>
+			</H1>
 			<SwipableList />
 			<Theme name="popPetrol">
 				<PresenceStack
 					condition={!!currentSwipe && showMatchAfterSwipe}
 				>
 					<View px="$4" py="$8">
-						<H1
+						<H2
 							// @ts-expect-error - this value works but throws a typescript error
 							fontSize="$display"
 							// @ts-expect-error - this value works but throws a typescript error
@@ -50,7 +57,7 @@ const Home = () => {
 							letterSpacing="$display"
 						>
 							Du hast ein Match!
-						</H1>
+						</H2>
 					</View>
 					<DotLottiePlayer
 						autoplay

@@ -1,3 +1,4 @@
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, H4, View } from 'tamagui';
 
@@ -20,9 +21,9 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 			mx="$4"
 			mt="$4"
 			py="$2"
-			pl="$12"
+			px="$12"
 		>
-			<H4 textAlign="left" width="$full" numberOfLines={1}>
+			<H4 textAlign="center" width="$full" numberOfLines={1}>
 				{children}
 			</H4>
 			<Button
@@ -54,7 +55,9 @@ const Header = ({ children, canGoBack = true, defaultTo }: FloaterProps) => {
 					}
 				}}
 			>
-				<Left style={{ color: color.baseStromeeNavy }} />
+				<AccessibleIcon label="zurück">
+					<Left style={{ color: color.baseStromeeNavy }} />
+				</AccessibleIcon>
 			</Button>
 		</View>
 	);

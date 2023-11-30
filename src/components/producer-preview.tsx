@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import {
 	Card,
 	Image,
@@ -22,7 +23,8 @@ import More from '@components/icons/more.svg?react';
 import { useFunnelHref } from '@hooks/use-funnel-href';
 import { usePrice } from '@hooks/use-price';
 
-import { handleStoryblokImage } from '@utils/misc';
+import { configStore } from '@utils/config-store';
+import { handleStoryblokImage, producerHasTag } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
@@ -33,6 +35,8 @@ import { Button } from './themed/button';
 import { Link } from './themed/link';
 
 const ProducerPreview = ({ producer }: { producer: Producer }) => {
+	const energyTypes = configStore.use.energyTypes();
+
 	const price = usePrice();
 	const updateSwipe = producerStore.use.updateSwipe();
 
@@ -42,6 +46,8 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 	const mergedPrice = price.data
 		? priceWithDelta(price.data, producer.deltaPrice)
 		: undefined;
+
+	const tag = producerHasTag(producer, energyTypes);
 
 	return (
 		<Theme name="secondary">
@@ -77,6 +83,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 							flexGrow={2}
 							p="$2"
 							gap="$1"
+							pt={tag ? '$2' : 42}
 						>
 							{mergedPrice ? (
 								<Paragraph>
@@ -87,9 +94,13 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 								</Paragraph>
 							) : (
 								<View h="$6">
-									<MoreHorizontal
-										style={{ color: color.baseStromeeNavy }}
-									/>
+									<AccessibleIcon label="Preis wird geladen">
+										<MoreHorizontal
+											style={{
+												color: color.baseStromeeNavy,
+											}}
+										/>
+									</AccessibleIcon>
 								</View>
 							)}
 
@@ -122,11 +133,13 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 											setOpen(true);
 										}}
 									>
-										<More
-											style={{
-												color: color.baseStromeeNavy,
-											}}
-										/>
+										<AccessibleIcon label="Mehr">
+											<More
+												style={{
+													color: color.baseStromeeNavy,
+												}}
+											/>
+										</AccessibleIcon>
 									</Button>
 								</Popover.Trigger>
 
@@ -183,7 +196,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 												}}
 											>
 												<View
-													gap="$2"
+													gap="$1"
 													ai="center"
 													jc="center"
 												>
@@ -233,7 +246,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 												}}
 											>
 												<View
-													gap="$2"
+													gap="$1"
 													ai="center"
 													jc="center"
 												>
@@ -277,7 +290,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 												}}
 											>
 												<View
-													gap="$2"
+													gap="$1"
 													ai="center"
 													jc="center"
 												>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import Animated, {
 	interpolate,
 	useAnimatedStyle,
@@ -8,11 +9,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
 import { H4, Paragraph, XStack, YStack, clamp } from 'tamagui';
+import { Image } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
 import Close from '@components/icons/close.svg?react';
 import HeartFilled from '@components/icons/heart-filled.svg?react';
+import Menu from '@components/icons/menu.svg?react';
 
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
@@ -212,7 +215,20 @@ const SwipableList = ({ count = 4 }) => {
 							flex={1}
 							pointerEvents="auto"
 						>
-							<H4 mt="auto">Ganz schön leer hier</H4>
+							<Image
+								mt="auto"
+								mb="$4"
+								width="$full"
+								maxWidth="$full"
+								height="auto"
+								aspectRatio="368/92"
+								source={{
+									uri: '/images/lonely_plant_01.svg',
+									width: 368,
+									height: 92,
+								}}
+							/>
+							<H4>Alles weg?!</H4>
 							{swipedRight.length > 0 ? (
 								<Paragraph>
 									Das waren alle unsere Produzenten. Schau dir
@@ -229,7 +245,7 @@ const SwipableList = ({ count = 4 }) => {
 							{swipedRight.length > 0 && (
 								<Link
 									to="/matches"
-									theme="stromeeGreen"
+									theme="stromeeNavy"
 									display="flex"
 									borderRadius="$full"
 									borderWidth="1px"
@@ -241,12 +257,12 @@ const SwipableList = ({ count = 4 }) => {
 									py="$2"
 									bg="$background"
 									hoverStyle={{
-										borderColor: '$baseStromeeNavy',
+										borderColor: '$baseGrey400',
 									}}
 									focusStyle={{
 										outlineStyle: 'solid',
 										outlineWidth: 2,
-										outlineColor: '$baseStromeeNavy',
+										outlineColor: '$baseGrey400',
 									}}
 								>
 									Zu deinen Matches
@@ -255,7 +271,6 @@ const SwipableList = ({ count = 4 }) => {
 							{swipedRight.length === 0 && (
 								<Button
 									onPress={() => {
-										console.log('reset');
 										resetSwipedLeft();
 									}}
 								>
@@ -268,7 +283,6 @@ const SwipableList = ({ count = 4 }) => {
 										theme="base"
 										borderColor="$baseStromeeNavy"
 										onPress={() => {
-											console.log('reset');
 											resetSwipedLeft();
 										}}
 									>
@@ -340,7 +354,14 @@ const SwipableList = ({ count = 4 }) => {
 				))}
 			</CustomZStack>
 
-			<XStack flex={0} padding="$4" justifyContent="space-around">
+			<XStack
+				width="$full"
+				mx="auto"
+				maxWidth="$72"
+				flex={0}
+				padding="$4"
+				justifyContent="space-around"
+			>
 				<Button
 					p="$0"
 					size={undefined}
@@ -390,12 +411,15 @@ const SwipableList = ({ count = 4 }) => {
 								justifyContent: 'center',
 								backgroundColor: color.baseLollipopRed,
 								borderWidth: 2,
+								borderColor: color.baseCloudWhite,
 								shadowColor: color.baseLollipopRed,
 							},
 							leftButtonStyle,
 						]}
 					>
-						<Close />
+						<AccessibleIcon label="Kein Match">
+							<Close />
+						</AccessibleIcon>
 					</Animated.View>
 				</Button>
 				<Link
@@ -417,7 +441,9 @@ const SwipableList = ({ count = 4 }) => {
 						outlineColor: '$baseStromeeNavy',
 					}}
 				>
-					M
+					<AccessibleIcon label="Deine Matches">
+						<Menu />
+					</AccessibleIcon>
 				</Link>
 				<Button
 					p="$0"
@@ -474,7 +500,9 @@ const SwipableList = ({ count = 4 }) => {
 							rightButtonStyle,
 						]}
 					>
-						<HeartFilled />
+						<AccessibleIcon label="Match">
+							<HeartFilled />
+						</AccessibleIcon>
 					</Animated.View>
 				</Button>
 			</XStack>

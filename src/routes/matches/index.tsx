@@ -1,4 +1,5 @@
 import { AnimatePresence, H4, Paragraph, ScrollView, YStack } from 'tamagui';
+import { Image } from 'tamagui';
 
 import { Header } from '@components/header';
 import { ProducerPreview } from '@components/producer-preview';
@@ -51,13 +52,26 @@ const Matches = () => {
 				</AnimatePresence>
 				{resolvedItems.length === 0 && (
 					<>
-						<H4 mt="auto">Ganz schön leer hier</H4>
+						<Image
+							mt="auto"
+							mb="$4"
+							width="$full"
+							maxWidth="$full"
+							height="auto"
+							aspectRatio="368/92"
+							source={{
+								uri: '/images/lonely_plant_02.svg',
+								width: 368,
+								height: 92,
+							}}
+						/>
+						<H4>Ganz schön leer hier</H4>
 						<Paragraph>
 							Finde erst ein paar Matches und schau dann nochmal
 							vorbei!
 						</Paragraph>
 						<Link
-							theme="stromeeGreen"
+							theme="stromeeNavy"
 							display="flex"
 							borderRadius="$full"
 							borderWidth="1px"
@@ -70,12 +84,12 @@ const Matches = () => {
 							py="$2"
 							bg="$background"
 							hoverStyle={{
-								borderColor: '$baseStromeeNavy',
+								borderColor: '$baseGrey400',
 							}}
 							focusStyle={{
 								outlineStyle: 'solid',
 								outlineWidth: 2,
-								outlineColor: '$baseStromeeNavy',
+								outlineColor: '$baseGrey400',
 							}}
 						>
 							Zurück zur Startseite

@@ -29,7 +29,7 @@ const Chip = ({ icon, children }: ChipProps) => {
 				start={[0, 0]}
 				end={[0, 0]}
 			/>
-			<XStack gap="$2" maxWidth="$full">
+			<XStack gap="$1" maxWidth="$full" ai="center">
 				{icon}
 				<BodyText fontSize="$2" numberOfLines={1} userSelect="none">
 					{children}

@@ -57,6 +57,13 @@ const themesBuilder = createThemeBuilder()
 			color.baseStromeeNavyOpacity20, // 3 - border / shadow
 			color.baseStromeeNavyOpacity80, // 4 - placeholder
 		],
+		stromeeNavy: [
+			color.transparent, // 0 - transparent
+			color.baseStromeeNavy, // 1 - background
+			color.baseCloudWhite, // 2 - color
+			color.baseStromeeNavy, // 3 - border / shadow
+			color.baseStromeeNavy, // 4 - placeholder
+		],
 	})
 	.addTemplates({
 		base: {
@@ -110,6 +117,10 @@ const themesBuilder = createThemeBuilder()
 		tanLight: {
 			template: 'base',
 			palette: 'tanLight',
+		},
+		stromeeNavy: {
+			template: 'base',
+			palette: 'stromeeNavy',
 		},
 	});
 

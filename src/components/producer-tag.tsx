@@ -1,13 +1,13 @@
 import Award from '@components/icons/award.svg?react';
 import Fire from '@components/icons/fire.svg?react';
 import Hearts from '@components/icons/hearts.svg?react';
-import Seedling from '@components/icons/seedling.svg?react';
 
 import { configStore } from '@utils/config-store';
 import { PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
 import { Producer } from '@utils/types';
 
 import { Chip } from './chip';
+import { PlantTypeIcon } from './plant-type-icon';
 
 export type ProducerTagProps = {
 	producer: Producer;
@@ -16,7 +16,7 @@ export type ProducerTagProps = {
 const ENERGY_TYPE_MATCH = [
 	'Eure Energie matched',
 	'Perfektes Energiematch',
-	'Energie stimmt',
+	'Die Energie stimmt',
 	'Die Spannung ist da',
 ];
 
@@ -27,7 +27,7 @@ const DISTANCE_MATCH = [
 	'Der kurze Weg zum Glück',
 	'Nähe schafft Verbundenheit',
 ];
-const PRICE_MATCH = ['Günstigster Preis', 'Preiskracher'];
+const PRICE_MATCH = ['Preiskracher', 'Preiswunder'];
 
 const SUPER_MATCH = [
 	'Supermatch!',
@@ -44,7 +44,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
 	) {
 		return (
-			<Chip icon={<Hearts />}>
+			<Chip icon={<Hearts width={16} height={16} />}>
 				{SUPER_MATCH[producer.id % SUPER_MATCH.length]}
 			</Chip>
 		);
@@ -52,7 +52,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 
 	if (producer.deltaPrice === 0) {
 		return (
-			<Chip icon={<Award />}>
+			<Chip icon={<Award width={16} height={16} />}>
 				{PRICE_MATCH[producer.id % PRICE_MATCH.length]}
 			</Chip>
 		);
@@ -60,7 +60,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 
 	if (producer.distance && producer.distance < 100) {
 		return (
-			<Chip icon={<Seedling />}>
+			<Chip icon={<Fire width={16} height={16} />}>
 				{DISTANCE_MATCH[producer.id % DISTANCE_MATCH.length]}
 			</Chip>
 		);
@@ -70,7 +70,15 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
 	) {
 		return (
-			<Chip icon={<Fire />}>
+			<Chip
+				icon={
+					<PlantTypeIcon
+						type={producer.plantType}
+						width={16}
+						height={16}
+					/>
+				}
+			>
 				{ENERGY_TYPE_MATCH[producer.id % ENERGY_TYPE_MATCH.length]}
 			</Chip>
 		);
