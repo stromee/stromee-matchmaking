@@ -148,7 +148,9 @@ const Address = ({
 					</Paragraph>
 
 					{error !== '' && (
-						<Paragraph color="$baseLollipopRed">{error}</Paragraph>
+						<Paragraph px="$4" color="$baseLollipopRed">
+							{error}
+						</Paragraph>
 					)}
 					<View
 						flexDirection="column"

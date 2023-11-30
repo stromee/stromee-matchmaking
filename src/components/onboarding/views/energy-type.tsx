@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { Paragraph, RadioGroup, Spinner, View, YStack } from 'tamagui';
+import {
+	Paragraph,
+	RadioGroup,
+	ScrollView,
+	Spinner,
+	View,
+	YStack,
+} from 'tamagui';
 import * as z from 'zod';
 
 import { HeaderOnboarding } from '@components/header-onboarding';
 import Biogas from '@components/icons/biogas.svg?react';
 import Solar from '@components/icons/solar.svg?react';
 import Wind from '@components/icons/wind.svg?react';
-import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 
 import { configStore } from '@utils/config-store';
@@ -32,7 +38,7 @@ const plantTypesProps = [
 	},
 	{
 		description:
-			'Für mich muss es knistern und brodeln - daher libe ich Biogas!',
+			'Für mich muss es knistern und brodeln - daher liebe ich Biogas!',
 		icon: <Biogas />,
 	},
 ];
@@ -80,81 +86,91 @@ const EnergyType = ({
 	}, [energyTypes]);
 
 	return (
-		<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-			<View flexDirection="column" gap="$8">
-				<HeaderOnboarding onPrev={handlePrev}>
-					Was sind deine Vorlieben?
-				</HeaderOnboarding>
+		<ScrollView
+			flex={1}
+			minHeight="$full"
+			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
+		>
+			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
+				<View flexDirection="column" gap="$8">
+					<HeaderOnboarding onPrev={handlePrev}>
+						Was sind deine Vorlieben?
+					</HeaderOnboarding>
 
-				<BodyText px="$3" textAlign="left">
-					Natürlich ist jede Energieart schön! Dennoch hat jeder
-					persönliche Präferenzen. Welche Energieart ist dir die
-					Libste?
-				</BodyText>
-			</View>
+					<Paragraph px="$4" textAlign="left">
+						Natürlich ist jede Energieart schön! Dennoch hat jeder
+						persönliche Präferenzen. Welche Energieart ist dir die
+						Liebste?
+					</Paragraph>
+				</View>
 
-			{error !== '' && (
-				<Paragraph color="$baseLollipopRed">{error}</Paragraph>
-			)}
-			<RadioGroup
-				gap="$4"
-				alignSelf="center"
-				value={energyTypes[0]}
-				onValueChange={(newEnergyType) => {
-					setEnergyTypes([
-						newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
-					]);
-				}}
-			>
-				{combinedPlantTypes.map((plantTypeItem) => {
-					const { type, description, icon } = plantTypeItem;
-
-					return (
-						<RadioGroup.Item
-							key={type}
-							value={type}
-							size={undefined}
-							width={272}
-							height={124}
-							p="$8"
-							borderRadius="$4"
-							borderColor={
-								energyTypes.includes(type)
-									? '$baseStromeeGreen'
-									: '$baseStromeeNavyOpacity20'
-							}
-							hoverStyle={{
-								borderColor: energyTypes.includes(type)
-									? '$baseStromeeGreen'
-									: '$baseStromeeNavy',
-							}}
-							focusStyle={{
-								borderColor: energyTypes.includes(type)
-									? '$baseStromeeGreen'
-									: '$baseStromeeNavy',
-								outlineColor: energyTypes.includes(type)
-									? '$baseStromeeGreen'
-									: '$baseStromeeNavy',
-							}}
-						>
-							<View
-								flexDirection="column"
-								alignItems="center"
-								justifyContent="center"
-								p="$4"
+				{error !== '' && (
+					<Paragraph px="$4" color="$baseLollipopRed">
+						{error}
+					</Paragraph>
+				)}
+				<RadioGroup
+					gap="$4"
+					alignSelf="center"
+					value={energyTypes[0]}
+					onValueChange={(newEnergyType) => {
+						setEnergyTypes([
+							newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
+						]);
+					}}
+				>
+					{combinedPlantTypes.map((plantTypeItem) => {
+						const { type, description, icon } = plantTypeItem;
+						return (
+							<RadioGroup.Item
+								key={type}
+								value={type}
+								size={undefined}
+								height="initial"
 								width="$full"
+								maxWidth={272}
+								minHeight={124}
+								p="$4"
+								borderRadius="$4"
+								borderColor={
+									energyTypes.includes(type)
+										? '$baseStromeeGreen'
+										: '$baseStromeeNavyOpacity20'
+								}
+								hoverStyle={{
+									borderColor: energyTypes.includes(type)
+										? '$baseStromeeGreen'
+										: '$baseStromeeNavy',
+								}}
+								focusStyle={{
+									borderColor: energyTypes.includes(type)
+										? '$baseStromeeGreen'
+										: '$baseStromeeNavy',
+									outlineColor: energyTypes.includes(type)
+										? '$baseStromeeGreen'
+										: '$baseStromeeNavy',
+								}}
 							>
-								{icon}
-								<BodyText>{description}</BodyText>
-							</View>
-						</RadioGroup.Item>
-					);
-				})}
-			</RadioGroup>
+								<YStack
+									alignItems="center"
+									justifyContent="center"
+									width="$full"
+									gap="$2"
+								>
+									{icon}
+									<Paragraph>{description}</Paragraph>
+								</YStack>
+							</RadioGroup.Item>
+						);
+					})}
+				</RadioGroup>
 
-			{isValidating && <Spinner size="large" color="$baseStromeeNavy" />}
-			<Button onPress={onNext}>Weiter</Button>
-		</YStack>
+				{isValidating && (
+					<Spinner size="large" color="$baseStromeeNavy" />
+				)}
+				<Button onPress={onNext}>Weiter</Button>
+			</YStack>
+		</ScrollView>
 	);
 };
 

@@ -94,7 +94,9 @@ const Consumption = ({
 						<H3> {formatUnit(consumption, 'kWh')}</H3>
 					</YStack>
 					{error !== '' && (
-						<Paragraph color="$baseLollipopRed">{error}</Paragraph>
+						<Paragraph px="$4" color="$baseLollipopRed">
+							{error}
+						</Paragraph>
 					)}
 					<Slider
 						value={[consumption]}
