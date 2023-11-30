@@ -8,7 +8,7 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
-import { H4, Paragraph, XStack, YStack, clamp } from 'tamagui';
+import { H2, Paragraph, XStack, YStack, clamp } from 'tamagui';
 import { Image } from 'tamagui';
 
 import { color } from '@theme/tokens';
@@ -215,8 +215,21 @@ const SwipableList = ({ count = 4 }) => {
 							flex={1}
 							pointerEvents="auto"
 						>
+							<H2 mt="auto">Alles weg?!</H2>
+							{swipedRight.length > 0 ? (
+								<Paragraph>
+									Das waren alle unsere Produzenten. Zeit,
+									deine Matches kennenzulernen!
+								</Paragraph>
+							) : (
+								<Paragraph>
+									Das waren alle unsere Produzenten. Es sieht
+									so aus als wäre nix für dich dabei gewesen.
+									Schau doch einfach nochmal!
+								</Paragraph>
+							)}
 							<Image
-								mt="auto"
+								mt="$16"
 								mb="$4"
 								width="$full"
 								maxWidth="$full"
@@ -228,20 +241,6 @@ const SwipableList = ({ count = 4 }) => {
 									height: 92,
 								}}
 							/>
-							<H4>Alles weg?!</H4>
-							{swipedRight.length > 0 ? (
-								<Paragraph>
-									Das waren alle unsere Produzenten. Schau dir
-									doch mal deine matches an. Vielleicht ist ja
-									die richtige Anlage dabei!
-								</Paragraph>
-							) : (
-								<Paragraph>
-									Das waren alle unsere Produzenten. Es sieht
-									so aus als wäre nix für dich dabei gewesen.
-									Schau doch einfach nochmal!
-								</Paragraph>
-							)}
 							{swipedRight.length > 0 && (
 								<Link
 									to="/matches"
@@ -265,7 +264,7 @@ const SwipableList = ({ count = 4 }) => {
 										outlineColor: '$baseGrey400',
 									}}
 								>
-									Zu deinen Matches
+									Matches ansehen
 								</Link>
 							)}
 							{swipedRight.length === 0 && (
@@ -283,7 +282,7 @@ const SwipableList = ({ count = 4 }) => {
 										resetSwipedLeft();
 									}}
 								>
-									Zeig mir was ich verpasst habe
+									Neustart
 								</Button>
 							)}
 							{swipedLeft.length > 0 &&
@@ -295,7 +294,7 @@ const SwipableList = ({ count = 4 }) => {
 											resetSwipedLeft();
 										}}
 									>
-										Zeig mir was ich verpasst habe
+										Neustart
 									</Button>
 								)}
 						</YStack>

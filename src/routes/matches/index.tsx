@@ -1,4 +1,4 @@
-import { AnimatePresence, H4, Paragraph, ScrollView, YStack } from 'tamagui';
+import { AnimatePresence, H2, Paragraph, ScrollView, YStack } from 'tamagui';
 import { Image } from 'tamagui';
 
 import { Header } from '@components/header';
@@ -52,9 +52,14 @@ const Matches = () => {
 				</AnimatePresence>
 				{resolvedItems.length === 0 && (
 					<>
+						<H2 mt="auto">Ganz schön leer hier</H2>
+						<Paragraph>
+							Finde erst ein paar Matches und schau dann nochmal
+							hier vorbei!
+						</Paragraph>
+
 						<Image
-							mt="auto"
-							mb="$4"
+							mt="$32"
 							width="$full"
 							maxWidth="$full"
 							height="auto"
@@ -65,11 +70,6 @@ const Matches = () => {
 								height: 92,
 							}}
 						/>
-						<H4>Ganz schön leer hier</H4>
-						<Paragraph>
-							Finde erst ein paar Matches und schau dann nochmal
-							vorbei!
-						</Paragraph>
 						<Link
 							theme="stromeeNavy"
 							display="flex"
