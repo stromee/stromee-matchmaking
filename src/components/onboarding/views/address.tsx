@@ -141,11 +141,11 @@ const Address = ({
 						Erzähl etwas über dich!
 					</HeaderOnboarding>
 
-					<BodyText px="$3" textAlign="left">
+					<Paragraph px="$4">
 						Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag
 						uns doch, in welcher Stadt du wohnst, damit wir den
 						passenden Partner in deiner Nähe für dich finden!
-					</BodyText>
+					</Paragraph>
 
 					{error !== '' && (
 						<Paragraph color="$baseLollipopRed">{error}</Paragraph>
