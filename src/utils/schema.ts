@@ -86,7 +86,8 @@ export const conumptionSyncSchema = z
 
 export const energyTypesSyncSchema = z
 	.array(PLANT_TYPE_WITHOUT_DEFAULT)
-	.min(1, 'Bitte wähle mindestens eine Energieart aus');
+	.min(1, 'Bitte wähle mindestens eine Energieart aus')
+	.max(1, 'Bitte wähle maximal eine Energieart aus');
 
 export const configSchemaAsync = z
 	.object({

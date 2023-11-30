@@ -11,9 +11,9 @@ import {
 import * as z from 'zod';
 
 import { HeaderOnboarding } from '@components/header-onboarding';
-import Biogas from '@components/icons/biogas.svg?react';
-import Solar from '@components/icons/solar.svg?react';
-import Wind from '@components/icons/wind.svg?react';
+import Biogas from '@components/icons/biomass-filled.svg?react';
+import Solar from '@components/icons/solar-filled.svg?react';
+import Wind from '@components/icons/wind-filled.svg?react';
 import { Button } from '@components/themed/button';
 
 import { configStore } from '@utils/config-store';
