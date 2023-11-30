@@ -29,6 +29,7 @@ const getStatus = (error: object) => {
 
 const Error = () => {
 	const error = useRouteError();
+	console.log(error);
 	// this should never happen
 	if (typeof error !== 'object' || !error) {
 		return null;

@@ -228,11 +228,7 @@ const Match = () => {
 					<Avatar circular size="$11">
 						<Avatar.Image
 							accessibilityLabel={producer.data.name}
-							src={handleStoryblokImage(
-								producer.data.picture,
-								100,
-								100,
-							)}
+							src={handleStoryblokImage(producer.data.picture)}
 						/>
 						<Avatar.Fallback backgroundColor="$baseStromeeNavy" />
 					</Avatar>

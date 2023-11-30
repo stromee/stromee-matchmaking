@@ -13,7 +13,7 @@ import { Link } from '@components/themed/link';
 
 import { usePrice } from '@hooks/use-price';
 import { useProducers } from '@hooks/use-producers';
-import { useProducersTagQuery } from '@hooks/use-producers-tag-query';
+import { useProducersInfoQuery } from '@hooks/use-producers-info-query';
 
 import { configStore } from '@utils/config-store';
 import { shuffle } from '@utils/misc';
@@ -34,7 +34,7 @@ const Root = () => {
 
 	// fetch Data top level
 	const { data: producers, isLoading } = useProducers();
-	useProducersTagQuery();
+	useProducersInfoQuery();
 	usePrice();
 
 	const setSelection = useRef(true);

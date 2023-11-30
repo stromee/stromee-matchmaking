@@ -22,6 +22,7 @@ import { handleStoryblokImage } from '@utils/misc';
 import { priceWithDelta } from '@utils/prices';
 import { Producer } from '@utils/types';
 
+import { ProducerShort } from './producer-short';
 import { ProducerTag } from './producer-tag';
 import { BodyText } from './themed/body-text';
 import { Button } from './themed/button';
@@ -102,6 +103,8 @@ const ProducerSwipable = ({
 						{producer.name}
 					</H4>
 
+					<ProducerShort producer={producer} />
+
 					<Paragraph numberOfLines={1} userSelect="none">
 						Halloooo
 					</Paragraph>
@@ -146,11 +149,7 @@ const ProducerSwipable = ({
 							source={{
 								// width: 200,
 								// height: 100,
-								uri: handleStoryblokImage(
-									producer.picture,
-									500,
-									500,
-								),
+								uri: handleStoryblokImage(producer.picture),
 							}}
 						/>
 						<View flex={1} ai="flex-end">

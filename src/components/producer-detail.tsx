@@ -47,7 +47,7 @@ const ProducerDetail = ({
 					source={{
 						// width: 200,
 						// height: 100,
-						uri: handleStoryblokImage(producer.picture, 400, 0),
+						uri: handleStoryblokImage(producer.picture),
 					}}
 				/>
 				{!floatingButton && (

@@ -1,6 +1,6 @@
-import { useProducersTagQuery } from './use-producers-tag-query';
+import { useProducersInfoQuery } from './use-producers-info-query';
 
-export const getProducerTagParams = ({
+export const getProducerInfoParams = ({
 	producerId,
 }: Record<string, unknown>) => {
 	const params = {
@@ -10,19 +10,19 @@ export const getProducerTagParams = ({
 	return params as Record<string, unknown>;
 };
 
-export const useProducerTagQuery = (input: Record<string, unknown>) => {
-	const fixedInput = getProducerTagParams(input);
+export const useProducerInfo = (input: Record<string, unknown>) => {
+	const fixedInput = getProducerInfoParams(input);
 
-	const query = useProducersTagQuery((producersTag) => {
-		const producerTag = producersTag.find(
+	const query = useProducersInfoQuery((producersInfo) => {
+		const producerInfo = producersInfo.find(
 			(p) => p.producerId === fixedInput.producerId,
 		);
-		if (!producerTag) {
+		if (!producerInfo) {
 			const error = new Error('Producer not found');
 			Object.assign(error, { retry: false });
 			throw error;
 		}
-		return producerTag;
+		return producerInfo;
 	});
 
 	return query;

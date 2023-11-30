@@ -1,16 +1,7 @@
 import Award from '@components/icons/award.svg?react';
-import Crown from '@components/icons/crown.svg?react';
 import Fire from '@components/icons/fire.svg?react';
-import HandHeart from '@components/icons/hand-heart.svg?react';
 import Hearts from '@components/icons/hearts.svg?react';
-import Medal from '@components/icons/medal.svg?react';
-import Rainbow from '@components/icons/rainbow.svg?react';
 import Seedling from '@components/icons/seedling.svg?react';
-import Service from '@components/icons/service.svg?react';
-import Smile from '@components/icons/smile.svg?react';
-import Wand from '@components/icons/wand.svg?react';
-
-import { useProducerTagQuery } from '@hooks/use-producer-tag-query';
 
 import { configStore } from '@utils/config-store';
 import { PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
@@ -27,8 +18,6 @@ const ENERGY_TYPE_MATCH = [
 	'Perfektes Energiematch',
 	'Energie stimmt',
 	'Die Spannung ist da',
-	'Gleiches Energielevel',
-	'Einzigartige Energie',
 ];
 
 const DISTANCE_MATCH = [
@@ -37,36 +26,21 @@ const DISTANCE_MATCH = [
 	'Kurze Wege, lange Liebe',
 	'Der kurze Weg zum Glück',
 	'Nähe schafft Verbundenheit',
-	'Geringe Distanz, große Sympathie',
 ];
 const PRICE_MATCH = ['Günstigster Preis', 'Preiskracher'];
 
 const SUPER_MATCH = [
 	'Supermatch!',
-	'Watt ein Match',
-	'Hier passt wirklich alles',
-	'Volltreffer',
-];
-
-const fallback = 'Wahres Energiewunder';
-
-const TAG_ICONS = [
-	<HandHeart />,
-	<Rainbow />,
-	<Service />,
-	<Crown />,
-	<Wand />,
-	<Smile />,
-	<Medal />,
+	'Hier passt wirklich alles!',
+	'Volltreffer!',
 ];
 
 const ProducerTag = ({ producer }: ProducerTagProps) => {
-	const producerTag = useProducerTagQuery({ producerId: producer.id });
 	const energyTypes = configStore.use.energyTypes();
 
 	if (
 		producer.distance &&
-		producer.distance < 80 &&
+		producer.distance < 100 &&
 		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
 	) {
 		return (
@@ -84,7 +58,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 		);
 	}
 
-	if (producer.distance && producer.distance < 50) {
+	if (producer.distance && producer.distance < 100) {
 		return (
 			<Chip icon={<Seedling />}>
 				{DISTANCE_MATCH[producer.id % DISTANCE_MATCH.length]}
@@ -102,15 +76,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 		);
 	}
 
-	if (producerTag.data) {
-		return (
-			<Chip icon={TAG_ICONS[producer.id % TAG_ICONS.length]}>
-				{producerTag.data.tag}
-			</Chip>
-		);
-	}
-
-	return <Chip icon={<Rainbow />}>{fallback}</Chip>;
+	return null;
 };
 
 export { ProducerTag };

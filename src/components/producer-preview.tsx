@@ -67,11 +67,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 								source={{
 									// width: 200,
 									// height: 100,
-									uri: handleStoryblokImage(
-										producer.picture,
-										200,
-										0,
-									),
+									uri: handleStoryblokImage(producer.picture),
 								}}
 							/>
 						</View>

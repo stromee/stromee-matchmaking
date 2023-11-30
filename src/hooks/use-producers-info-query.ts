@@ -8,23 +8,23 @@ const query = supabase.from('producers').select(`
 id,
 producerName:name,
 producerId:internal_id,
-tag
+short
 `);
 
-type ProducerTag = Success<typeof query>[0];
+type ProducerInfo = Success<typeof query>[0];
 
-export const fetchProducersTag = async () => {
+export const fetchProducersInfo = async () => {
 	const { data, error } = await query;
 	console.log('data', data);
 	if (error) throw error;
 	return data;
 };
 
-export const useProducersTagQuery = <TData = ProducerTag[]>(
-	select?: (data: ProducerTag[]) => TData,
+export const useProducersInfoQuery = <TData = ProducerInfo[]>(
+	select?: (data: ProducerInfo[]) => TData,
 ) => {
 	const query = useQuery({
-		queryFn: () => fetchProducersTag(),
+		queryFn: () => fetchProducersInfo(),
 		queryKey: TAG_KEYS.all(),
 		select,
 		staleTime: 1000 * 60 * 60,

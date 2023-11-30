@@ -40,14 +40,10 @@ const fixStoyblokUrl = (url: string) =>
 		.replace(/(\/\/)(.*)(\.storyblok.com)/, '//a.storyblok.com')
 		.replace(/\/m\//, '');
 
-export const handleStoryblokImage = (
-	url: string,
-	width: number,
-	height: number,
-) => {
+export const handleStoryblokImage = (url: string) => {
 	if (!url.includes('a.storyblok.com')) return url;
 
 	const fixedUrl = fixStoyblokUrl(url);
-	const modifiedUrl = `${fixedUrl}/m/${width * 2}x${height * 2}`;
+	const modifiedUrl = `${fixedUrl}/m/${800}x${800}`;
 	return modifiedUrl;
 };

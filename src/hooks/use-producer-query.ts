@@ -1,4 +1,4 @@
-import { useProducersQuery } from './use-producers-query';
+import { useProducersQuery } from './use-producers-info';
 
 export const getProducerParams = ({
 	producerId,
