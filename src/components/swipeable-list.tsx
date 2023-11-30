@@ -270,8 +270,17 @@ const SwipableList = ({ count = 4 }) => {
 							)}
 							{swipedRight.length === 0 && (
 								<Button
+									theme="stromeeNavy"
+									hoverStyle={{
+										borderColor: '$baseGrey400',
+									}}
+									focusStyle={{
+										outlineStyle: 'solid',
+										outlineWidth: 2,
+										outlineColor: '$baseGrey400',
+									}}
 									onPress={() => {
-										resetSwipedLeft();
+										resadfsdfetSwipedLeft();
 									}}
 								>
 									Zeig mir was ich verpasst habe
