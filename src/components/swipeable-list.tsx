@@ -409,6 +409,7 @@ const SwipableList = ({ count = 4 }) => {
 								width: 64,
 								alignItems: 'center',
 								justifyContent: 'center',
+								color: color.baseCloudWhite,
 								backgroundColor: color.baseLollipopRed,
 								borderWidth: 2,
 								borderColor: color.baseCloudWhite,
