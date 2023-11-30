@@ -114,10 +114,19 @@ const Address = ({
 		if (cities && cities.length === 1) {
 			setCityName(cities[0].name);
 			setCityId(cities[0].id);
+		} else if (cities) {
+			if (!cities.some((city) => city.id === cityId)) {
+				setCityId(-1);
+			}
+			if (!cities.some((city) => city.name === cityName)) {
+				setCityName('');
+			}
 		} else {
 			setCityName('');
 			setCityId(-1);
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cities]);
 
 	return (
