@@ -4,11 +4,11 @@ import { Image, Paragraph, ScrollView, Spinner, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
 import { fonts } from '@theme/fonts';
-import { color, radius } from '@theme/tokens';
 
 import { HeaderOnboarding } from '@components/header-onboarding';
 import Divider from '@components/icons/divider.svg?react';
 import Location from '@components/icons/location.svg?react';
+import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Input } from '@components/themed/input';
 
@@ -128,6 +128,8 @@ const Address = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cities]);
 
+	const showSpinner = isLoading || isValidating;
+
 	return (
 		<ScrollView
 			flex={1}
@@ -155,9 +157,13 @@ const Address = ({
 						flexDirection="column"
 						justifyContent="space-between"
 						gap="$4"
-						px="$3"
+						px="$4"
 					>
-						<View flexDirection="row" alignItems="center">
+						<View
+							flexDirection="row"
+							alignItems="center"
+							pos="relative"
+						>
 							<View
 								pointerEvents="none"
 								position="absolute"
@@ -171,65 +177,118 @@ const Address = ({
 
 							<Input
 								pl="$12"
+								pr={showSpinner ? '$9' : '$2'}
 								width="$full"
 								height="$full"
 								value={postalCode}
 								placeholder="Postleitzahl"
 								onChangeText={setPostalCode}
 							/>
+
+							{showSpinner && (
+								<View
+									pointerEvents="none"
+									position="absolute"
+									gap="$2"
+									right="$0"
+									pr="$2"
+								>
+									<Spinner color="$baseStromeeNavy" />
+								</View>
+							)}
 						</View>
 
 						{/* @TODO fix Dropdowntrigger (padding is not right) */}
 						<View
-							asChild
-							theme="secondary"
-							py="$2"
-							px="$2"
-							minHeight="$11"
-							borderRadius="$full"
-							borderColor="$baseCloudWhite"
-							shadowColor="$baseStromeeNavyOpacity20"
+							flexDirection="row"
+							alignItems="center"
+							pos="relative"
 						>
-							<select
-								value={cityId}
-								disabled={
-									cities === undefined ||
-									cities.length === 0 ||
-									cities.length === 1
-								}
-								onChange={(e) => {
-									if (cities) {
-										const id = parseInt(e.target.value);
-										setCityId(id);
-										const name = cities.find(
-											(city) => city.id === id,
-										)?.name;
-										setCityName(name || '');
-									}
+							<BodyText
+								asChild
+								width="$full"
+								theme="secondary"
+								py="$2"
+								px="$2"
+								pr={showSpinner ? '$9' : '$2'}
+								minHeight="$11"
+								borderRadius="$full"
+								borderWidth="1px"
+								borderStyle="solid"
+								borderColor="$baseCloudWhite"
+								backgroundColor="$baseCloudWhite"
+								shadowColor="$baseStromeeNavyOpacity20"
+								shadowRadius={8}
+								shadowOffset={{
+									width: 0,
+									height: 0,
 								}}
-								style={{
-									fontFamily: fonts.input.family as string,
-									fontSize: fonts.input.size['3'] as number,
-									fontWeight: fonts.input.weight?.['3'] as
-										| number
-										| undefined,
-									color: color.baseStromeeNavy,
-									backgroundColor: color.baseCloudWhite,
-									borderRadius: radius.full,
-									border: `1px  ${color.baseStromeeNavyOpacity20}`,
-									boxShadow: `0px 0px 8px ${color.baseStromeeNavyOpacity20}`,
+								hoverStyle={{
+									borderColor: '$baseGrey400',
 								}}
+								focusStyle={{
+									borderColor: '$baseGrey400',
+									outlineColor: '$baseGrey400',
+									outlineStyle: 'solid',
+									outlineWidth: 2,
+								}}
+								fontFamily="$input"
+								lineHeight="$1"
+								display="flex"
 							>
-								<option disabled value={-1}>
-									Stadt
-								</option>
-								{cities &&
-									cities.map((city) => (
-										<option key={city.id} value={city.id}>
-											{city.name}
-										</option>
-									))}
-							</select>
+								<select
+									value={cityId}
+									disabled={
+										cities === undefined ||
+										cities.length === 0 ||
+										cities.length === 1
+									}
+									onChange={(e) => {
+										if (cities) {
+											const id = parseInt(e.target.value);
+											setCityId(id);
+											const name = cities.find(
+												(city) => city.id === id,
+											)?.name;
+											setCityName(name || '');
+										}
+									}}
+									style={{
+										fontFamily: fonts.input
+											.family as string,
+										fontSize: fonts.input.size[
+											'3'
+										] as number,
+										fontWeight: fonts.input.weight?.[
+											'3'
+										] as number | undefined,
+									}}
+								>
+									<option disabled value={-1}>
+										Stadt
+									</option>
+									{cities &&
+										cities.map((city) => (
+											<option
+												key={city.id}
+												value={city.id}
+											>
+												{city.name}
+											</option>
+										))}
+								</select>
+							</BodyText>
+							{showSpinner && (
+								<View
+									pointerEvents="none"
+									position="absolute"
+									gap="$2"
+									right="$0"
+									pr="$2"
+								>
+									<Spinner color="$baseStromeeNavy" />
+								</View>
+							)}
 						</View>
 					</View>
 				</YStack>
@@ -244,9 +303,7 @@ const Address = ({
 						uri: '/images/address_image.png',
 					}}
 				/>
-				{(isLoading || isValidating) && (
-					<Spinner size="large" color="$baseStromeeNavy" />
-				)}
+
 				<Button disabled={isLoading || isValidating} onPress={onNext}>
 					Weiter
 				</Button>
