@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Image, Paragraph, Spinner, View, YStack } from 'tamagui';
+import { Image, Paragraph, ScrollView, Spinner, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
 import { fonts } from '@theme/fonts';
@@ -130,119 +130,126 @@ const Address = ({
 	}, [cities]);
 
 	return (
-		<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-			<View flexDirection="column" gap="$8">
-				<HeaderOnboarding onPrev={handlePrev}>
-					Erzähl etwas über dich!
-				</HeaderOnboarding>
+		<ScrollView
+			flex={1}
+			minHeight="$full"
+			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
+		>
+			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
+				<YStack gap="$8">
+					<HeaderOnboarding onPrev={handlePrev}>
+						Erzähl etwas über dich!
+					</HeaderOnboarding>
 
-				<BodyText px="$3" textAlign="left">
-					Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag uns
-					doch, in welcher Stadt du wohnst, damit wir den passenden
-					Partner in deiner Nähe für dich finden!
-				</BodyText>
+					<BodyText px="$3" textAlign="left">
+						Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag
+						uns doch, in welcher Stadt du wohnst, damit wir den
+						passenden Partner in deiner Nähe für dich finden!
+					</BodyText>
 
-				{error !== '' && (
-					<Paragraph color="$baseLollipopRed">{error}</Paragraph>
-				)}
-				<View
-					flexDirection="column"
-					justifyContent="space-between"
-					gap="$4"
-					px="$3"
-				>
-					<View flexDirection="row" alignItems="center">
-						<View
-							position="absolute"
-							alignItems="center"
-							gap="$2"
-							pl="$2"
-						>
-							<Location />
-							<Divider />
+					{error !== '' && (
+						<Paragraph color="$baseLollipopRed">{error}</Paragraph>
+					)}
+					<View
+						flexDirection="column"
+						justifyContent="space-between"
+						gap="$4"
+						px="$3"
+					>
+						<View flexDirection="row" alignItems="center">
+							<View
+								pointerEvents="none"
+								position="absolute"
+								alignItems="center"
+								gap="$2"
+								pl="$2"
+							>
+								<Location />
+								<Divider />
+							</View>
+
+							<Input
+								pl="$12"
+								width="$full"
+								height="$full"
+								value={postalCode}
+								placeholder="Postleitzahl"
+								onChangeText={setPostalCode}
+							/>
 						</View>
 
-						<Input
-							pl="$12"
-							width="$full"
-							height="$full"
-							value={postalCode}
-							placeholder="Postleitzahl"
-							onChangeText={setPostalCode}
-						/>
-					</View>
-
-					{/* @TODO fix Dropdowntrigger (padding is not right) */}
-					<View
-						asChild
-						theme="secondary"
-						py="$2"
-						px="$2"
-						minHeight="$11"
-						borderRadius="$full"
-						borderColor="$baseCloudWhite"
-						shadowColor="$baseStromeeNavyOpacity20"
-					>
-						<select
-							value={cityId}
-							disabled={
-								cities === undefined ||
-								cities.length === 0 ||
-								cities.length === 1
-							}
-							onChange={(e) => {
-								console.log(e.target.value);
-								if (cities) {
-									const id = parseInt(e.target.value);
-									setCityId(id);
-									const name = cities.find(
-										(city) => city.id === id,
-									)?.name;
-									setCityName(name || '');
-								}
-							}}
-							style={{
-								fontFamily: fonts.input.family as string,
-								fontSize: fonts.input.size['3'] as number,
-								fontWeight: fonts.input.weight?.['3'] as
-									| number
-									| undefined,
-								color: color.baseStromeeNavy,
-								backgroundColor: color.baseCloudWhite,
-								borderRadius: radius.full,
-								border: `1px  ${color.baseStromeeNavyOpacity20}`,
-								boxShadow: `0px 0px 8px ${color.baseStromeeNavyOpacity20}`,
-							}}
+						{/* @TODO fix Dropdowntrigger (padding is not right) */}
+						<View
+							asChild
+							theme="secondary"
+							py="$2"
+							px="$2"
+							minHeight="$11"
+							borderRadius="$full"
+							borderColor="$baseCloudWhite"
+							shadowColor="$baseStromeeNavyOpacity20"
 						>
-							<option disabled value={-1}>
-								Stadt
-							</option>
-							{cities &&
-								cities.map((city) => (
-									<option key={city.id} value={city.id}>
-										{city.name}
-									</option>
-								))}
-						</select>
+							<select
+								value={cityId}
+								disabled={
+									cities === undefined ||
+									cities.length === 0 ||
+									cities.length === 1
+								}
+								onChange={(e) => {
+									console.log('change', e.target.value);
+									if (cities) {
+										const id = parseInt(e.target.value);
+										setCityId(id);
+										const name = cities.find(
+											(city) => city.id === id,
+										)?.name;
+										setCityName(name || '');
+									}
+								}}
+								style={{
+									fontFamily: fonts.input.family as string,
+									fontSize: fonts.input.size['3'] as number,
+									fontWeight: fonts.input.weight?.['3'] as
+										| number
+										| undefined,
+									color: color.baseStromeeNavy,
+									backgroundColor: color.baseCloudWhite,
+									borderRadius: radius.full,
+									border: `1px  ${color.baseStromeeNavyOpacity20}`,
+									boxShadow: `0px 0px 8px ${color.baseStromeeNavyOpacity20}`,
+								}}
+							>
+								<option disabled value={-1}>
+									Stadt
+								</option>
+								{cities &&
+									cities.map((city) => (
+										<option key={city.id} value={city.id}>
+											{city.name}
+										</option>
+									))}
+							</select>
+						</View>
 					</View>
-				</View>
-			</View>
-			<Image
-				width={295}
-				height={144}
-				resizeMode="contain"
-				alignSelf="center"
-				source={{
-					uri: '/images/address_image.png',
-				}}
-			/>
-			{(isLoading || isValidating) && (
-				<Spinner size="large" color="$baseStromeeNavy" />
-			)}
-			<Button disabled={isLoading || isValidating} onPress={onNext}>
-				Weiter
-			</Button>
-		</YStack>
+				</YStack>
+				<Image
+					width={295}
+					height={144}
+					resizeMode="contain"
+					alignSelf="center"
+					source={{
+						uri: '/images/address_image.png',
+					}}
+				/>
+				{(isLoading || isValidating) && (
+					<Spinner size="large" color="$baseStromeeNavy" />
+				)}
+				<Button disabled={isLoading || isValidating} onPress={onNext}>
+					Weiter
+				</Button>
+			</YStack>
+		</ScrollView>
 	);
 };
 
