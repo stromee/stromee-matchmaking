@@ -280,7 +280,7 @@ const SwipableList = ({ count = 4 }) => {
 										outlineColor: '$baseGrey400',
 									}}
 									onPress={() => {
-										resadfsdfetSwipedLeft();
+										resetSwipedLeft();
 									}}
 								>
 									Zeig mir was ich verpasst habe

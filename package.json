@@ -12,8 +12,7 @@
 		"upgrade:tamagui": "npm run up '*tamagui*'@latest '@tamagui/*'@latest",
 		"test:eslint": "eslint --ext .ts,.tsx ./src",
 		"test:types": "tsc --noEmit",
-		"prettier": "prettier . --write",
-		"precommit": "npm run prettier && npm run test:eslint && npm run test:types"
+		"prettier": "prettier . --write"
 	},
 	"dependencies": {
 		"@dotlottie/react-player": "^1.6.5",

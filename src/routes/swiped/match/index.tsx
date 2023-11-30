@@ -183,11 +183,16 @@ const Match = () => {
 								justifyContent="space-between"
 								flexWrap="wrap"
 							>
-								<BodyText fontWeight="bold">Du sparst</BodyText>
+								<BodyText fontWeight="bold">
+									Preisgarantie
+								</BodyText>
 								<BodyText>
 									{formatUnit(
-										Math.round(consumption),
-										'€/Jahr',
+										mergedPrice.priceData.fixedPriceMonths,
+										mergedPrice.priceData
+											.fixedPriceMonths === 1
+											? 'Monat'
+											: 'Monate',
 									)}
 								</BodyText>
 							</Paragraph>
