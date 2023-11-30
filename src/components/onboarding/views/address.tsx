@@ -9,7 +9,6 @@ import { color, radius } from '@theme/tokens';
 import { HeaderOnboarding } from '@components/header-onboarding';
 import Divider from '@components/icons/divider.svg?react';
 import Location from '@components/icons/location.svg?react';
-import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Input } from '@components/themed/input';
 
