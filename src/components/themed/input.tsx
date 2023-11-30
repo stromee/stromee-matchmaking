@@ -1,6 +1,7 @@
 import { Input as TamaguiInput, styled } from 'tamagui';
 
 const Input = styled(TamaguiInput, {
+	
 	theme: 'secondary',
 	fontFamily: '$input',
 	py: '$2',
