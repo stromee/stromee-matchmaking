@@ -1,4 +1,4 @@
-import { H2, YStack } from 'tamagui';
+import { H1, H2, Image, View, YStack } from 'tamagui';
 
 import { Button } from '@components/themed/button';
 
@@ -9,11 +9,25 @@ type WelcomeProps = OnboardingCarouselProps;
 const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 	return (
 		<YStack flex={1} px="$4" py="$8" gap="$4" jc="space-between">
-			<H2>
-				Flirte mit stromee Powermatch und finde dein Energiematch, das
-				dein Herz höher schlagen lässt
-			</H2>
-			<Button onPress={handleNext}>Weiter</Button>
+			<H1 alignSelf="center">Stromee</H1>
+			<Image
+				width={300}
+				height={300}
+				resizeMode="contain"
+				alignSelf="center"
+				source={{
+					// width: 200,
+					// height: 100,
+					uri: '/images/infogr_1_producer.png',
+				}}
+			/>
+			<View px="$8">
+				<H2 textAlign="center">
+					Ab ins Energieabendteuer - <br />
+					Swipe dir deinen passenden Produzenten!
+				</H2>
+			</View>
+			<Button onPress={handleNext}>Los gehts!</Button>
 		</YStack>
 	);
 };
