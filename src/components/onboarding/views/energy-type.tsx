@@ -5,6 +5,7 @@ import {
 	H1,
 	Label,
 	Paragraph,
+	RadioGroup,
 	Spinner,
 	Text,
 	View,
@@ -12,17 +13,44 @@ import {
 } from 'tamagui';
 import * as z from 'zod';
 
+import { HeaderOnboarding } from '@components/header-onboarding';
+import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 
 import { configStore } from '@utils/config-store';
-import { PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
+import { ENERGY_TYPE, PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
 import { energyTypesSyncSchema } from '@utils/schema';
 
 import { OnboardingCarouselProps } from '../constants';
 
+import Solar from '@components/icons/solar.svg?react';
+import Wind from '@components/icons/wind.svg?react';
+import Biogas from '@components/icons/biogas.svg?react';
 type EnergyTypeProps = OnboardingCarouselProps;
 
 const plantTypes = Object.values(PLANT_TYPE_WITHOUT_DEFAULT.Values);
+
+const plantTypesProps = [
+	{
+		description:
+			'Ich bin eher der stürmische Typ - zu mir passt Windkraft!',
+		icon: <Wind/>,
+	},
+	{
+		description: 'Ich mag es heiß - Sonnenenergie ist mein Ding!',
+		icon: <Solar/>,
+	},
+	{
+		description:
+			'Für mich muss es knistern und brodeln - daher libe ich Biogas!',
+		icon: <Biogas/>,
+	},
+];
+
+const combinedPlantTypes = plantTypes.map((type, index) => ({
+	type,
+	...plantTypesProps[index],
+}));
 
 const EnergyType = ({
 	onNext: handleNext,
@@ -62,52 +90,82 @@ const EnergyType = ({
 	}, [energyTypes]);
 
 	return (
-		<YStack gap="$4">
-			<H1>ENERGY TYPE</H1>
+		<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
+			<View flexDirection='column' gap="$8">
+			<HeaderOnboarding onPrev={handlePrev}>
+				Was sind deine Vorlieben?
+			</HeaderOnboarding>
+
+			<BodyText px="$3" textAlign="left">
+				Natürlich ist jede Energieart schön! Dennoch hat jeder
+				persönliche Präferenzen. Welche Energieart ist dir die Libste?
+			</BodyText>
+			</View>
+
+			
 			{error !== '' && (
 				<Paragraph color="$baseLollipopRed">{error}</Paragraph>
 			)}
-			{plantTypes.map((plantType) => {
-				return (
-					<View key={plantType}>
-						<Checkbox
-							id={`onbarding-carousel-${plantType}-checkbox`}
-							checked={energyTypes.includes(plantType)}
-							onCheckedChange={(checked) => {
-								console.log(checked, plantType);
-								if (checked) {
-									console.log(energyTypes);
-									if (!energyTypes.includes(plantType)) {
-										setEnergyTypes([
-											...energyTypes,
-											plantType,
-										]);
-									}
-								} else {
-									setEnergyTypes(
-										energyTypes.filter(
-											(et) => et !== plantType,
-										),
-									);
-								}
+			<RadioGroup
+				gap="$4"
+				alignSelf="center"
+				value={energyTypes[0]}
+				onValueChange={(newEnergyType) => {
+					setEnergyTypes([
+						newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
+					]);
+				}}
+			>
+				{combinedPlantTypes.map((plantTypeItem) => {
+					const { type, description, icon } = plantTypeItem;
+
+					return (
+						<RadioGroup.Item
+							key={type}
+							value={type}
+							size={undefined}
+							width={272}
+							height={124}
+							p="$8"
+							borderRadius="$4"
+							borderColor={
+								energyTypes.includes(type)
+									? '$baseStromeeGreen'
+									: '$baseStromeeNavyOpacity20'
+							}
+							hoverStyle={{
+								borderColor: energyTypes.includes(type)
+									? '$baseStromeeGreen'
+									: '$baseStromeeNavy',
+							}}
+							focusStyle={{
+								borderColor: energyTypes.includes(type)
+									? '$baseStromeeGreen'
+									: '$baseStromeeNavy',
+								outlineColor: energyTypes.includes(type)
+									? '$baseStromeeGreen'
+									: '$baseStromeeNavy',
 							}}
 						>
-							<Checkbox.Indicator>
-								<Text>✅</Text>
-							</Checkbox.Indicator>
-						</Checkbox>
-						<Label
-							htmlFor={`onbarding-carousel-${plantType}-checkbox`}
-						>
-							{plantType}
-						</Label>
-					</View>
-				);
-			})}
+							<View
+								flexDirection="column"
+								alignItems="center"
+								justifyContent="center"
+								p="$4"
+								width="$full"
+								
+							>
+								{icon}
+								<BodyText>{description}</BodyText>
+							</View>
+						</RadioGroup.Item>
+					);
+				})}
+			</RadioGroup>
+		
 
 			{isValidating && <Spinner size="large" />}
 			<Button onPress={onNext}>Weiter</Button>
-			<Button onPress={handlePrev}>Zurück</Button>
 		</YStack>
 	);
 };

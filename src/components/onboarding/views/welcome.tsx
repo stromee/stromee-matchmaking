@@ -16,8 +16,6 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 				resizeMode="contain"
 				alignSelf="center"
 				source={{
-					// width: 200,
-					// height: 100,
 					uri: '/images/infogr_1_producer.png',
 				}}
 			/>

@@ -149,9 +149,18 @@ const Consumption = ({
 								: '$baseStromeeNavyOpacity20'
 						}
 						hoverStyle={{
-							borderColor: '$baseStromeeGreen',
+							borderColor:consumption === value
+							? '$baseStromeeGreen'
+							: '$baseStromeeNavy'
 						}}
-					
+						focusStyle={{
+							borderColor:consumption === value
+							? '$baseStromeeGreen'
+							: '$baseStromeeNavy',
+							outlineColor: consumption === value
+							? '$baseStromeeGreen'
+							: '$baseStromeeNavy'
+						}}
 						onPress={() => {
 							setConsumption(value);
 						}}
