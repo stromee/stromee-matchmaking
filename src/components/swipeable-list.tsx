@@ -290,7 +290,7 @@ const SwipableList = ({ count = 4 }) => {
 								swipedRight.length !== 0 && (
 									<Button
 										theme="base"
-										borderColor="$baseStromeeNavy"
+										borderColor="$borderColor"
 										onPress={() => {
 											resetSwipedLeft();
 										}}

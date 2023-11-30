@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { H1, H2, Theme, View } from 'tamagui';
+import { H1, H2, Image, ScrollView, Theme, View } from 'tamagui';
 import { YStack } from 'tamagui';
 
 import Logo from '@components/icons/logo.svg?react';
@@ -47,8 +47,16 @@ const Home = () => {
 				<PresenceStack
 					condition={!!currentSwipe && showMatchAfterSwipe}
 				>
-					<View px="$4" py="$8">
+					<YStack
+						height="$full"
+						gap="$4"
+						px="$4"
+						py="$8"
+						jc="flex-end"
+					>
 						<H2
+							fontWeight="500"
+							textAlign="center"
 							// @ts-expect-error - this value works but throws a typescript error
 							fontSize="$display"
 							// @ts-expect-error - this value works but throws a typescript error
@@ -58,60 +66,54 @@ const Home = () => {
 						>
 							Du hast ein Match!
 						</H2>
-					</View>
-					<DotLottiePlayer
-						autoplay
-						loop
-						src={`${
-							import.meta.env.BASE_URL
-						}animations/watermelon.lottie`}
-						style={{
-							aspectRatio: '3/1',
-							width: '100%',
-							maxHeight: '100px',
-						}}
-					/>
 
-					<YStack px="$4" py="$8" gap="$2">
-						<Link
-							to={`/matches/${currentSwipe}`}
-							theme="stromeeGreen"
-							height="$11"
-							bg="$background"
-							display="flex"
-							borderRadius="$full"
-							borderWidth="1px"
-							borderColor="$transparent"
-							px="$4"
-							py="$2"
-							ai="center"
-							jc="center"
-							hoverStyle={{
-								borderColor: '$baseStromeeNavy',
+						<Image
+							mx="$-4"
+							width="$full"
+							height="auto"
+							resizeMode="contain"
+							alignSelf="center"
+							aspectRatio="390/360"
+							source={{
+								uri: '/images/match.svg',
 							}}
-							focusStyle={{
-								outlineStyle: 'solid',
-								outlineWidth: 2,
-								outlineColor: '$baseStromeeNavy',
-							}}
-						>
-							Jetzt kennenlernen
-						</Link>
-						<Button
-							onPress={() => {
-								setCurrentSwipe(undefined);
-							}}
-						>
-							Weiter swipen
-						</Button>
-						<Button
-							onPress={() => {
-								setShowMatchAfterSwipe(false);
-								setCurrentSwipe(undefined);
-							}}
-						>
-							Nicht mehr anzeigen
-						</Button>
+						/>
+
+						<YStack width="$full" px="$4" py="$8" gap="$2">
+							<Link
+								to={`/matches/${currentSwipe}`}
+								theme="stromeeGreen"
+								height="$11"
+								bg="$background"
+								display="flex"
+								borderRadius="$full"
+								borderWidth="1px"
+								borderColor="$transparent"
+								px="$4"
+								py="$2"
+								ai="center"
+								jc="center"
+								hoverStyle={{
+									borderColor: '$baseStromeeNavy',
+								}}
+								focusStyle={{
+									outlineStyle: 'solid',
+									outlineWidth: 2,
+									outlineColor: '$baseStromeeNavy',
+								}}
+							>
+								Jetzt kennenlernen
+							</Link>
+							<Button
+								borderColor="$borderColor"
+								theme="popPetrol"
+								onPress={() => {
+									setCurrentSwipe(undefined);
+								}}
+							>
+								Weiter swipen
+							</Button>
+						</YStack>
 					</YStack>
 				</PresenceStack>
 			</Theme>

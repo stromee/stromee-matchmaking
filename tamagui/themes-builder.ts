@@ -24,8 +24,9 @@ const themesBuilder = createThemeBuilder()
 			color.transparent, // 0 - transparent
 			color.basePopPetrol, // 1 - background
 			color.baseCloudWhite, // 2 - color
-			color.baseCloudWhiteOpacity20, // 3 - border / shadow
-			color.baseCloudWhiteOpacity80, // 4 - placeholder
+			color.baseCloudWhite, // 3 - border
+			color.baseCloudWhiteOpacity20, // 4 - shadow
+			color.baseCloudWhiteOpacity80, // 5 - placeholder
 		],
 		stromeeGreen: [
 			color.transparent, // 0 - transparent
