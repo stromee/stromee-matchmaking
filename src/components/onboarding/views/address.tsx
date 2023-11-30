@@ -197,7 +197,6 @@ const Address = ({
 									cities.length === 1
 								}
 								onChange={(e) => {
-									console.log('change', e.target.value);
 									if (cities) {
 										const id = parseInt(e.target.value);
 										setCityId(id);
@@ -233,9 +232,11 @@ const Address = ({
 						</View>
 					</View>
 				</YStack>
+
 				<Image
-					width={295}
-					height={144}
+					maxWidth="295px"
+					width="$full"
+					aspectRatio="295/144"
 					resizeMode="contain"
 					alignSelf="center"
 					source={{
