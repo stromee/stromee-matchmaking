@@ -14,15 +14,21 @@ interface Config {
 	postalCode: string;
 	cityName: string;
 	cityId: number;
-	setAddress: (input: {
-		postalCode: string;
-		cityId: number;
-		cityName: string;
-	}) => void;
+	setAddress: (
+		input: {
+			postalCode: string;
+			cityId: number;
+			cityName: string;
+		},
+		skipValidate?: boolean,
+	) => void;
 	consumption: number;
-	setConsumption: (consumption: number) => void;
+	setConsumption: (consumption: number, skipValidate?: boolean) => void;
 	energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[];
-	setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => void;
+	setEnergyTypes: (
+		energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[],
+		skipValidate?: boolean,
+	) => void;
 	showMatchAfterSwipe: boolean;
 	setShowMatchAfterSwipe: (showMatch: boolean) => void;
 	reset: () => void;
@@ -95,7 +101,10 @@ export const createConfigStore = (name: string) => {
 						});
 					}
 				},
-				setAddress: ({ postalCode, cityId, cityName }) => {
+				setAddress: (
+					{ postalCode, cityId, cityName },
+					skipValidate = false,
+				) => {
 					set((state) => {
 						return {
 							...state,
@@ -104,25 +113,34 @@ export const createConfigStore = (name: string) => {
 							cityName,
 						};
 					});
-					get().fullValidation();
+					if (!skipValidate) {
+						get().fullValidation();
+					}
 				},
-				setConsumption: (consumption: number) => {
+				setConsumption: (consumption: number, skipValidate = false) => {
 					set((state) => {
 						return {
 							...state,
 							consumption,
 						};
 					});
-					get().fullValidation();
+					if (!skipValidate) {
+						get().fullValidation();
+					}
 				},
-				setEnergyTypes: (energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[]) => {
+				setEnergyTypes: (
+					energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[],
+					skipValidate = false,
+				) => {
 					set((state) => {
 						return {
 							...state,
 							energyTypes,
 						};
 					});
-					get().fullValidation();
+					if (!skipValidate) {
+						get().fullValidation();
+					}
 				},
 				setShowMatchAfterSwipe: (showMatchAfterSwipe: boolean) => {
 					set((state) => {
