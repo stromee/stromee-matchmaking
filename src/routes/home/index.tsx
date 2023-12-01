@@ -11,6 +11,7 @@ import { Button } from '@components/themed/button';
 import { Link } from '@components/themed/link';
 
 import { configStore } from '@utils/config-store';
+import { createRelativeUrl } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 
 const Home = () => {
@@ -74,7 +75,7 @@ const Home = () => {
 								alignSelf="center"
 								aspectRatio="390/360"
 								source={{
-									uri: '/images/match.svg',
+									uri: createRelativeUrl('/images/match.svg'),
 								}}
 							/>
 

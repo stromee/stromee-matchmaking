@@ -5,6 +5,7 @@ import { Header } from '@components/header';
 import { ProducerPreview } from '@components/producer-preview';
 import { Link } from '@components/themed/link';
 
+import { createRelativeUrl } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
 
@@ -65,7 +66,9 @@ const Matches = () => {
 							height="auto"
 							aspectRatio="368/92"
 							source={{
-								uri: '/images/lonely_plant_02.svg',
+								uri: createRelativeUrl(
+									'/images/lonely_plant_02.svg',
+								),
 								width: 368,
 								height: 92,
 							}}

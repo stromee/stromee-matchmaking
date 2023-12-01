@@ -15,6 +15,7 @@ import { Input } from '@components/themed/input';
 import { useCitiesQuery } from '@hooks/use-cities-query';
 
 import { configStore } from '@utils/config-store';
+import { createRelativeUrl } from '@utils/misc';
 import {
 	cityIdSyncSchema,
 	cityNameSyncSchema,
@@ -300,7 +301,7 @@ const Address = ({
 					resizeMode="contain"
 					alignSelf="center"
 					source={{
-						uri: '/images/address_image.png',
+						uri: createRelativeUrl('/images/address_image.png'),
 					}}
 				/>
 

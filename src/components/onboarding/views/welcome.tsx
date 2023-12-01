@@ -2,6 +2,8 @@ import { H1, H2, Image, ScrollView, View, YStack } from 'tamagui';
 
 import { Button } from '@components/themed/button';
 
+import { createRelativeUrl } from '@utils/misc';
+
 import { OnboardingCarouselProps } from '../constants';
 
 type WelcomeProps = OnboardingCarouselProps;
@@ -22,7 +24,7 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 					resizeMode="contain"
 					alignSelf="center"
 					source={{
-						uri: '/images/infogr_1_producer.png',
+						uri: createRelativeUrl('/images/infogr_1_producer.png'),
 					}}
 				/>
 				<View px="$8">

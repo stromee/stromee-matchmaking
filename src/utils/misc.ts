@@ -1,4 +1,4 @@
-import { PLANT_TYPE_WITHOUT_DEFAULT } from './constants';
+import { BASE_URL, PLANT_TYPE_WITHOUT_DEFAULT } from './constants';
 import { Producer } from './types';
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -81,4 +81,10 @@ export const producerHasTag = (
 	}
 
 	return undefined;
+};
+
+export const createRelativeUrl = (url: string) => {
+	console.log('createRelativeUrl', BASE_URL, url);
+	const fixedUrl = url.startsWith('/') ? url.slice(1) : url;
+	return `${BASE_URL}${fixedUrl}`;
 };

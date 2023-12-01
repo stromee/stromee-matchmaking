@@ -17,6 +17,7 @@ import Close from '@components/icons/close.svg?react';
 import HeartFilled from '@components/icons/heart-filled.svg?react';
 import Menu from '@components/icons/menu.svg?react';
 
+import { createRelativeUrl } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 import { Producer } from '@utils/types';
 
@@ -236,7 +237,9 @@ const SwipableList = ({ count = 4 }) => {
 								height="auto"
 								aspectRatio="368/92"
 								source={{
-									uri: '/images/lonely_plant_01.svg',
+									uri: createRelativeUrl(
+										'/images/lonely_plant_01.svg',
+									),
 									width: 368,
 									height: 92,
 								}}
