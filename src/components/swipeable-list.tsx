@@ -346,8 +346,8 @@ const SwipableList = ({ count = 4 }) => {
 								});
 							}}
 							onPan={handlePan}
-							bottomOffset={76}
-							topOffset={60}
+							bottomOffset={96}
+							topOffset={83}
 						>
 							<ProducerSwipable
 								indexAfterActive={indexAfterActive({

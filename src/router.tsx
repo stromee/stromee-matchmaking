@@ -4,6 +4,8 @@ import { Error } from '@layouts/error';
 import { Root } from '@layouts/root';
 import { Swiped } from '@layouts/swiped';
 
+import { BASE_URL } from '@utils/constants';
+
 const router = createBrowserRouter(
 	[
 		{
@@ -25,12 +27,14 @@ const router = createBrowserRouter(
 						},
 					],
 				},
-
 				{
 					path: 'matches',
 					lazy: () => import('@routes/matches'),
 				},
-
+				{
+					path: 'profile',
+					lazy: () => import('@routes/profile'),
+				},
 				...(__DEV__
 					? [
 							{
@@ -48,7 +52,7 @@ const router = createBrowserRouter(
 		},
 	],
 	{
-		basename: import.meta.env.BASE_URL,
+		basename: BASE_URL,
 	},
 );
 

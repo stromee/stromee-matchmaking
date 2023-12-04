@@ -37,7 +37,7 @@ const Home = () => {
 
 	return (
 		<>
-			<H1>
+			<H1 padding="$4" fontSize="$1">
 				<AccessibleIcon label="stromee powermatch">
 					<Logo />
 				</AccessibleIcon>

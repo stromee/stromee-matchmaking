@@ -1,0 +1,10 @@
+README.md
+dist
+node_modules
+LICENSE
+.git
+.vscode
+.tamagui
+.DS_Store
+.env
+.env-example
