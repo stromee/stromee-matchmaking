@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { Image, Paragraph, ScrollView, Spinner, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
-import { fonts } from '@theme/fonts';
+import { color } from '@theme/tokens';
 
 import { HeaderOnboarding } from '@components/header-onboarding';
+import ArrowDropDown from '@components/icons/arrow-drop-down.svg?react';
 import Divider from '@components/icons/divider.svg?react';
 import Location from '@components/icons/location.svg?react';
-import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Input } from '@components/themed/input';
 
@@ -205,45 +205,23 @@ const Address = ({
 							alignItems="center"
 							pos="relative"
 						>
-							<BodyText
+							<View
 								asChild
-								width="$full"
 								theme="secondary"
-								py="$2"
-								px="$2"
-								pr={showSpinner ? '$9' : '$2'}
-								minHeight="$11"
-								borderRadius="$full"
-								borderWidth="1px"
-								borderStyle="solid"
-								borderColor="$baseCloudWhite"
-								backgroundColor="$baseCloudWhite"
-								shadowColor="$baseStromeeNavyOpacity20"
-								shadowRadius={8}
-								shadowOffset={{
-									width: 0,
-									height: 0,
-								}}
-								hoverStyle={{
-									borderColor: '$baseGrey400',
-								}}
-								focusStyle={{
-									borderColor: '$baseGrey400',
-									outlineColor: '$baseGrey400',
-									outlineStyle: 'solid',
-									outlineWidth: 2,
-								}}
-								fontFamily="$input"
-								lineHeight="$1"
-								display="flex"
+								pr={
+									showSpinner || (cities && cities.length > 1)
+										? '$9'
+										: '$2'
+								}
+								disabled={
+									cities === undefined ||
+									cities.length === 0 ||
+									cities.length === 1
+								}
 							>
 								<select
 									value={cityId}
-									disabled={
-										cities === undefined ||
-										cities.length === 0 ||
-										cities.length === 1
-									}
+									className="font_input"
 									onChange={(e) => {
 										if (cities) {
 											const id = parseInt(e.target.value);
@@ -254,16 +232,11 @@ const Address = ({
 											setCityName(name || '');
 										}
 									}}
-									style={{
-										fontFamily: fonts.input
-											.family as string,
-										fontSize: fonts.input.size[
-											'3'
-										] as number,
-										fontWeight: fonts.input.weight?.[
-											'3'
-										] as number | undefined,
-									}}
+									disabled={
+										cities === undefined ||
+										cities.length === 0 ||
+										cities.length === 1
+									}
 								>
 									<option disabled value={-1}>
 										Stadt
@@ -278,7 +251,20 @@ const Address = ({
 											</option>
 										))}
 								</select>
-							</BodyText>
+							</View>
+							{!showSpinner && cities && cities.length > 1 && (
+								<View
+									pointerEvents="none"
+									position="absolute"
+									gap="$2"
+									right="$0"
+									pr="$2"
+								>
+									<ArrowDropDown
+										style={{ color: color.baseStromeeNavy }}
+									/>
+								</View>
+							)}
 							{showSpinner && (
 								<View
 									pointerEvents="none"
