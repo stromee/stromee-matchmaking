@@ -114,7 +114,7 @@ const Root = () => {
 	};
 
 	return (
-		<TamaguiProvider config={config} defaultTheme="tanLight">
+		<TamaguiProvider config={config} defaultTheme="popPetrol">
 			<AppStateProvider>
 				<View flex={1} bg="$background" ai="center" jc="center">
 					<Theme name="base">
@@ -122,9 +122,14 @@ const Root = () => {
 							bg="$background"
 							fullscreen
 							margin="auto"
-							maxWidth="400px"
-							maxHeight="800px"
+							maxWidth="428px"
+							maxHeight="926px"
 							overflow="hidden"
+							$desktop={{
+								borderColor: '$baseGrey600',
+								borderWidth: '1px',
+								borderRadius: '$6',
+							}}
 						>
 							{handleDynamicContent()}
 						</YStack>

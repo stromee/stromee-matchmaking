@@ -50,8 +50,8 @@ const ProducerSwipable = ({
 				overflow="hidden"
 				position="relative"
 				borderRadius="$6"
-				width="364px"
-				height="440px"
+				width="392px"
+				height="468px"
 				maxWidth="$full"
 				maxHeight="$full"
 				animation="quick"
@@ -92,6 +92,7 @@ const ProducerSwipable = ({
 							alignSelf="flex-end"
 							ai="center"
 							jc="center"
+							userSelect="none"
 						>
 							<BodyText fontWeight="bold">
 								{mergedPrice.priceData.deposit.brutto}€

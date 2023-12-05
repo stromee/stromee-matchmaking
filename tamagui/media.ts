@@ -15,4 +15,5 @@ export const media = createMedia({
 	tall: { minHeight: 820 },
 	hoverNone: { hover: 'none' },
 	pointerCoarse: { pointer: 'coarse' },
+	desktop: { minWidth: 428 + 1 },
 });

@@ -196,7 +196,7 @@ const Match = () => {
 				{producer.data.name}
 			</Header>
 
-			<YStack px="$4" py="$8" gap="$4" flex={1}>
+			<YStack px="$4" py="$8" gap="$4">
 				<Link
 					alignSelf="flex-start"
 					to={`/matches/${producerId}/detail`}
@@ -209,7 +209,7 @@ const Match = () => {
 						outlineColor: '$baseStromeeNavy',
 					}}
 				>
-					<Avatar circular size="$11">
+					<Avatar circular size="$11" height="$11">
 						<Avatar.Image
 							accessibilityLabel={producer.data.name}
 							src={handleStoryblokImage(producer.data.picture)}

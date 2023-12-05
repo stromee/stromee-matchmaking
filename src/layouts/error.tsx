@@ -39,7 +39,7 @@ const Error = () => {
 	const status = getStatus(error);
 
 	return (
-		<TamaguiProvider config={config} defaultTheme="tanLight">
+		<TamaguiProvider config={config} defaultTheme="popPetrol">
 			<AppStateProvider>
 				<View flex={1} bg="$background" ai="center" jc="center">
 					<Theme name="base">
@@ -47,13 +47,18 @@ const Error = () => {
 							bg="$background"
 							fullscreen
 							margin="auto"
-							maxWidth="400px"
-							maxHeight="800px"
-							overflow="hidden"
+							maxWidth="428px"
+							maxHeight="926px"
 							px="$4"
 							py="$8"
 							gap="$4"
 							jc="flex-end"
+							overflow="hidden"
+							$desktop={{
+								borderColor: '$baseGrey600',
+								borderWidth: '1px',
+								borderRadius: '$6',
+							}}
 						>
 							<Paragraph fontWeight="bold">{status}</Paragraph>
 							<H1
