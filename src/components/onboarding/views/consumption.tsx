@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { H3, Paragraph, ScrollView, Slider, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
+import { color } from '@theme/tokens';
+
 import { HeaderOnboarding } from '@components/header-onboarding';
 import OnePerson from '@components/icons/1_person.svg?react';
 import TwoPerson from '@components/icons/2_person.svg?react';
@@ -22,11 +24,11 @@ import { OnboardingCarouselProps } from '../constants';
 type ConsumptionTypeProps = OnboardingCarouselProps;
 
 const consumptions = [
-	{ value: 4000, icon: <FourPerson /> },
-	{ value: 5000, icon: <FivePerson /> },
-	{ value: 2000, icon: <TwoPerson /> },
-	{ value: 3000, icon: <ThreePerson /> },
-	{ value: 1000, icon: <OnePerson /> },
+	{ value: 4000, Icon: FourPerson },
+	{ value: 5000, Icon: FivePerson },
+	{ value: 2000, Icon: TwoPerson },
+	{ value: 3000, Icon: ThreePerson },
+	{ value: 1000, Icon: OnePerson },
 ];
 
 const Consumption = ({
@@ -142,14 +144,15 @@ const Consumption = ({
 					alignContent="center"
 					justifyContent="center"
 				>
-					{consumptions.map(({ value, icon }) => (
+					{consumptions.map(({ value, Icon }) => (
 						<Button
 							key={value}
 							width={144}
 							height={102}
 							theme="base"
+							color="$color"
 							borderRadius={10}
-							borderWidth={2}
+							borderWidth="$0.5"
 							borderColor={
 								consumption === value
 									? '$baseStromeeGreen'
@@ -175,7 +178,7 @@ const Consumption = ({
 								setConsumption(value);
 							}}
 						>
-							{icon}
+							<Icon color={color.baseStromeeNavy} />
 						</Button>
 					))}
 				</View>
