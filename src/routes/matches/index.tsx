@@ -24,7 +24,7 @@ const Matches = () => {
 		);
 	return (
 		<ScrollView contentContainerStyle={{ flex: 1 }}>
-			<Header defaultTo="/" canGoBack={false}>
+			<Header defaultTo="/" canGoBack={false} profile>
 				Deine Matches
 			</Header>
 			<YStack px="$4" py="$8" gap="$4" flex={1}>

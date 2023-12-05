@@ -146,7 +146,7 @@ const Profile = () => {
 	}, [postalCode, cityId, cityName]);
 
 	// consumption ---------------------------------------------
-	const [isConsumptionValidating, setIsConsumptionValidation] =
+	const [isConsumptionValidating, setIsConsumptionValidating] =
 		useState(false);
 	const [consumptionError, setConsumptionError] = useState('');
 
@@ -195,7 +195,7 @@ const Profile = () => {
 		setAddressError('');
 		setIsAddressValidating(true);
 		setConsumption('');
-		setIsConsumptionValidation(true);
+		setIsConsumptionValidating(true);
 		setEnergyTypesError('');
 		setIsEnergyTypesValidating(true);
 
@@ -224,7 +224,9 @@ const Profile = () => {
 
 		let consumptionHasError = false;
 		try {
-			const parsed = parseInt(consumption);
+			const parsed = isNaN(parseInt(consumption))
+				? -1
+				: parseInt(consumption);
 			conumptionSyncSchema.parse(parsed);
 			setConsumptionToStore(parsed);
 		} catch (error) {
@@ -238,13 +240,13 @@ const Profile = () => {
 			}
 			consumptionHasError = true;
 		}
+		setIsConsumptionValidating(false);
 
 		let energyTypesHasError = false;
 		try {
 			energyTypesSyncSchema.parse(energyTypes);
 			setEnergyTypesError('');
 			setEnergyTypesToStore(energyTypes, false);
-			console.log('save');
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				console.log(error);
@@ -256,7 +258,7 @@ const Profile = () => {
 			}
 			energyTypesHasError = true;
 		}
-		setIsAddressValidating(false);
+		setIsEnergyTypesValidating(false);
 
 		if (!addressHasError && !energyTypesHasError && !consumptionHasError) {
 			navigate('/matches');
@@ -518,7 +520,7 @@ const Profile = () => {
 					</RadioGroup>
 				</YStack>
 
-				<Button disabled={isValidating} onPress={save}>
+				<Button mt="auto" disabled={isValidating} onPress={save}>
 					Weiter
 				</Button>
 			</YStack>
