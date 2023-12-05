@@ -19,6 +19,7 @@ const Link = forwardRef<TamaguiElement, LinkProps>(
 		const isExternal = typeof to === 'string' && to.startsWith('http');
 		return (
 			<Anchor
+				numberOfLines={1}
 				ref={ref}
 				href={isExternal ? to : href}
 				target={target}
