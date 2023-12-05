@@ -163,27 +163,6 @@ const Match = () => {
 								flexWrap="wrap"
 							>
 								<BodyText fontWeight="bold">
-									Kündigungsfrist
-								</BodyText>
-								<BodyText>
-									{formatUnit(
-										mergedPrice.priceData
-											.cancellationPeriod,
-										mergedPrice.priceData
-											.cancellationPeriod === 1
-											? 'Monat'
-											: 'Monate',
-									)}
-								</BodyText>
-							</Paragraph>
-							<Divider />
-							<Paragraph
-								gap="$2"
-								display="flex"
-								justifyContent="space-between"
-								flexWrap="wrap"
-							>
-								<BodyText fontWeight="bold">
 									Preisgarantie
 								</BodyText>
 								<BodyText>
