@@ -43,6 +43,13 @@ const themesBuilder = createThemeBuilder()
 			color.baseStromeeNavyOpacity20, // 3 - border / shadow
 			color.baseStromeeNavyOpacity80, // 4 - placeholder
 		],
+		summerYellow: [
+			color.transparent, // 0 - transparent
+			color.baseSummerYellow, // 1 - background
+			color.baseStromeeNavy, // 2 - color
+			color.baseStromeeNavyOpacity20, // 3 - border / shadow
+			color.baseStromeeNavyOpacity80, // 4 - placeholder
+		],
 		lollipopRed: [
 			color.transparent, // 0 - transparent
 			color.baseLollipopRed, // 1 - background
@@ -110,6 +117,10 @@ const themesBuilder = createThemeBuilder()
 		punchGreen: {
 			template: 'base',
 			palette: 'punchGreen',
+		},
+		summerYellow: {
+			template: 'base',
+			palette: 'summerYellow',
 		},
 		lollipopRed: {
 			template: 'base',
