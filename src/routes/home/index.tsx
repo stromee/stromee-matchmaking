@@ -94,12 +94,12 @@ const Home = () => {
 									ai="center"
 									jc="center"
 									hoverStyle={{
-										borderColor: '$baseStromeeNavy',
+										borderColor: '$baseCloudWhite',
 									}}
 									focusStyle={{
 										outlineStyle: 'solid',
 										outlineWidth: 2,
-										outlineColor: '$baseStromeeNavy',
+										outlineColor: '$baseCloudWhite',
 									}}
 								>
 									Jetzt kennenlernen
