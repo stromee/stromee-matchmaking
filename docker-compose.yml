@@ -2,20 +2,10 @@ version: '3.9'
 
 services:
     app:
-        build:
-            context: ./
-            args:
-                - VITE_SUPABASE_URL=https://oqbfkebdebbhynlpopmu.supabase.co
-                - VITE_SUPABASE_PUBLIC_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xYmZrZWJkZWJiaHlubHBvcG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA2NTEwMzIsImV4cCI6MjAxNjIyNzAzMn0.HgSKAg84UvGEPjaoPMe0HSC48tEnhipxj5uhNMQyfSU
-                - VITE_LITION_BACKEND_URL=https://backend.stromee.de/v0.1
-                - VITE_ADDRESS_SERVICE_URL=https://address-service.stromee.staging.homee.cloud/api/v1
-                - VITE_PRICE_LOCATOR_URL=https://price-locator.staging.stromee.de
-                - VITE_LANDING_PAGE_URL=https://staging.stromee.de
-                - VITE_PRODUCT_CODE=MARKETPLACE_TMP
-                - VITE_CAMPAIGN_IDENTIFIER=MARKETPLACE
+        build: ./
         pull_policy: build
         restart: unless-stopped
         env_file:
-            - stack.env
+            - .env
         ports:
             - '2000:80'

@@ -3,39 +3,18 @@ FROM node:21.3.0-bookworm as build
 WORKDIR /app
 COPY . ./
 
-ARG VITE_SUPABASE_URL                     
-ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
-
-ARG VITE_SUPABASE_PUBLIC_KEY                     
-ENV VITE_SUPABASE_PUBLIC_KEY=$VITE_SUPABASE_PUBLIC_KEY
-
-ARG VITE_LITION_BACKEND_URL                     
-ENV VITE_LITION_BACKEND_URL=$VITE_LITION_BACKEND_URL
-
-ARG VITE_ADDRESS_SERVICE_URL                     
-ENV VITE_ADDRESS_SERVICE_URL=$VITE_ADDRESS_SERVICE_URL
-
-ARG VITE_PRICE_LOCATOR_URL                     
-ENV VITE_PRICE_LOCATOR_URL=$VITE_PRICE_LOCATOR_URL
-
-
-ARG VITE_LANDING_PAGE_URL                     
-ENV VITE_LANDING_PAGE_URL=$VITE_LANDING_PAGE_URL
-
-ARG VITE_PRODUCT_CODE                     
-ENV VITE_PRODUCT_CODE=$VITE_PRODUCT_CODE
-
-ARG VITE_CAMPAIGN_IDENTIFIER
-ENV VITE_CAMPAIGN_IDENTIFIER=$VITE_CAMPAIGN_IDENTIFIER
-
-
 RUN npm ci
 RUN npm run build --production
 ENV NODE_ENV=production
 
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install nginx -y
-COPY --from=build /app/dist /var/www/html/
-EXPOSE 80
-CMD ["nginx","-g","daemon off;"]
+FROM nginx:1.20
+
+WORKDIR /usr/share/nginx/html
+
+COPY --from=build /app/dist .
+COPY --from=build /app/entrypoint.sh /opt
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80/tcp
+
+ENTRYPOINT ["bash", "/opt/entrypoint.sh"]
