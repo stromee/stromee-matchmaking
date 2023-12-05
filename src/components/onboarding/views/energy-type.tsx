@@ -24,29 +24,25 @@ import { OnboardingCarouselProps } from '../constants';
 
 type EnergyTypeProps = OnboardingCarouselProps;
 
-const plantTypes = Object.values(PLANT_TYPE_WITHOUT_DEFAULT.Values);
-
-const plantTypesProps = [
+const plantTypes = [
 	{
+		type: PLANT_TYPE_WITHOUT_DEFAULT.Values.wind,
 		description:
 			'Ich bin eher der stürmische Typ - zu mir passt Windkraft!',
 		icon: <Wind />,
 	},
 	{
+		type: PLANT_TYPE_WITHOUT_DEFAULT.Values.solar,
 		description: 'Ich mag es heiß - Sonnenenergie ist mein Ding!',
 		icon: <Solar />,
 	},
 	{
+		type: PLANT_TYPE_WITHOUT_DEFAULT.Values.biomass,
 		description:
 			'Für mich muss es knistern und brodeln - daher liebe ich Biogas!',
 		icon: <Biogas />,
 	},
 ];
-
-const combinedPlantTypes = plantTypes.map((type, index) => ({
-	type,
-	...plantTypesProps[index],
-}));
 
 const EnergyType = ({
 	onNext: handleNext,
@@ -119,7 +115,7 @@ const EnergyType = ({
 						]);
 					}}
 				>
-					{combinedPlantTypes.map((plantTypeItem) => {
+					{plantTypes.map((plantTypeItem) => {
 						const { type, description, icon } = plantTypeItem;
 						return (
 							<RadioGroup.Item

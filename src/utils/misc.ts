@@ -84,7 +84,6 @@ export const producerHasTag = (
 };
 
 export const createRelativeUrl = (url: string) => {
-	console.log('createRelativeUrl', BASE_URL, url);
 	const fixedUrl = url.startsWith('/') ? url.slice(1) : url;
 	return `${BASE_URL}${fixedUrl}`;
 };
