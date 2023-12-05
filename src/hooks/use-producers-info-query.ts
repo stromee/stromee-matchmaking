@@ -15,7 +15,6 @@ type ProducerInfo = Success<typeof query>[0];
 
 export const fetchProducersInfo = async () => {
 	const { data, error } = await query;
-	console.log('data', data);
 	if (error) throw error;
 	return data;
 };

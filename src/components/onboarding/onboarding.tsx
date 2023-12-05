@@ -87,9 +87,7 @@ const Onboarding = () => {
 							setView(ONBOARDING_VIEWS.Values.address);
 							setDirection(1);
 						}}
-						onPrev={() => {
-							console.log('first');
-						}}
+						onPrev={() => {}}
 					/>
 				);
 			case ONBOARDING_VIEWS.Values.address:
@@ -121,9 +119,7 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.energyType:
 				return (
 					<EnergyType
-						onNext={() => {
-							console.log('done');
-						}}
+						onNext={() => {}}
 						onPrev={() => {
 							setView(ONBOARDING_VIEWS.Values.consumption);
 							setDirection(-1);
