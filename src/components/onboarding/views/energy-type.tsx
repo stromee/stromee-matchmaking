@@ -127,6 +127,7 @@ const EnergyType = ({
 								maxWidth={272}
 								minHeight={124}
 								p="$4"
+								borderWidth="$0.5"
 								borderRadius="$4"
 								borderColor={
 									energyTypes.includes(type)
