@@ -5,6 +5,7 @@ import * as z from 'zod';
 
 import { color } from '@theme/tokens';
 
+import { Dots } from '@components/dots';
 import { Header } from '@components/header';
 import ArrowDropDown from '@components/icons/arrow-drop-down.svg?react';
 import Divider from '@components/icons/divider.svg?react';
@@ -60,6 +61,8 @@ const validateInput = async ({
 const Address = ({
 	onNext: handleNext,
 	onPrev: handlePrev,
+	count,
+	index,
 }: PostalCodeTypeProps) => {
 	const postalCodeFromStore = configStore.use.postalCode();
 	const cityNameFromStore = configStore.use.cityName();
@@ -293,9 +296,15 @@ const Address = ({
 					}}
 				/>
 
-				<Button disabled={isLoading || isValidating} onPress={onNext}>
-					Weiter
-				</Button>
+				<YStack gap="$2">
+					<Dots count={count} activeIndex={index} />
+					<Button
+						disabled={isLoading || isValidating}
+						onPress={onNext}
+					>
+						Weiter
+					</Button>
+				</YStack>
 			</YStack>
 		</ScrollView>
 	);

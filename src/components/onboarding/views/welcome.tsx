@@ -48,10 +48,11 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 				/>
 				<View px="$8">
 					<H2 textAlign="center">
-						Finde dein Energiematch, das dein Herz höher schlagen
-						lässt
+						Auf der Suche nach der Energie deines Lebens? Swipe dir
+						deinen passenden Stromerzeuger!
 					</H2>
 				</View>
+
 				<Button onPress={handleNext}>Los gehts!</Button>
 			</YStack>
 		</ScrollView>

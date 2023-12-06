@@ -12,4 +12,6 @@ export type ONBOARDING_VIEWS = z.infer<typeof ONBOARDING_VIEWS>;
 export type OnboardingCarouselProps = {
 	onNext: () => void;
 	onPrev: () => void;
+	index: number;
+	count: number;
 };

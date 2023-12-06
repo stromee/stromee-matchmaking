@@ -5,6 +5,7 @@ import * as z from 'zod';
 
 import { color } from '@theme/tokens';
 
+import { Dots } from '@components/dots';
 import { Header } from '@components/header';
 import OnePerson from '@components/icons/1_person.svg?react';
 import TwoPerson from '@components/icons/2_person.svg?react';
@@ -34,6 +35,8 @@ const consumptions = [
 const Consumption = ({
 	onNext: handleNext,
 	onPrev: handlePrev,
+	count,
+	index,
 }: ConsumptionTypeProps) => {
 	const consumptionFromStore = configStore.use.consumption();
 	const setConsumptionToStore = configStore.use.setConsumption();
@@ -132,6 +135,9 @@ const Consumption = ({
 							}}
 						/>
 					</Slider>
+				</YStack>
+
+				<YStack gap="$4">
 					<Paragraph px="$4">
 						Alternativ kannst du uns auch einfach sagen, wie viele
 						Personen in deinem Haushalt leben.
@@ -141,55 +147,57 @@ const Consumption = ({
 							{error}
 						</Paragraph>
 					)}
+					<View
+						flexDirection="row"
+						flexWrap="wrap-reverse"
+						gap="$4"
+						alignContent="center"
+						justifyContent="center"
+					>
+						{consumptions.map(({ value, Icon }) => (
+							<Button
+								key={value}
+								width={144}
+								height={102}
+								theme="base"
+								color="$color"
+								borderRadius={10}
+								borderWidth="$0.5"
+								borderColor={
+									consumption === value
+										? '$baseStromeeGreen'
+										: '$baseStromeeNavyOpacity20'
+								}
+								hoverStyle={{
+									borderColor:
+										consumption === value
+											? '$baseStromeeGreen'
+											: '$baseStromeeNavy',
+								}}
+								focusStyle={{
+									borderColor:
+										consumption === value
+											? '$baseStromeeGreen'
+											: '$baseStromeeNavy',
+									outlineColor:
+										consumption === value
+											? '$baseStromeeGreen'
+											: '$baseStromeeNavy',
+								}}
+								onPress={() => {
+									setConsumption(value);
+								}}
+							>
+								<Icon color={color.baseStromeeNavy} />
+							</Button>
+						))}
+					</View>
 				</YStack>
 
-				<View
-					flexDirection="row"
-					flexWrap="wrap-reverse"
-					gap="$4"
-					alignContent="center"
-					justifyContent="center"
-				>
-					{consumptions.map(({ value, Icon }) => (
-						<Button
-							key={value}
-							width={144}
-							height={102}
-							theme="base"
-							color="$color"
-							borderRadius={10}
-							borderWidth="$0.5"
-							borderColor={
-								consumption === value
-									? '$baseStromeeGreen'
-									: '$baseStromeeNavyOpacity20'
-							}
-							hoverStyle={{
-								borderColor:
-									consumption === value
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-							}}
-							focusStyle={{
-								borderColor:
-									consumption === value
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-								outlineColor:
-									consumption === value
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-							}}
-							onPress={() => {
-								setConsumption(value);
-							}}
-						>
-							<Icon color={color.baseStromeeNavy} />
-						</Button>
-					))}
-				</View>
-
-				<Button onPress={onNext}>Weiter</Button>
+				<YStack gap="$2">
+					<Dots count={count} activeIndex={index} />
+					<Button onPress={onNext}>Weiter</Button>
+				</YStack>
 			</YStack>
 		</ScrollView>
 	);

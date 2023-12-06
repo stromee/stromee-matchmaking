@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Paragraph, RadioGroup, ScrollView, Spinner, YStack } from 'tamagui';
 import * as z from 'zod';
 
+import { Dots } from '@components/dots';
 import { Header } from '@components/header';
 import Biogas from '@components/icons/biomass-filled.svg?react';
 import Solar from '@components/icons/solar-filled.svg?react';
@@ -40,6 +41,8 @@ const plantTypes = [
 const EnergyType = ({
 	onNext: handleNext,
 	onPrev: handlePrev,
+	count,
+	index,
 }: EnergyTypeProps) => {
 	const energyTypeFromStore = configStore.use.energyType();
 	const setEnergyTypeToStore = configStore.use.setEnergyType();
@@ -165,7 +168,10 @@ const EnergyType = ({
 						<Spinner size="large" color="$baseStromeeNavy" />
 					)}
 				</YStack>
-				<Button onPress={onNext}>Weiter</Button>
+				<YStack gap="$2">
+					<Dots count={count} activeIndex={index} />
+					<Button onPress={onNext}>Weiter</Button>
+				</YStack>
 			</YStack>
 		</ScrollView>
 	);

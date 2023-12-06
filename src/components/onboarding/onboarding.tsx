@@ -83,6 +83,8 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.welcome:
 				return (
 					<Welcome
+						index={0}
+						count={3}
 						onNext={() => {
 							setView(ONBOARDING_VIEWS.Values.address);
 							setDirection(1);
@@ -94,6 +96,8 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.address:
 				return (
 					<Address
+						index={0}
+						count={3}
 						onNext={() => {
 							setView(ONBOARDING_VIEWS.Values.consumption);
 							setDirection(1);
@@ -107,6 +111,8 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.consumption:
 				return (
 					<Consumption
+						index={1}
+						count={3}
 						onNext={() => {
 							setView(ONBOARDING_VIEWS.Values.energyType);
 							setDirection(1);
@@ -120,6 +126,8 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.energyType:
 				return (
 					<EnergyType
+						index={2}
+						count={3}
 						// eslint-disable-next-line @typescript-eslint/no-empty-function
 						onNext={() => {}}
 						onPrev={() => {
