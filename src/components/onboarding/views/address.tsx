@@ -146,9 +146,9 @@ const Address = ({
 						Erzähl etwas über dich!
 					</Header>
 					<Paragraph px="$4">
-						Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag
-						uns doch, in welcher Stadt du wohnst, damit wir den
-						passenden Partner in deiner Nähe für dich finden!
+						Nicht jeder ist ein Fan von Fernbeziehungen. Daher sag
+						uns doch, in welcher Stadt du wohnst, damit wir das
+						passende Match in deiner Nähe finden können!
 					</Paragraph>
 
 					{error !== '' && (

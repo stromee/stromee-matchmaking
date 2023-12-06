@@ -29,8 +29,8 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 				/>
 				<View px="$8">
 					<H2 textAlign="center">
-						Ab ins Energieabenteuer - <br />
-						Swipe dir deinen passenden Produzenten!
+						Finde dein Energiematch, das dein Herz höher schlagen
+						lässt
 					</H2>
 				</View>
 				<Button onPress={handleNext}>Los gehts!</Button>
