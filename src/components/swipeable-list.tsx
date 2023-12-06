@@ -213,7 +213,7 @@ const SwipableList = ({ count = 4 }) => {
 	return (
 		<>
 			<CustomZStack>
-				{remaining.length === 0 && (
+				{remainingDeferred.length === 0 && (
 					<CustomZStackChild>
 						<YStack
 							px="$4"
@@ -376,120 +376,15 @@ const SwipableList = ({ count = 4 }) => {
 				))}
 			</CustomZStack>
 
-			<XStack
-				width="$full"
-				mx="auto"
-				maxWidth="$72"
-				flex={0}
-				padding="$4"
-				justifyContent="space-around"
-			>
-				<Button
-					p="$0"
-					size={undefined}
-					width="64px"
-					height="64px"
-					circular
-					backgroundColor="$transparent"
-					animation="easeInOutSine"
-					animateOnly={['transform', 'shadowOpacity', 'shadowRadius']}
-					shadowColor={color.baseLollipopRed}
-					shadowOpacity={0}
-					shadowRadius={4}
-					borderWidth="$0.5"
-					borderColor="$transparent"
-					hoverStyle={{
-						borderWidth: '$0',
-						borderColor: '$transparent',
-						backgroundColor: '$transparent',
-					}}
-					pressStyle={{
-						transform: [{ scale: 1.1 }],
-						shadowColor: color.baseLollipopRed,
-						shadowOpacity: 1,
-						shadowRadius: 12,
-					}}
-					focusStyle={{
-						backgroundColor: '$transparent',
-						outlineWidth: 0,
-					}}
-					onPress={() => {
-						if (
-							swipableRef.current &&
-							swipableRef.current.id === activeSwipableId
-						) {
-							swipableRef.current.swipe('left');
-						}
-					}}
-					disabled={isSwiping || remainingDeferred.length === 0}
+			{remainingDeferred.length !== 0 && (
+				<XStack
+					width="$full"
+					mx="auto"
+					maxWidth="$72"
+					flex={0}
+					padding="$4"
+					justifyContent="space-around"
 				>
-					<Animated.View
-						style={[
-							{
-								borderRadius: 99999,
-								height: 64,
-								width: 64,
-								alignItems: 'center',
-								justifyContent: 'center',
-								color: color.baseCloudWhite,
-								backgroundColor: color.baseLollipopRed,
-								borderWidth: 2,
-								borderColor: color.baseCloudWhite,
-								shadowColor: color.baseLollipopRed,
-							},
-							leftButtonStyle,
-						]}
-					>
-						<AccessibleIcon label="Kein Match">
-							<Close />
-						</AccessibleIcon>
-					</Animated.View>
-				</Button>
-				<Link
-					to="/matches"
-					theme="base"
-					display="flex"
-					borderRadius="$full"
-					borderWidth="1px"
-					borderColor="$baseStromeeNavy"
-					backgroundColor="$background"
-					p="$2"
-					ai="center"
-					jc="center"
-					m="auto"
-					aspectRatio="1"
-					focusStyle={{
-						outlineStyle: 'solid',
-						outlineWidth: 2,
-						outlineColor: '$baseStromeeNavy',
-					}}
-				>
-					<AccessibleIcon label="Deine Matches">
-						<Menu />
-					</AccessibleIcon>
-				</Link>
-				<View pos="relative">
-					<View
-						pos="absolute"
-						width="64px"
-						height="64px"
-						pt="$1"
-						transform={[{ scale: 3 }]}
-						ai="center"
-						jc="center"
-						disabled={isSwiping || remainingDeferred.length === 0}
-					>
-						<DotLottiePlayer
-							ref={likeRef}
-							speed={1.2}
-							src={createRelativeUrl('/images/like.lottie')}
-							style={{
-								width: '100%',
-								height: 'auto',
-								aspectRatio: '192/144',
-							}}
-						/>
-					</View>
 					<Button
 						p="$0"
 						size={undefined}
@@ -503,7 +398,7 @@ const SwipableList = ({ count = 4 }) => {
 							'shadowOpacity',
 							'shadowRadius',
 						]}
-						shadowColor={color.baseStromeeGreen}
+						shadowColor={color.baseLollipopRed}
 						shadowOpacity={0}
 						shadowRadius={4}
 						borderWidth="$0.5"
@@ -515,7 +410,7 @@ const SwipableList = ({ count = 4 }) => {
 						}}
 						pressStyle={{
 							transform: [{ scale: 1.1 }],
-							shadowColor: color.baseStromeeGreen,
+							shadowColor: color.baseLollipopRed,
 							shadowOpacity: 1,
 							shadowRadius: 12,
 						}}
@@ -528,7 +423,7 @@ const SwipableList = ({ count = 4 }) => {
 								swipableRef.current &&
 								swipableRef.current.id === activeSwipableId
 							) {
-								swipableRef.current?.swipe('right');
+								swipableRef.current.swipe('left');
 							}
 						}}
 						disabled={isSwiping || remainingDeferred.length === 0}
@@ -541,22 +436,134 @@ const SwipableList = ({ count = 4 }) => {
 									width: 64,
 									alignItems: 'center',
 									justifyContent: 'center',
-									backgroundColor: color.baseStromeeNavy,
+									color: color.baseCloudWhite,
+									backgroundColor: color.baseLollipopRed,
 									borderWidth: 2,
 									borderColor: color.baseCloudWhite,
-									shadowColor: color.baseStromeeGreen,
+									shadowColor: color.baseLollipopRed,
 								},
-								rightButtonStyle,
+								leftButtonStyle,
 							]}
 						>
-							<AccessibleIcon label="Match">
-								<HeartFilled />
+							<AccessibleIcon label="Kein Match">
+								<Close />
 							</AccessibleIcon>
 						</Animated.View>
 					</Button>
-				</View>
-			</XStack>
-
+					<Link
+						to="/matches"
+						theme="base"
+						display="flex"
+						borderRadius="$full"
+						borderWidth="1px"
+						borderColor="$baseStromeeNavy"
+						backgroundColor="$background"
+						p="$2"
+						ai="center"
+						jc="center"
+						m="auto"
+						aspectRatio="1"
+						focusStyle={{
+							outlineStyle: 'solid',
+							outlineWidth: 2,
+							outlineColor: '$baseStromeeNavy',
+						}}
+					>
+						<AccessibleIcon label="Deine Matches">
+							<Menu />
+						</AccessibleIcon>
+					</Link>
+					<View pos="relative">
+						<View
+							pos="absolute"
+							width="64px"
+							height="64px"
+							pt="$1"
+							transform={[{ scale: 3 }]}
+							ai="center"
+							jc="center"
+							disabled={
+								isSwiping || remainingDeferred.length === 0
+							}
+						>
+							<DotLottiePlayer
+								ref={likeRef}
+								speed={1.2}
+								src={createRelativeUrl('/images/like.lottie')}
+								style={{
+									width: '100%',
+									height: 'auto',
+									aspectRatio: '192/144',
+								}}
+							/>
+						</View>
+						<Button
+							p="$0"
+							size={undefined}
+							width="64px"
+							height="64px"
+							circular
+							backgroundColor="$transparent"
+							animation="easeInOutSine"
+							animateOnly={[
+								'transform',
+								'shadowOpacity',
+								'shadowRadius',
+							]}
+							shadowColor={color.baseStromeeGreen}
+							shadowOpacity={0}
+							shadowRadius={4}
+							borderWidth="$0.5"
+							borderColor="$transparent"
+							hoverStyle={{
+								borderWidth: '$0',
+								borderColor: '$transparent',
+								backgroundColor: '$transparent',
+							}}
+							pressStyle={{
+								transform: [{ scale: 1.1 }],
+								shadowColor: color.baseStromeeGreen,
+								shadowOpacity: 1,
+								shadowRadius: 12,
+							}}
+							focusStyle={{
+								backgroundColor: '$transparent',
+								outlineWidth: 0,
+							}}
+							onPress={() => {
+								if (
+									swipableRef.current &&
+									swipableRef.current.id === activeSwipableId
+								) {
+									swipableRef.current?.swipe('right');
+								}
+							}}
+							disabled={isSwiping}
+						>
+							<Animated.View
+								style={[
+									{
+										borderRadius: 99999,
+										height: 64,
+										width: 64,
+										alignItems: 'center',
+										justifyContent: 'center',
+										backgroundColor: color.baseStromeeNavy,
+										borderWidth: 2,
+										borderColor: color.baseCloudWhite,
+										shadowColor: color.baseStromeeGreen,
+									},
+									rightButtonStyle,
+								]}
+							>
+								<AccessibleIcon label="Match">
+									<HeartFilled />
+								</AccessibleIcon>
+							</Animated.View>
+						</Button>
+					</View>
+				</XStack>
+			)}
 			<PresenceStack condition={!!producerDetail}>
 				{producerDetail && (
 					<ProducerDetail
