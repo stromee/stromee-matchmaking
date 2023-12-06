@@ -88,13 +88,13 @@ const EnergyType = ({
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
 				<YStack gap="$4">
 					<Header customNavigation={handlePrev} tainted={tainted}>
-						Was sind deine Vorlieben?
+						Welcher Energie-Typ bist du?
 					</Header>
 
 					<Paragraph px="$4" textAlign="left">
-						Natürlich ist jede Energieart schön! Dennoch hat jeder
-						persönliche Präferenzen. Welche Energieart ist dir die
-						Liebste?
+						Jede grüne Energie ist schön! Aber manchmal hat man doch
+						so seine Vorlieben. Welche Energieart magst du denn am
+						liebsten?
 					</Paragraph>
 				</YStack>
 

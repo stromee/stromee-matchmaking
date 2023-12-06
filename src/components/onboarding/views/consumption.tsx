@@ -139,8 +139,9 @@ const Consumption = ({
 
 				<YStack gap="$4">
 					<Paragraph px="$4">
-						Alternativ kannst du uns auch einfach sagen, wie viele
-						Personen in deinem Haushalt leben.
+						Stell deinen Strom-Jahresverbrauch über den
+						Schieberegler ein oder sag uns wie viele Personen in
+						deinem Haushalt leben.
 					</Paragraph>
 					{error !== '' && (
 						<Paragraph px="$4" color="$baseLollipopRed">

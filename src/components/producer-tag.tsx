@@ -13,25 +13,25 @@ export type ProducerTagProps = {
 };
 
 const ENERGY_TYPE_MATCH = [
-	'Eure Energie matched',
+	'Dieselbe Energiewelle',
 	'Perfektes Energiematch',
 	'Die Energie stimmt',
-	'Die Spannung ist da',
+	'Die Spannung ist greifbar',
 ];
 
 const DISTANCE_MATCH = [
-	'Ihr seid quasi Nachbarn',
-	'Praktisch Tür an Tür',
+	'Regionaler Strom, globale Liebe',
 	'Kurze Wege, lange Liebe',
-	'Der kurze Weg zum Glück',
-	'Nähe schafft Verbundenheit',
+	'Der kurze Weg zur Energie',
+	'Nähe, die verbindet',
+	'Energie ohne Kilometer',
 ];
-const PRICE_MATCH = ['Preiskracher', 'Preiswunder'];
+const PRICE_MATCH = ['Liebe zum kleinen Preis', 'Pure Energie, kleiner Preis'];
 
 const SUPER_MATCH = [
-	'Supermatch!',
-	'Hier passt wirklich alles!',
-	'Volltreffer!',
+	'Supermatch',
+	'Hier passt wirklich alles',
+	'Für einander bestimmt',
 ];
 
 const ProducerTag = ({ producer }: ProducerTagProps) => {

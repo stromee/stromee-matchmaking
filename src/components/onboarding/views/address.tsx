@@ -146,12 +146,12 @@ const Address = ({
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
 				<YStack gap="$4">
 					<Header customNavigation={handlePrev} tainted={tainted}>
-						Erzähl etwas über dich!
+						Woher kommst du?
 					</Header>
 					<Paragraph px="$4">
-						Nicht jeder ist ein Fan von Fernbeziehungen. Daher sag
-						uns doch, in welcher Stadt du wohnst, damit wir das
-						passende Match in deiner Nähe finden können!
+						Lieber Nah- oder Fernbeziehung? Um die Distanz zu
+						unseren Produzenten einzuschätzen, gib bitte deine
+						Postleitzahl ein.
 					</Paragraph>
 
 					{error !== '' && (

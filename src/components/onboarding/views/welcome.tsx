@@ -1,5 +1,5 @@
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { H1, H2, Image, ScrollView, View, YStack } from 'tamagui';
+import { H1, H2, H3, Image, ScrollView, View, YStack } from 'tamagui';
 
 import Logo from '@components/icons/logo.svg?react';
 import { Button } from '@components/themed/button';
@@ -47,10 +47,10 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 					}}
 				/>
 				<View px="$8">
-					<H2 textAlign="center">
+					<H3>
 						Auf der Suche nach der Energie deines Lebens? Swipe dir
 						deinen passenden Stromerzeuger!
-					</H2>
+					</H3>
 				</View>
 
 				<Button onPress={handleNext}>Los gehts!</Button>

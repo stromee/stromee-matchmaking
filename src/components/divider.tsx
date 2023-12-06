@@ -11,7 +11,7 @@ const Divider = () => {
 				borderRightWidth: '0px',
 				margin: 0,
 				width: '100%',
-				borderTopColor: color.baseStromeeNavyOpacity40,
+				borderTopColor: color.baseStromeeNavyOpacity20,
 			}}
 		/>
 	);

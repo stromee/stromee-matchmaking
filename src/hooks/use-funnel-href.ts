@@ -14,9 +14,10 @@ const useFunnelHref = (producerId: number) => {
 		cityName: cityName,
 		producerId: producerId.toString(),
 		consumption: consumption.toString(),
+		code: 'powermatch',
 	});
 
-	return `${LANDING_PAGE_URL}/contract/powermatch/about-you?${params.toString()}`;
+	return `${LANDING_PAGE_URL}/contract/standard/about-you?${params.toString()}`;
 };
 
 export { useFunnelHref };

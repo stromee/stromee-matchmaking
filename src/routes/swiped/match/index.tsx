@@ -175,6 +175,11 @@ const Match = () => {
 									)}
 								</BodyText>
 							</Paragraph>
+							<Divider />
+							<Paragraph>
+								Wir freuen uns auf eine tolle gemeinsame Zeit!
+								💚
+							</Paragraph>
 						</YStack>
 					);
 				}
@@ -228,8 +233,7 @@ const Match = () => {
 					gap="$2"
 				>
 					<Paragraph>
-						Hi, wie schön, dass du mit uns eine Strombeziehung
-						eingehen möchtest!
+						Schön, dass unsere Energie zusammenpasst!
 					</Paragraph>
 				</YStack>
 				<YStack
@@ -259,8 +263,8 @@ const Match = () => {
 					gap="$2"
 				>
 					<Paragraph>
-						Willst du einen Vertrag mit uns abschließen? Wir freuen
-						uns auf eine tolle gemeinsame Zeit! 💚
+						Wollen wir unsere Liebe besiegeln? Dann gib deine Daten
+						für deinen neuen Vertrag ein.
 					</Paragraph>
 				</YStack>
 				<XStack mt="auto" gap="$4" flexWrap="wrap">
