@@ -24,9 +24,9 @@ interface Config {
 	) => void;
 	consumption: number;
 	setConsumption: (consumption: number, skipValidate?: boolean) => void;
-	energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[];
-	setEnergyTypes: (
-		energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[],
+	energyType: PLANT_TYPE_WITHOUT_DEFAULT;
+	setEnergyType: (
+		energyType: PLANT_TYPE_WITHOUT_DEFAULT,
 		skipValidate?: boolean,
 	) => void;
 	showMatchAfterSwipe: boolean;
@@ -42,7 +42,7 @@ export const createConfigStore = (name: string) => {
 		cityName: '',
 		cityId: -1,
 		consumption: -1,
-		energyTypes: [],
+		energyType: '' as PLANT_TYPE_WITHOUT_DEFAULT,
 		showMatchAfterSwipe: true,
 	};
 
@@ -64,7 +64,7 @@ export const createConfigStore = (name: string) => {
 						cityId,
 						cityName,
 						consumption,
-						energyTypes,
+						energyType,
 						showMatchAfterSwipe,
 					} = get();
 
@@ -74,7 +74,7 @@ export const createConfigStore = (name: string) => {
 							cityId,
 							cityName,
 							consumption,
-							energyTypes,
+							energyType,
 							showMatchAfterSwipe,
 						});
 
@@ -128,14 +128,14 @@ export const createConfigStore = (name: string) => {
 						get().fullValidation();
 					}
 				},
-				setEnergyTypes: (
-					energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[],
+				setEnergyType: (
+					energyType: PLANT_TYPE_WITHOUT_DEFAULT,
 					skipValidate = false,
 				) => {
 					set((state) => {
 						return {
 							...state,
-							energyTypes,
+							energyType,
 						};
 					});
 					if (!skipValidate) {

@@ -37,7 +37,13 @@
 			"@utils/*": ["src/utils/*"]
 		}
 	},
-	"exclude": ["**/test", "**/dist", "**/types", "**/__tests__"],
+	"exclude": [
+		"**/test",
+		"**/dist",
+		"**/types",
+		"**/__tests__",
+		"**/deployment"
+	],
 	"typeAcquisition": {
 		"enable": true
 	}

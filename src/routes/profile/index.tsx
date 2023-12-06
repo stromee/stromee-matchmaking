@@ -36,7 +36,7 @@ import {
 	cityIdSyncSchema,
 	cityNameSyncSchema,
 	consumptionSyncSchema,
-	energyTypesSyncSchema,
+	energyTypeSyncSchema,
 	postalCodeAsyncSchema,
 	postalCodeSyncSchema,
 } from '@utils/schema';
@@ -173,22 +173,21 @@ const Profile = () => {
 	}, [consumption]);
 
 	// energy types ---------------------------------------------
-	const [isEnergyTypesValidating, setIsEnergyTypesValidating] =
-		useState(false);
-	const [energyTypesError, setEnergyTypesError] = useState('');
+	const [isEnergyTypeValidating, setIsEnergyTypeValidating] = useState(false);
+	const [energyTypeError, setEnergyTypeError] = useState('');
 
-	const energyTypesFromStore = configStore.use.energyTypes();
-	const setEnergyTypesToStore = configStore.use.setEnergyTypes();
+	const energyTypeFromStore = configStore.use.energyType();
+	const setEnergyTypeToStore = configStore.use.setEnergyType();
 
-	const [energyTypes, setEnergyTypes] = useState(energyTypesFromStore);
-
-	useEffect(() => {
-		setEnergyTypes(energyTypesFromStore);
-	}, [energyTypesFromStore]);
+	const [energyType, setEnergyType] = useState(energyTypeFromStore);
 
 	useEffect(() => {
-		setEnergyTypesError('');
-	}, [energyTypes]);
+		setEnergyType(energyTypeFromStore);
+	}, [energyTypeFromStore]);
+
+	useEffect(() => {
+		setEnergyTypeError('');
+	}, [energyType]);
 
 	// submit ---------------------------------------------
 	const save = async () => {
@@ -196,8 +195,8 @@ const Profile = () => {
 		setIsAddressValidating(true);
 		setConsumptionError('');
 		setIsConsumptionValidating(true);
-		setEnergyTypesError('');
-		setIsEnergyTypesValidating(true);
+		setEnergyTypeError('');
+		setIsEnergyTypeValidating(true);
 
 		const addressHasError = await validateInput({
 			postalCode,
@@ -243,25 +242,25 @@ const Profile = () => {
 		}
 		setIsConsumptionValidating(false);
 
-		let energyTypesHasError = false;
+		let energyTypeHasError = false;
 		try {
-			energyTypesSyncSchema.parse(energyTypes);
-			setEnergyTypesError('');
-			setEnergyTypesToStore(energyTypes, false);
+			energyTypeSyncSchema.parse(energyType);
+			setEnergyTypeError('');
+			setEnergyTypeToStore(energyType, false);
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				console.log(error);
-				setEnergyTypesError(error.issues[0].message);
+				setEnergyTypeError(error.issues[0].message);
 			} else {
-				setEnergyTypesError(
+				setEnergyTypeError(
 					'Upps. ein unbekannter Fehler ist aufgetreten',
 				);
 			}
-			energyTypesHasError = true;
+			energyTypeHasError = true;
 		}
-		setIsEnergyTypesValidating(false);
+		setIsEnergyTypeValidating(false);
 
-		if (!addressHasError && !energyTypesHasError && !consumptionHasError) {
+		if (!addressHasError && !energyTypeHasError && !consumptionHasError) {
 			navigate('/matches');
 		}
 	};
@@ -271,14 +270,14 @@ const Profile = () => {
 	const isValidating =
 		isAddressValidating ||
 		isConsumptionValidating ||
-		isEnergyTypesValidating;
+		isEnergyTypeValidating;
 
 	const tainted =
 		postalCode !== postalCodeFromStore ||
 		cityId !== cityIdFromStore ||
 		cityName !== cityNameFromStore ||
 		consumption !== consumptionFromStore.toString() ||
-		energyTypes[0] !== energyTypesFromStore[0];
+		energyType !== energyTypeFromStore;
 
 	return (
 		<ScrollView flex={1} height="$full" contentContainerStyle={{ flex: 1 }}>
@@ -457,19 +456,19 @@ const Profile = () => {
 					<Paragraph fontWeight="bold">
 						Deine liebste Energieart
 					</Paragraph>
-					{energyTypesError !== '' && (
+					{energyTypeError === '' && (
 						<Paragraph color="$baseLollipopRed">
-							{energyTypesError}
+							{energyTypeError}
 						</Paragraph>
 					)}
 					<RadioGroup
 						gap="$4"
 						width="$full"
-						value={energyTypes[0]}
+						value={energyType}
 						onValueChange={(newEnergyType) => {
-							setEnergyTypes([
+							setEnergyType(
 								newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
-							]);
+							);
 						}}
 					>
 						{plantTypes.map((plantTypeItem) => {
@@ -478,7 +477,7 @@ const Profile = () => {
 								<RadioGroup.Item
 									disabled={isValidating}
 									theme={
-										energyTypes.includes(type)
+										energyType === type
 											? theme
 											: 'secondary'
 									}

@@ -84,10 +84,7 @@ export const consumptionSyncSchema = z
 		'Bitte gib einen gültigen Verbrauch ein (max. 10.000 kWh). Wenn du mehr verbrauchst schau dich doch mal auf unserem Energie Marktplatz um.',
 	);
 
-export const energyTypesSyncSchema = z
-	.array(PLANT_TYPE_WITHOUT_DEFAULT)
-	.min(1, 'Bitte wähle mindestens eine Energieart aus')
-	.max(1, 'Bitte wähle maximal eine Energieart aus');
+export const energyTypeSyncSchema = PLANT_TYPE_WITHOUT_DEFAULT;
 
 export const configSchemaAsync = z
 	.object({
@@ -95,7 +92,7 @@ export const configSchemaAsync = z
 		cityName: cityNameSyncSchema,
 		cityId: cityIdSyncSchema,
 		consumption: consumptionSyncSchema,
-		energyTypes: energyTypesSyncSchema,
+		energyType: energyTypeSyncSchema,
 		showMatchAfterSwipe: z.boolean(),
 	})
 	.refine(

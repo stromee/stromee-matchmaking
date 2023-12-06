@@ -56,12 +56,12 @@ export const handleStoryblokImage = (url: string) => {
 
 export const producerHasTag = (
 	producer: Producer,
-	energyTypes: PLANT_TYPE_WITHOUT_DEFAULT[],
+	energyType: PLANT_TYPE_WITHOUT_DEFAULT,
 ) => {
 	if (
 		producer.distance &&
 		producer.distance < 100 &&
-		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
+		energyType === producer.plantType
 	) {
 		return 'super-match';
 	}
@@ -74,9 +74,7 @@ export const producerHasTag = (
 		return 'distance-match';
 	}
 
-	if (
-		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
-	) {
+	if (energyType === producer.plantType) {
 		return 'energy-type-match';
 	}
 

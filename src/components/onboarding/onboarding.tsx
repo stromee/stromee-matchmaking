@@ -87,6 +87,7 @@ const Onboarding = () => {
 							setView(ONBOARDING_VIEWS.Values.address);
 							setDirection(1);
 						}}
+						// eslint-disable-next-line @typescript-eslint/no-empty-function
 						onPrev={() => {}}
 					/>
 				);
@@ -119,6 +120,7 @@ const Onboarding = () => {
 			case ONBOARDING_VIEWS.Values.energyType:
 				return (
 					<EnergyType
+						// eslint-disable-next-line @typescript-eslint/no-empty-function
 						onNext={() => {}}
 						onPrev={() => {
 							setView(ONBOARDING_VIEWS.Values.consumption);

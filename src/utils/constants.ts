@@ -30,7 +30,9 @@ export type ORDER_BY = z.infer<typeof ORDER_BY>;
 export const PLANT_TYPE = z.enum(['default', 'wind', 'solar', 'biomass']);
 export type PLANT_TYPE = z.infer<typeof PLANT_TYPE>;
 
-export const PLANT_TYPE_WITHOUT_DEFAULT = z.enum(['wind', 'solar', 'biomass']);
+export const PLANT_TYPE_WITHOUT_DEFAULT = z.enum(['wind', 'solar', 'biomass'], {
+	errorMap: () => ({ message: 'Bitte wähle eine Energieart aus' }),
+});
 export type PLANT_TYPE_WITHOUT_DEFAULT = z.infer<
 	typeof PLANT_TYPE_WITHOUT_DEFAULT
 >;

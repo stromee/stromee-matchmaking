@@ -3,7 +3,6 @@ import Fire from '@components/icons/fire.svg?react';
 import Hearts from '@components/icons/hearts.svg?react';
 
 import { configStore } from '@utils/config-store';
-import { PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
 import { Producer } from '@utils/types';
 
 import { Chip } from './chip';
@@ -36,12 +35,12 @@ const SUPER_MATCH = [
 ];
 
 const ProducerTag = ({ producer }: ProducerTagProps) => {
-	const energyTypes = configStore.use.energyTypes();
+	const energyType = configStore.use.energyType();
 
 	if (
 		producer.distance &&
 		producer.distance < 100 &&
-		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
+		energyType === producer.plantType
 	) {
 		return (
 			<Chip icon={<Hearts width={16} height={16} />}>
@@ -66,9 +65,7 @@ const ProducerTag = ({ producer }: ProducerTagProps) => {
 		);
 	}
 
-	if (
-		energyTypes.includes(producer.plantType as PLANT_TYPE_WITHOUT_DEFAULT)
-	) {
+	if (energyType === producer.plantType) {
 		return (
 			<Chip
 				icon={

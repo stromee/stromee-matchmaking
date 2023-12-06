@@ -35,7 +35,7 @@ import { Button } from './themed/button';
 import { Link } from './themed/link';
 
 const ProducerPreview = ({ producer }: { producer: Producer }) => {
-	const energyTypes = configStore.use.energyTypes();
+	const energyType = configStore.use.energyType();
 
 	const price = usePrice();
 	const updateSwipe = producerStore.use.updateSwipe();
@@ -47,7 +47,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 		? priceWithDelta(price.data, producer.deltaPrice)
 		: undefined;
 
-	const tag = producerHasTag(producer, energyTypes);
+	const tag = producerHasTag(producer, energyType);
 
 	return (
 		<Theme name="secondary">

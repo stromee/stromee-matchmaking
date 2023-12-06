@@ -85,11 +85,11 @@ const Consumption = ({
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-				<Header customNavigation={handlePrev} tainted={tainted}>
-					Wie viel Energie brauchst du?
-				</Header>
+				<YStack width="$full" flexDirection="column" gap="$4">
+					<Header customNavigation={handlePrev} tainted={tainted}>
+						Wie viel Energie brauchst du?
+					</Header>
 
-				<View width="$full" flexDirection="column" gap="$4">
 					<YStack
 						flexDirection="column"
 						alignItems="center"
@@ -100,11 +100,7 @@ const Consumption = ({
 						<BodyText>Dein Verbrauch:</BodyText>
 						<H3> {formatUnit(consumption, 'kWh')}</H3>
 					</YStack>
-					{error !== '' && (
-						<Paragraph px="$4" color="$baseLollipopRed">
-							{error}
-						</Paragraph>
-					)}
+
 					<Slider
 						value={[consumption]}
 						onValueChange={(v) => setConsumption(v[0])}
@@ -136,11 +132,16 @@ const Consumption = ({
 							}}
 						/>
 					</Slider>
-				</View>
-				<Paragraph px="$4">
-					Alternativ kannst du uns auch einfach sagen, wie viele
-					Personen in deinem Haushalt leben.
-				</Paragraph>
+					<Paragraph px="$4">
+						Alternativ kannst du uns auch einfach sagen, wie viele
+						Personen in deinem Haushalt leben.
+					</Paragraph>
+					{error !== '' && (
+						<Paragraph px="$4" color="$baseLollipopRed">
+							{error}
+						</Paragraph>
+					)}
+				</YStack>
 
 				<View
 					flexDirection="row"

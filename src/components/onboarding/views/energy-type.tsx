@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import {
-	Paragraph,
-	RadioGroup,
-	ScrollView,
-	Spinner,
-	View,
-	YStack,
-} from 'tamagui';
+import { Paragraph, RadioGroup, ScrollView, Spinner, YStack } from 'tamagui';
 import * as z from 'zod';
 
 import { Header } from '@components/header';
@@ -18,7 +11,7 @@ import { Button } from '@components/themed/button';
 
 import { configStore } from '@utils/config-store';
 import { PLANT_TYPE_WITHOUT_DEFAULT } from '@utils/constants';
-import { energyTypesSyncSchema } from '@utils/schema';
+import { energyTypeSyncSchema } from '@utils/schema';
 
 import { OnboardingCarouselProps } from '../constants';
 
@@ -48,24 +41,24 @@ const EnergyType = ({
 	onNext: handleNext,
 	onPrev: handlePrev,
 }: EnergyTypeProps) => {
-	const energyTypesFromStore = configStore.use.energyTypes();
-	const setEnergyTypesToStore = configStore.use.setEnergyTypes();
+	const energyTypeFromStore = configStore.use.energyType();
+	const setEnergyTypeToStore = configStore.use.setEnergyType();
 
 	const [isValidating, setIsValidating] = useState(false);
-	const [energyTypes, setEnergyTypes] = useState(energyTypesFromStore);
+	const [energyType, setEnergyType] = useState(energyTypeFromStore);
 
 	const [error, setError] = useState('');
 	useEffect(() => {
 		// sync store with local state
-		setEnergyTypes(energyTypesFromStore);
-	}, [energyTypesFromStore]);
+		setEnergyType(energyTypeFromStore);
+	}, [energyTypeFromStore]);
 
 	const onNext = () => {
 		try {
-			energyTypesSyncSchema.parse(energyTypes);
+			energyTypeSyncSchema.parse(energyType);
 			setIsValidating(true);
 			setError('');
-			setEnergyTypesToStore(energyTypes);
+			setEnergyTypeToStore(energyType);
 			handleNext();
 		} catch (error) {
 			if (error instanceof z.ZodError) {
@@ -79,9 +72,9 @@ const EnergyType = ({
 
 	useEffect(() => {
 		setError('');
-	}, [energyTypes]);
+	}, [energyType]);
 
-	const tainted = energyTypes[0] !== energyTypesFromStore[0];
+	const tainted = energyType !== energyTypeFromStore;
 
 	return (
 		<ScrollView
@@ -90,7 +83,7 @@ const EnergyType = ({
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-				<View flexDirection="column" gap="$8">
+				<YStack gap="$4">
 					<Header customNavigation={handlePrev} tainted={tainted}>
 						Was sind deine Vorlieben?
 					</Header>
@@ -100,73 +93,78 @@ const EnergyType = ({
 						persönliche Präferenzen. Welche Energieart ist dir die
 						Liebste?
 					</Paragraph>
-				</View>
+				</YStack>
 
-				{error !== '' && (
-					<Paragraph px="$4" color="$baseLollipopRed">
-						{error}
-					</Paragraph>
-				)}
-				<RadioGroup
-					gap="$4"
-					alignSelf="center"
-					value={energyTypes[0]}
-					onValueChange={(newEnergyType) => {
-						setEnergyTypes([
-							newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
-						]);
-					}}
-				>
-					{plantTypes.map((plantTypeItem) => {
-						const { type, description, icon } = plantTypeItem;
-						return (
-							<RadioGroup.Item
-								key={type}
-								value={type}
-								size={undefined}
-								height="initial"
-								width="$full"
-								maxWidth={272}
-								minHeight={124}
-								p="$4"
-								borderWidth="$0.5"
-								borderRadius="$4"
-								borderColor={
-									energyTypes.includes(type)
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavyOpacity20'
-								}
-								hoverStyle={{
-									borderColor: energyTypes.includes(type)
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-								}}
-								focusStyle={{
-									borderColor: energyTypes.includes(type)
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-									outlineColor: energyTypes.includes(type)
-										? '$baseStromeeGreen'
-										: '$baseStromeeNavy',
-								}}
-							>
-								<YStack
-									alignItems="center"
-									justifyContent="center"
+				<YStack gap="$4">
+					{error !== '' && (
+						<Paragraph px="$4" color="$baseLollipopRed">
+							{error}
+						</Paragraph>
+					)}
+					<RadioGroup
+						gap="$4"
+						alignSelf="center"
+						value={energyType}
+						onValueChange={(newEnergyType) => {
+							setEnergyType(
+								newEnergyType as PLANT_TYPE_WITHOUT_DEFAULT,
+							);
+						}}
+					>
+						{plantTypes.map((plantTypeItem) => {
+							const { type, description, icon } = plantTypeItem;
+							return (
+								<RadioGroup.Item
+									key={type}
+									value={type}
+									size={undefined}
+									height="initial"
 									width="$full"
-									gap="$2"
+									maxWidth={272}
+									minHeight={124}
+									p="$4"
+									borderWidth="$0.5"
+									borderRadius="$4"
+									borderColor={
+										energyType === type
+											? '$baseStromeeGreen'
+											: '$baseStromeeNavyOpacity20'
+									}
+									hoverStyle={{
+										borderColor:
+											energyType === type
+												? '$baseStromeeGreen'
+												: '$baseStromeeNavy',
+									}}
+									focusStyle={{
+										borderColor:
+											energyType === type
+												? '$baseStromeeGreen'
+												: '$baseStromeeNavy',
+										outlineColor:
+											energyType === type
+												? '$baseStromeeGreen'
+												: '$baseStromeeNavy',
+									}}
 								>
-									{icon}
-									<Paragraph>{description}</Paragraph>
-								</YStack>
-							</RadioGroup.Item>
-						);
-					})}
-				</RadioGroup>
+									<YStack
+										alignItems="center"
+										justifyContent="center"
+										width="$full"
+										gap="$2"
+									>
+										{icon}
+										<Paragraph>{description}</Paragraph>
+									</YStack>
+								</RadioGroup.Item>
+							);
+						})}
+					</RadioGroup>
 
-				{isValidating && (
-					<Spinner size="large" color="$baseStromeeNavy" />
-				)}
+					{isValidating && (
+						<Spinner size="large" color="$baseStromeeNavy" />
+					)}
+				</YStack>
 				<Button onPress={onNext}>Weiter</Button>
 			</YStack>
 		</ScrollView>

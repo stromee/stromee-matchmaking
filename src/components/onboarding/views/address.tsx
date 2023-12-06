@@ -141,11 +141,10 @@ const Address = ({
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-				<YStack gap="$8">
+				<YStack gap="$4">
 					<Header customNavigation={handlePrev} tainted={tainted}>
 						Erzähl etwas über dich!
 					</Header>
-
 					<Paragraph px="$4">
 						Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag
 						uns doch, in welcher Stadt du wohnst, damit wir den
