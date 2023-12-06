@@ -1,12 +1,11 @@
 encryptionsalt: v1:WKpTH6bVxL8=:v1:slc0MhCV9XlV/sHi:Bo7xpX00Frpehxc6tNjoeiVKdvOtRw==
 config:
-  stromee-matchmaking:address-service-url: https://address-service.stromee.homee.cloud/api/v1
-  stromee-matchmaking:campaign-identifier: POWERMATCH
-  stromee-matchmaking:landing-page-url: https://stromee.de
-  stromee-matchmaking:lition-backend-url: https://backend.stromee.de/v0.1
-  stromee-matchmaking:price-locator-url: https://price-locator.stromee.de
-  stromee-matchmaking:product-code: OEKO
-  stromee-matchmaking:supabase-public-key:
-    secure: v1:w3YHfCQ2/8lXFxL0:QoEbJhFSEZUk9/6UHZkcGraC67ffKCph3owvwcn3HxyrBa9cXdbHhXkM4N255KaP0/DFOIWBeBD+u6WdjuQtqFir2NZH/KSaG+f1Z/juCD4ARFbxwEJUlZMy6AdqqnwcOfjq9H9/1akIQ+6oqSPtob4xkr8GcdxhtLW0K2sU2gSYJY/1fCRuiONfSVxY5c2Kk435KUeYuiCaSW1BM9bZTjIdf0piDbk2ZzEJuJoeb+OxA5H3wq11PrnBw4EAwgYRFGamPqNFDBmjTB4B+VujDR/UbqtU2tzpVTP7C/IDS90=
-  stromee-matchmaking:supabase-url: https://oqbfkebdebbhynlpopmu.supabase.co
-    secure: v1:1y6lHWRMpT9YnP3E:qRng1gecSKzdOHzZvpDnm7XLi/VOOBVu3tBfUdyJFTBpdYUGUU6eTnrFlegld87kH81tWTnYSEPFHH910qRIwy330ucxvLMr/oKglbvtvPtpdIlCXMJZtFmaJESvOTvltweQ7YX0S26PWrY5aig0v5om4mVgueXx190zYAJz3UmatviIfiieD6OPQZCoHq5dwzufBBVBgiEvnPp/OzVPVZ2iNWvUIpKVegkq8Bh4COV7sU66+jC9XDzV5/P5V3nI4D2XjpccQk32ibDu5QzcMBSphuAw3Bv4Iy2E2yo84To=
+    stromee-matchmaking:address-service-url: https://address-service.stromee.homee.cloud/api/v1
+    stromee-matchmaking:campaign-identifier: MARKETPLACE
+    stromee-matchmaking:landing-page-url: https://stromee.de
+    stromee-matchmaking:lition-backend-url: https://backend.stromee.de/v0.1
+    stromee-matchmaking:price-locator-url: https://price-locator.stromee.de
+    stromee-matchmaking:product-code: OEKO
+    stromee-matchmaking:supabase-public-key:
+        secure: v1:w3YHfCQ2/8lXFxL0:QoEbJhFSEZUk9/6UHZkcGraC67ffKCph3owvwcn3HxyrBa9cXdbHhXkM4N255KaP0/DFOIWBeBD+u6WdjuQtqFir2NZH/KSaG+f1Z/juCD4ARFbxwEJUlZMy6AdqqnwcOfjq9H9/1akIQ+6oqSPtob4xkr8GcdxhtLW0K2sU2gSYJY/1fCRuiONfSVxY5c2Kk435KUeYuiCaSW1BM9bZTjIdf0piDbk2ZzEJuJoeb+OxA5H3wq11PrnBw4EAwgYRFGamPqNFDBmjTB4B+VujDR/UbqtU2tzpVTP7C/IDS90=
+    stromee-matchmaking:supabase-url: https://oqbfkebdebbhynlpopmu.supabase.co

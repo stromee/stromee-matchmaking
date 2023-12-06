@@ -1,11 +1,11 @@
 encryptionsalt: v1:nw9o8MY9rs4=:v1:nIHJCb2uw1SX6011:JBUqyFdmjjj4SgPVPX+ybhDJRRSSpg==
 config:
-  stromee-matchmaking:address-service-url: https://address-service.stromee.staging.homee.cloud/api/v1
-  stromee-matchmaking:campaign-identifier: MARKETPLACE
-  stromee-matchmaking:landing-page-url: https://staging.stromee.de
-  stromee-matchmaking:lition-backend-url: https://backend.stromee.de/v0.1
-  stromee-matchmaking:price-locator-url: https://price-locator.staging.stromee.de
-  stromee-matchmaking:product-code: MARKETPLACE_TMP
-  stromee-matchmaking:supabase-public-key:
-    secure: v1:HwewBVeXcw0FDB4d:AdUBz1vmPixsV/f4DM14B8hCxQApgG5XcFez0lQpp1SK81XZwFAJtqZl0deIAPsqsDPdWHjf4Q2EcKZ4fXPQxMQvYVDPXEAa9go7Z/Bx8kgLhJSzgTur1mJmceM806xzjp77oa14An6SP02lJHMHt5OggnzH88esckm9jatcjc5SMtoKfSO3IQ2W4N+9PwUKrcZADUwfgURttRABBvyswQykFqJQiTuhlRpE7515R/PH90AIo4wW6PWcfDx/oIQAv25RZEv3bz51Jxp91wSLtIT7P5ACsAs9ng+BvB4Qs1A=
-  stromee-matchmaking:supabase-url: https://oqbfkebdebbhynlpopmu.supabase.co
+    stromee-matchmaking:address-service-url: https://address-service.stromee.staging.homee.cloud/api/v1
+    stromee-matchmaking:campaign-identifier: MARKETPLACE
+    stromee-matchmaking:landing-page-url: https://staging.stromee.de
+    stromee-matchmaking:lition-backend-url: https://backend.stromee.de/v0.1
+    stromee-matchmaking:price-locator-url: https://price-locator.staging.stromee.de
+    stromee-matchmaking:product-code: MARKETPLACE_TMP
+    stromee-matchmaking:supabase-public-key:
+        secure: v1:HwewBVeXcw0FDB4d:AdUBz1vmPixsV/f4DM14B8hCxQApgG5XcFez0lQpp1SK81XZwFAJtqZl0deIAPsqsDPdWHjf4Q2EcKZ4fXPQxMQvYVDPXEAa9go7Z/Bx8kgLhJSzgTur1mJmceM806xzjp77oa14An6SP02lJHMHt5OggnzH88esckm9jatcjc5SMtoKfSO3IQ2W4N+9PwUKrcZADUwfgURttRABBvyswQykFqJQiTuhlRpE7515R/PH90AIo4wW6PWcfDx/oIQAv25RZEv3bz51Jxp91wSLtIT7P5ACsAs9ng+BvB4Qs1A=
+    stromee-matchmaking:supabase-url: https://oqbfkebdebbhynlpopmu.supabase.co
