@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import {
+	DotLottieCommonPlayer,
+	DotLottiePlayer,
+} from '@dotlottie/react-player';
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
+import { Directions } from 'react-native-gesture-handler';
 import Animated, {
 	interpolate,
 	useAnimatedStyle,
@@ -8,7 +13,7 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { DefaultStyle } from 'react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes';
-import { H2, Paragraph, XStack, YStack, clamp } from 'tamagui';
+import { H2, Paragraph, View, XStack, YStack, clamp } from 'tamagui';
 import { Image } from 'tamagui';
 
 import { color } from '@theme/tokens';
@@ -86,6 +91,7 @@ const indexAfterActive = ({
 
 const SwipableList = ({ count = 4 }) => {
 	const swipableRef = useRef<SwipableRef | null>(null);
+	const likeRef = useRef<DotLottieCommonPlayer>(null);
 	const [isSwiping, setIsSwiping] = useState(false);
 
 	const leftButtonTransform = useSharedValue(1);
@@ -315,6 +321,11 @@ const SwipableList = ({ count = 4 }) => {
 									id,
 									direction: swipe.direction,
 								});
+								console.log('swipe', swipe);
+								if (swipe.direction === 'right') {
+									likeRef.current?.seek(0);
+									likeRef.current?.play();
+								}
 								if (remaining.length === 1) {
 									setIsSwiping(true);
 								} else {
@@ -457,66 +468,89 @@ const SwipableList = ({ count = 4 }) => {
 						<Menu />
 					</AccessibleIcon>
 				</Link>
-				<Button
-					p="$0"
-					size={undefined}
-					width="64px"
-					height="64px"
-					circular
-					backgroundColor="$transparent"
-					animation="easeInOutSine"
-					animateOnly={['transform', 'shadowOpacity', 'shadowRadius']}
-					shadowColor={color.baseStromeeGreen}
-					shadowOpacity={0}
-					shadowRadius={4}
-					borderWidth="$0.5"
-					borderColor="$transparent"
-					hoverStyle={{
-						borderWidth: '$0',
-						borderColor: '$transparent',
-						backgroundColor: '$transparent',
-					}}
-					pressStyle={{
-						transform: [{ scale: 1.1 }],
-						shadowColor: color.baseStromeeGreen,
-						shadowOpacity: 1,
-						shadowRadius: 12,
-					}}
-					focusStyle={{
-						backgroundColor: '$transparent',
-						outlineWidth: 0,
-					}}
-					onPress={() => {
-						if (
-							swipableRef.current &&
-							swipableRef.current.id === activeSwipableId
-						) {
-							swipableRef.current?.swipe('right');
-						}
-					}}
-					disabled={isSwiping || remainingDeferred.length === 0}
-				>
-					<Animated.View
-						style={[
-							{
-								borderRadius: 99999,
-								height: 64,
-								width: 64,
-								alignItems: 'center',
-								justifyContent: 'center',
-								backgroundColor: color.baseStromeeNavy,
-								borderWidth: 2,
-								borderColor: color.baseCloudWhite,
-								shadowColor: color.baseStromeeGreen,
-							},
-							rightButtonStyle,
-						]}
+				<View pos="relative">
+					<View
+						pos="absolute"
+						width="64px"
+						height="64px"
+						transform={[{ scale: 2 }]}
+						disabled={isSwiping || remainingDeferred.length === 0}
 					>
-						<AccessibleIcon label="Match">
-							<HeartFilled />
-						</AccessibleIcon>
-					</Animated.View>
-				</Button>
+						<DotLottiePlayer
+							ref={likeRef}
+							speed={1.2}
+							src={createRelativeUrl('/images/like.lottie')}
+							style={{
+								width: '100%',
+								height: '100%',
+							}}
+						/>
+					</View>
+					<Button
+						p="$0"
+						size={undefined}
+						width="64px"
+						height="64px"
+						circular
+						backgroundColor="$transparent"
+						animation="easeInOutSine"
+						animateOnly={[
+							'transform',
+							'shadowOpacity',
+							'shadowRadius',
+						]}
+						shadowColor={color.baseStromeeGreen}
+						shadowOpacity={0}
+						shadowRadius={4}
+						borderWidth="$0.5"
+						borderColor="$transparent"
+						hoverStyle={{
+							borderWidth: '$0',
+							borderColor: '$transparent',
+							backgroundColor: '$transparent',
+						}}
+						pressStyle={{
+							transform: [{ scale: 1.1 }],
+							shadowColor: color.baseStromeeGreen,
+							shadowOpacity: 1,
+							shadowRadius: 12,
+						}}
+						focusStyle={{
+							backgroundColor: '$transparent',
+							outlineWidth: 0,
+						}}
+						onPress={() => {
+							if (
+								swipableRef.current &&
+								swipableRef.current.id === activeSwipableId
+							) {
+								swipableRef.current?.swipe('right');
+							}
+						}}
+						disabled={isSwiping || remainingDeferred.length === 0}
+					>
+						<Animated.View
+							style={[
+								{
+									borderRadius: 99999,
+									height: 64,
+									width: 64,
+									alignItems: 'center',
+									justifyContent: 'center',
+									backgroundColor: color.baseStromeeNavy,
+									borderWidth: 2,
+									borderColor: color.baseCloudWhite,
+									shadowColor: color.baseStromeeGreen,
+								},
+								rightButtonStyle,
+							]}
+						>
+							<AccessibleIcon label="Match">
+								<HeartFilled />
+							</AccessibleIcon>
+						</Animated.View>
+					</Button>
+				</View>
 			</XStack>
 
 			<PresenceStack condition={!!producerDetail}>

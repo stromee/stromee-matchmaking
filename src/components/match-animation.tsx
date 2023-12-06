@@ -11,7 +11,7 @@ import { createRelativeUrl } from '@utils/misc';
 export type MatchAnimationProps = {};
 
 const MatchAnimation = (props: MatchAnimationProps) => {
-	const ref = useRef<DotLottieCommonPlayer>();
+	const ref = useRef<DotLottieCommonPlayer>(null);
 	return (
 		<DotLottiePlayer
 			ref={ref}
