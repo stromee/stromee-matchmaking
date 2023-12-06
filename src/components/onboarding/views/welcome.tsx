@@ -17,7 +17,14 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 			minHeight="$full"
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
-			<YStack flex={1} px="$4" py="$8" gap="$4" jc="space-between">
+			<YStack
+				flex={1}
+				px="$4"
+				pt="$0"
+				pb="$8"
+				gap="$4"
+				jc="space-between"
+			>
 				<H1
 					padding="$4"
 					fontSize="$1"
