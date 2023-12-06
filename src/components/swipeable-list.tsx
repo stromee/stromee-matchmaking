@@ -323,7 +323,7 @@ const SwipableList = ({ count = 4 }) => {
 								});
 								console.log('swipe', swipe);
 								if (swipe.direction === 'right') {
-									likeRef.current?.seek(0);
+									likeRef.current?.seek(6);
 									likeRef.current?.play();
 								}
 								if (remaining.length === 1) {
@@ -473,7 +473,10 @@ const SwipableList = ({ count = 4 }) => {
 						pos="absolute"
 						width="64px"
 						height="64px"
-						transform={[{ scale: 2 }]}
+						pt="$1"
+						transform={[{ scale: 3 }]}
+						ai="center"
+						jc="center"
 						disabled={isSwiping || remainingDeferred.length === 0}
 					>
 						<DotLottiePlayer
@@ -482,7 +485,8 @@ const SwipableList = ({ count = 4 }) => {
 							src={createRelativeUrl('/images/like.lottie')}
 							style={{
 								width: '100%',
-								height: '100%',
+								height: 'auto',
+								aspectRatio: '192/144',
 							}}
 						/>
 					</View>
