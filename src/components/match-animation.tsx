@@ -21,7 +21,7 @@ const MatchAnimation = (props: MatchAnimationProps) => {
 					console.log('complete');
 					ref.current?.setSpeed(1);
 					ref.current?.setLoop(true);
-					ref.current?.playSegments([118, 180]);
+					ref.current?.playSegments([128, 180]);
 				}
 			}}
 			src={createRelativeUrl('/images/match.lottie')}
