@@ -1,5 +1,7 @@
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import { H1, H2, Image, ScrollView, View, YStack } from 'tamagui';
 
+import Logo from '@components/icons/logo.svg?react';
 import { Button } from '@components/themed/button';
 
 import { createRelativeUrl } from '@utils/misc';
@@ -16,7 +18,17 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
 			<YStack flex={1} px="$4" py="$8" gap="$4" jc="space-between">
-				<H1 alignSelf="center">Stromee</H1>
+				<H1
+					padding="$4"
+					fontSize="$1"
+					display="flex"
+					ai="center"
+					jc="center"
+				>
+					<AccessibleIcon label="stromee powermatch">
+						<Logo />
+					</AccessibleIcon>
+				</H1>
 				<Image
 					maxWidth="300px"
 					width="$full"
