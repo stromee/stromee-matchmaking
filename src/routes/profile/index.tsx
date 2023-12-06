@@ -194,7 +194,7 @@ const Profile = () => {
 	const save = async () => {
 		setAddressError('');
 		setIsAddressValidating(true);
-		setConsumption('');
+		setConsumptionError('');
 		setIsConsumptionValidating(true);
 		setEnergyTypesError('');
 		setIsEnergyTypesValidating(true);
@@ -229,6 +229,7 @@ const Profile = () => {
 				: parseInt(consumption);
 			conumptionSyncSchema.parse(parsed);
 			setConsumptionToStore(parsed);
+			setConsumptionToStore(parsed, false);
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				console.log(error);
@@ -264,7 +265,6 @@ const Profile = () => {
 			navigate('/matches');
 		}
 	};
-	// };
 
 	const showAddressSpinner = isLoading || isAddressValidating;
 
