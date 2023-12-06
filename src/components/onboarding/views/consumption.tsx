@@ -6,7 +6,6 @@ import * as z from 'zod';
 import { color } from '@theme/tokens';
 
 import { Header } from '@components/header';
-import { HeaderOnboarding } from '@components/header-onboarding';
 import OnePerson from '@components/icons/1_person.svg?react';
 import TwoPerson from '@components/icons/2_person.svg?react';
 import ThreePerson from '@components/icons/3_person.svg?react';
@@ -18,7 +17,7 @@ import { Button } from '@components/themed/button';
 import { configStore } from '@utils/config-store';
 import { DEFAULT_CONSUMPTION } from '@utils/constants';
 import { formatUnit } from '@utils/format';
-import { conumptionSyncSchema } from '@utils/schema';
+import { consumptionSyncSchema } from '@utils/schema';
 
 import { OnboardingCarouselProps } from '../constants';
 
@@ -57,7 +56,7 @@ const Consumption = ({
 
 	const onNext = () => {
 		try {
-			conumptionSyncSchema.parse(consumption);
+			consumptionSyncSchema.parse(consumption);
 			setError('');
 			setConsumptionToStore(consumption);
 			handleNext();
@@ -75,7 +74,10 @@ const Consumption = ({
 		setError('');
 	}, [consumption]);
 
-	const tainted = consumption !== consumptionFromStore;
+	const tainted =
+		consumption !== consumptionFromStore &&
+		!(consumptionFromStore === -1 && consumption === DEFAULT_CONSUMPTION);
+
 	return (
 		<ScrollView
 			flex={1}

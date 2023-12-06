@@ -6,7 +6,6 @@ import * as z from 'zod';
 import { color } from '@theme/tokens';
 
 import { Header } from '@components/header';
-import { HeaderOnboarding } from '@components/header-onboarding';
 import ArrowDropDown from '@components/icons/arrow-drop-down.svg?react';
 import Divider from '@components/icons/divider.svg?react';
 import Location from '@components/icons/location.svg?react';

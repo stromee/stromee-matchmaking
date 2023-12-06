@@ -6,7 +6,7 @@ import { PRICE_KEYS } from '@utils/query';
 import {
 	cityIdSyncSchema,
 	cityNameSyncSchema,
-	conumptionSyncSchema,
+	consumptionSyncSchema,
 	postalCodeSyncSchema,
 } from '@utils/schema';
 import { Price } from '@utils/types';
@@ -42,7 +42,7 @@ export const priceSyncSchema = z
 		cityId: cityIdSyncSchema,
 		cityName: cityNameSyncSchema,
 		energyType: z.string().refine((val) => ENERGY_TYPE.enum[val]),
-		consumption: conumptionSyncSchema,
+		consumption: consumptionSyncSchema,
 		productCode: z.string().min(1),
 		campaignIdentifier: z.string().min(1),
 	})

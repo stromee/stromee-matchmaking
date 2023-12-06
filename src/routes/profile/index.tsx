@@ -35,7 +35,7 @@ import {
 import {
 	cityIdSyncSchema,
 	cityNameSyncSchema,
-	conumptionSyncSchema,
+	consumptionSyncSchema,
 	energyTypesSyncSchema,
 	postalCodeAsyncSchema,
 	postalCodeSyncSchema,
@@ -227,7 +227,7 @@ const Profile = () => {
 			const parsed = isNaN(parseInt(consumption))
 				? -1
 				: parseInt(consumption);
-			conumptionSyncSchema.parse(parsed);
+			consumptionSyncSchema.parse(parsed);
 			setConsumptionToStore(parsed);
 			setConsumptionToStore(parsed, false);
 		} catch (error) {

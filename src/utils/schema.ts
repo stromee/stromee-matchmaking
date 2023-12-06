@@ -75,7 +75,7 @@ export const cityIdAsyncSchema = async ({ postalCode, cityId }) => {
 	}
 };
 
-export const conumptionSyncSchema = z
+export const consumptionSyncSchema = z
 	.number()
 	.positive('Bitte gib einen gültigen Verbrauch ein')
 	.min(50, 'Bitte gib einen gültigen Verbrauch ein (min. 50 kWh)')
@@ -94,7 +94,7 @@ export const configSchemaAsync = z
 		postalCode: postalCodeAsyncSchema,
 		cityName: cityNameSyncSchema,
 		cityId: cityIdSyncSchema,
-		consumption: conumptionSyncSchema,
+		consumption: consumptionSyncSchema,
 		energyTypes: energyTypesSyncSchema,
 		showMatchAfterSwipe: z.boolean(),
 	})
