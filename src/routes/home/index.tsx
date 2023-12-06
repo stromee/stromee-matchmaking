@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { DotLottiePlayer } from '@dotlottie/react-player';
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import {
 	Checkbox,
@@ -18,6 +19,7 @@ import { color } from '@theme/tokens';
 import CheckboxChecked from '@components/icons/checkbox-checked.svg?react';
 import CheckboxUnchecked from '@components/icons/checkbox-unchecked.svg?react';
 import Logo from '@components/icons/logo.svg?react';
+import { MatchAnimation } from '@components/match-animation';
 import { PresenceStack } from '@components/presence-stack';
 import { SwipableList } from '@components/swipeable-list';
 import { BodyText } from '@components/themed/body-text';
@@ -93,17 +95,7 @@ const Home = () => {
 								Du hast ein Match!
 							</H2>
 
-							<Image
-								mx="$-4"
-								width="$full"
-								height="auto"
-								resizeMode="contain"
-								alignSelf="center"
-								aspectRatio="390/360"
-								source={{
-									uri: createRelativeUrl('/images/match.svg'),
-								}}
-							/>
+							<MatchAnimation />
 
 							<YStack width="$full" px="$4" py="$8" gap="$2">
 								<Link
