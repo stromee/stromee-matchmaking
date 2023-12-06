@@ -1,12 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { H1, H2, Image, ScrollView, Theme } from 'tamagui';
+import {
+	Checkbox,
+	H1,
+	H2,
+	Image,
+	Label,
+	ScrollView,
+	Theme,
+	XStack,
+} from 'tamagui';
 import { YStack } from 'tamagui';
 
+import { color } from '@theme/tokens';
+
+import CheckboxChecked from '@components/icons/checkbox-checked.svg?react';
+import CheckboxUnchecked from '@components/icons/checkbox-unchecked.svg?react';
 import Logo from '@components/icons/logo.svg?react';
 import { PresenceStack } from '@components/presence-stack';
 import { SwipableList } from '@components/swipeable-list';
+import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Link } from '@components/themed/link';
 
@@ -15,8 +29,14 @@ import { createRelativeUrl } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 
 const Home = () => {
-	const showMatchAfterSwipe = configStore.use.showMatchAfterSwipe();
-	// const setShowMatchAfterSwipe = configStore.use.setShowMatchAfterSwipe();
+	const showMatchAfterSwipeFromStore = configStore.use.showMatchAfterSwipe();
+	const setShowMatchAfterSwipeFromStore =
+		configStore.use.setShowMatchAfterSwipe();
+	const [checked, setChecked] = useState(!showMatchAfterSwipeFromStore);
+	useEffect(() => {
+		// sync store with local state
+		setChecked(!showMatchAfterSwipeFromStore);
+	}, [showMatchAfterSwipeFromStore]);
 
 	const lastLength = useRef(-1);
 	const [currentSwipe, setCurrentSwipe] = useState<string | undefined>(
@@ -51,7 +71,7 @@ const Home = () => {
 			<SwipableList />
 			<Theme name="popPetrol">
 				<PresenceStack
-					condition={!!currentSwipe && showMatchAfterSwipe}
+					condition={!!currentSwipe && showMatchAfterSwipeFromStore}
 				>
 					<ScrollView
 						pos="relative"
@@ -87,6 +107,11 @@ const Home = () => {
 
 							<YStack width="$full" px="$4" py="$8" gap="$2">
 								<Link
+									onPress={() => {
+										setShowMatchAfterSwipeFromStore(
+											!checked,
+										);
+									}}
 									to={`/matches/${currentSwipe}`}
 									theme="stromeeGreen"
 									height="$11"
@@ -114,6 +139,9 @@ const Home = () => {
 									borderColor="$borderColor"
 									theme="popPetrol"
 									onPress={() => {
+										setShowMatchAfterSwipeFromStore(
+											!checked,
+										);
 										setCurrentSwipe(undefined);
 									}}
 								>
@@ -129,6 +157,42 @@ const Home = () => {
 								>
 									Nicht mehr anzeigen
 								</Button> */}
+								<XStack gap="$2" ai="center" mt="$2">
+									<Checkbox
+										id="showMatchAfterSwipe"
+										checked={checked}
+										onCheckedChange={(checkedState) => {
+											console.log(
+												'checkeEvent',
+												checkedState,
+											);
+											if (
+												checkedState !== 'indeterminate'
+											) {
+												setChecked(checkedState);
+											}
+										}}
+										size="$true"
+										width="inital"
+										height="inital"
+										padding="$0"
+										borderColor="$transparent"
+									>
+										{!checked && (
+											<CheckboxUnchecked
+												style={{
+													color: color.baseCloudWhite,
+												}}
+											/>
+										)}
+										<Checkbox.Indicator>
+											<CheckboxChecked />
+										</Checkbox.Indicator>
+									</Checkbox>
+									<Label htmlFor="showMatchAfterSwipe">
+										<BodyText>Nicht mehr anzeigen</BodyText>
+									</Label>
+								</XStack>
 							</YStack>
 						</YStack>
 					</ScrollView>
