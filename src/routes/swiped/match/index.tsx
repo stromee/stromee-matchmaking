@@ -196,7 +196,7 @@ const Match = () => {
 				{producer.data.name}
 			</Header>
 
-			<YStack px="$4" py="$8" gap="$4">
+			<YStack px="$4" py="$8" gap="$4" flex={1}>
 				<Link
 					alignSelf="flex-start"
 					to={`/matches/${producerId}/detail`}
