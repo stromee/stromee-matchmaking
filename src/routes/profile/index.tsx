@@ -14,16 +14,19 @@ import * as z from 'zod';
 
 import { color } from '@theme/tokens';
 
+import { Divider } from '@components/divider';
 import { Header } from '@components/header';
 import ArrowDropDown from '@components/icons/arrow-drop-down.svg?react';
 import Biogas from '@components/icons/biomass.svg?react';
 import Bolt from '@components/icons/bolt.svg?react';
-import Divider from '@components/icons/divider.svg?react';
+import DividerIcon from '@components/icons/divider.svg?react';
 import Location from '@components/icons/location.svg?react';
 import Solar from '@components/icons/solar.svg?react';
 import Wind from '@components/icons/wind.svg?react';
+import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Input } from '@components/themed/input';
+import { Link } from '@components/themed/link';
 
 import { useCitiesQuery } from '@hooks/use-cities-query';
 
@@ -306,7 +309,7 @@ const Profile = () => {
 							pl="$2"
 						>
 							<Location />
-							<Divider />
+							<DividerIcon />
 						</View>
 
 						<Input
@@ -434,7 +437,7 @@ const Profile = () => {
 							pl="$2"
 						>
 							<Bolt />
-							<Divider />
+							<DividerIcon />
 						</View>
 						<Input
 							disabled={isConsumptionValidating}
@@ -518,9 +521,35 @@ const Profile = () => {
 					</RadioGroup>
 				</YStack>
 
-				<Button mt="auto" disabled={isValidating} onPress={save}>
+				<Button disabled={isValidating} onPress={save}>
 					Weiter
 				</Button>
+
+				<YStack gap="$2">
+					<Divider />
+					<Paragraph fontWeight="bold">Rechtliches</Paragraph>
+					<Link
+						to="https://stromee.de/terms-of-service"
+						target="_blank"
+						textDecorationLine="underline"
+					>
+						<BodyText>AGB</BodyText>
+					</Link>
+					<Link
+						to="https://stromee.de/imprint"
+						target="_blank"
+						textDecorationLine="underline"
+					>
+						<BodyText>Impressum</BodyText>
+					</Link>
+					<Link
+						to="https://stromee.de/privacy"
+						target="_blank"
+						textDecorationLine="underline"
+					>
+						<BodyText>Datenschutz</BodyText>
+					</Link>
+				</YStack>
 			</YStack>
 		</ScrollView>
 	);
