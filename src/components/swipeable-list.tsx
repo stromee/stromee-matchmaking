@@ -426,7 +426,8 @@ const SwipableList = ({ count = 4 }) => {
 								swipableRef.current.swipe('left');
 							}
 						}}
-						disabled={isSwiping || remainingDeferred.length === 0}
+						disabled={isSwiping}
+						opacity={1}
 					>
 						<Animated.View
 							style={[
@@ -482,9 +483,8 @@ const SwipableList = ({ count = 4 }) => {
 							transform={[{ scale: 3 }]}
 							ai="center"
 							jc="center"
-							disabled={
-								isSwiping || remainingDeferred.length === 0
-							}
+							disabled={isSwiping}
+							opacity={1}
 						>
 							<DotLottiePlayer
 								ref={likeRef}
@@ -539,6 +539,7 @@ const SwipableList = ({ count = 4 }) => {
 								}
 							}}
 							disabled={isSwiping}
+							opacity={1}
 						>
 							<Animated.View
 								style={[
