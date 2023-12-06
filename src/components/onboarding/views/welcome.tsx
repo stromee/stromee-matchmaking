@@ -1,5 +1,14 @@
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { H1, H2, H3, Image, ScrollView, View, YStack } from 'tamagui';
+import {
+	H1,
+	H2,
+	H3,
+	Image,
+	Paragraph,
+	ScrollView,
+	View,
+	YStack,
+} from 'tamagui';
 
 import Logo from '@components/icons/logo.svg?react';
 import { Button } from '@components/themed/button';
@@ -46,12 +55,18 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 						uri: createRelativeUrl('/images/infogr_1_producer.png'),
 					}}
 				/>
-				<View px="$8">
-					<H3>
-						Auf der Suche nach der Energie deines Lebens? Swipe dir
-						deinen passenden Stromerzeuger!
+				<YStack px="$8" gap="$2">
+					<H3 textAlign="center">
+						Auf der Suche nach der Energie deines Lebens? Finde dein
+						Strom 💚 Match!
 					</H3>
-				</View>
+					<Paragraph textAlign="center">
+						stromee bietet Ökostrom aus erneuerbaren Energieanlagen.
+						Entdecke die Produzenten dahinter und finde mit unserem
+						Powermatch heraus, wer perfekt zu dir passt. Einfach
+						swipen und kennenlernen!
+					</Paragraph>
+				</YStack>
 
 				<Button onPress={handleNext}>Los gehts!</Button>
 			</YStack>
