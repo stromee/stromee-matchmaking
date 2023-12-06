@@ -161,7 +161,7 @@ export const createConfigStore = (name: string) => {
 			}),
 			{
 				name,
-				version: 4,
+				version: 5,
 				partialize: (state) => ({
 					...state,
 					initialValidated: false,
