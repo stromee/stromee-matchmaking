@@ -20,6 +20,7 @@ import Bin from '@components/icons/bin.svg?react';
 import MoreHorizontal from '@components/icons/more-horizontal.svg?react';
 import More from '@components/icons/more.svg?react';
 
+import { useAppState } from '@hooks/use-app-state';
 import { useFunnelHref } from '@hooks/use-funnel-href';
 import { usePrice } from '@hooks/use-price';
 
@@ -40,6 +41,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 	const price = usePrice();
 	const updateSwipe = producerStore.use.updateSwipe();
 
+	const { isInIframe } = useAppState();
 	const [open, setOpen] = useState(false);
 	const funnelHref = useFunnelHref(producer.id);
 
@@ -48,7 +50,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 		: undefined;
 
 	const tag = producerHasTag(producer, energyType);
-
+	const target = isInIframe ? '_top' : '_blank';
 	return (
 		<Theme name="secondary">
 			<Link to={`/matches/${producer.id}`}>
@@ -228,7 +230,7 @@ const ProducerPreview = ({ producer }: { producer: Producer }) => {
 												ai="center"
 												jc="flex-start"
 												to={funnelHref}
-												target="_blank"
+												target={target}
 												onPress={(e) => {
 													e.stopPropagation();
 													/* Custom code goes here, does not interfere with popover closure */

@@ -17,6 +17,7 @@ import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 import { Link } from '@components/themed/link';
 
+import { useAppState } from '@hooks/use-app-state';
 import { useDefinedParam } from '@hooks/use-defined-param';
 import { useFunnelHref } from '@hooks/use-funnel-href';
 import { usePrice } from '@hooks/use-price';
@@ -38,6 +39,7 @@ const Match = () => {
 
 	const consumption = configStore.use.consumption();
 
+	const { isInIframe } = useAppState();
 	const funnelHref = useFunnelHref(parsedProducerId);
 
 	const producer = useProducer(parsedProducerId);
@@ -57,6 +59,8 @@ const Match = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [swipedRight, producerId]);
+
+	const target = isInIframe ? '_top' : '_blank';
 
 	const handleDynamicContent = useCallback(() => {
 		switch (price.status) {
@@ -270,7 +274,7 @@ const Match = () => {
 				<XStack mt="auto" gap="$4" flexWrap="wrap">
 					<Link
 						to={funnelHref}
-						target="_blank"
+						target={target}
 						theme="stromeeGreen"
 						height="$11"
 						bg="$background"
