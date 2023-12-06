@@ -5,6 +5,7 @@ import * as z from 'zod';
 
 import { color } from '@theme/tokens';
 
+import { Header } from '@components/header';
 import { HeaderOnboarding } from '@components/header-onboarding';
 import OnePerson from '@components/icons/1_person.svg?react';
 import TwoPerson from '@components/icons/2_person.svg?react';
@@ -74,6 +75,7 @@ const Consumption = ({
 		setError('');
 	}, [consumption]);
 
+	const tainted = consumption !== consumptionFromStore;
 	return (
 		<ScrollView
 			flex={1}
@@ -81,9 +83,10 @@ const Consumption = ({
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
-				<HeaderOnboarding onPrev={handlePrev}>
+				<Header customNavigation={handlePrev} tainted={tainted}>
 					Wie viel Energie brauchst du?
-				</HeaderOnboarding>
+				</Header>
+
 				<View width="$full" flexDirection="column" gap="$4">
 					<YStack
 						flexDirection="column"

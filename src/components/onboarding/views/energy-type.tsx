@@ -10,6 +10,7 @@ import {
 } from 'tamagui';
 import * as z from 'zod';
 
+import { Header } from '@components/header';
 import { HeaderOnboarding } from '@components/header-onboarding';
 import Biogas from '@components/icons/biomass-filled.svg?react';
 import Solar from '@components/icons/solar-filled.svg?react';
@@ -81,6 +82,8 @@ const EnergyType = ({
 		setError('');
 	}, [energyTypes]);
 
+	const tainted = energyTypes[0] !== energyTypesFromStore[0];
+
 	return (
 		<ScrollView
 			flex={1}
@@ -89,9 +92,9 @@ const EnergyType = ({
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
 				<View flexDirection="column" gap="$8">
-					<HeaderOnboarding onPrev={handlePrev}>
+					<Header customNavigation={handlePrev} tainted={tainted}>
 						Was sind deine Vorlieben?
-					</HeaderOnboarding>
+					</Header>
 
 					<Paragraph px="$4" textAlign="left">
 						Natürlich ist jede Energieart schön! Dennoch hat jeder

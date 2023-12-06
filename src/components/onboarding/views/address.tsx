@@ -5,6 +5,7 @@ import * as z from 'zod';
 
 import { color } from '@theme/tokens';
 
+import { Header } from '@components/header';
 import { HeaderOnboarding } from '@components/header-onboarding';
 import ArrowDropDown from '@components/icons/arrow-drop-down.svg?react';
 import Divider from '@components/icons/divider.svg?react';
@@ -130,7 +131,10 @@ const Address = ({
 	}, [cities]);
 
 	const showSpinner = isLoading || isValidating;
-
+	const tainted =
+		postalCode !== postalCodeFromStore ||
+		cityId !== cityIdFromStore ||
+		cityName !== cityNameFromStore;
 	return (
 		<ScrollView
 			flex={1}
@@ -139,9 +143,9 @@ const Address = ({
 		>
 			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
 				<YStack gap="$8">
-					<HeaderOnboarding onPrev={handlePrev}>
+					<Header customNavigation={handlePrev} tainted={tainted}>
 						Erzähl etwas über dich!
-					</HeaderOnboarding>
+					</Header>
 
 					<Paragraph px="$4">
 						Nicht jeder ist ein Fan von Fernbezhieungen. Daher sag

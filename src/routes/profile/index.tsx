@@ -272,9 +272,17 @@ const Profile = () => {
 		isAddressValidating ||
 		isConsumptionValidating ||
 		isEnergyTypesValidating;
+
+	const tainted =
+		postalCode !== postalCodeFromStore ||
+		cityId !== cityIdFromStore ||
+		cityName !== cityNameFromStore ||
+		consumption !== consumptionFromStore.toString() ||
+		energyTypes[0] !== energyTypesFromStore[0];
+
 	return (
 		<ScrollView flex={1} height="$full" contentContainerStyle={{ flex: 1 }}>
-			<Header defaultTo="/matches" canGoBack>
+			<Header defaultTo="/matches" canGoBack tainted={tainted}>
 				Profil
 			</Header>
 
