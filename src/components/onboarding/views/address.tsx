@@ -285,16 +285,20 @@ const Address = ({
 					</View>
 				</YStack>
 
-				<Image
-					maxWidth="295px"
-					width="$full"
-					aspectRatio="295/144"
-					resizeMode="contain"
-					alignSelf="center"
-					source={{
-						uri: createRelativeUrl('/images/address_image.png'),
-					}}
-				/>
+				<View flex={1} overflow="hidden" ai="center" jc="center">
+					<Image
+						width="295px"
+						height="144px"
+						maxWidth="100%"
+						maxHeight="100%"
+						aspectRatio="295/144"
+						resizeMode="contain"
+						alignSelf="center"
+						source={{
+							uri: createRelativeUrl('/images/address_image.png'),
+						}}
+					/>
+				</View>
 
 				<YStack gap="$2">
 					<Dots count={count} activeIndex={index} />
