@@ -287,15 +287,15 @@ const Address = ({
 
 				<View flex={1} overflow="hidden" ai="center" jc="center">
 					<Image
-						width="295px"
-						height="144px"
+						width="100%"
+						height="auto"
 						maxWidth="100%"
 						maxHeight="100%"
-						aspectRatio="295/144"
+						aspectRatio="327/176"
 						resizeMode="contain"
 						alignSelf="center"
 						source={{
-							uri: createRelativeUrl('/images/address_image.png'),
+							uri: createRelativeUrl('/images/address_image.svg'),
 						}}
 					/>
 				</View>
