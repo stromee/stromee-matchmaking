@@ -10,7 +10,7 @@ const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />
-			<ReactQueryDevtools initialIsOpen={false} position="left-bottom" />
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
 };

@@ -1,14 +1,5 @@
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import {
-	H1,
-	H2,
-	H3,
-	Image,
-	Paragraph,
-	ScrollView,
-	View,
-	YStack,
-} from 'tamagui';
+import { H1, H3, Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
 
 import Logo from '@components/icons/logo.svg?react';
 import { Button } from '@components/themed/button';

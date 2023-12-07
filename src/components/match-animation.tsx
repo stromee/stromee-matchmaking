@@ -1,4 +1,4 @@
-import { RefAttributes, useRef } from 'react';
+import { useRef } from 'react';
 
 import {
 	DotLottieCommonPlayer,
@@ -8,9 +8,7 @@ import {
 
 import { createRelativeUrl } from '@utils/misc';
 
-export type MatchAnimationProps = {};
-
-const MatchAnimation = (props: MatchAnimationProps) => {
+const MatchAnimation = () => {
 	const ref = useRef<DotLottieCommonPlayer>(null);
 	return (
 		<DotLottiePlayer

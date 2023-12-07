@@ -5,7 +5,6 @@ import {
 	DotLottiePlayer,
 } from '@dotlottie/react-player';
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { Directions } from 'react-native-gesture-handler';
 import Animated, {
 	interpolate,
 	useAnimatedStyle,

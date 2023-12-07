@@ -1,18 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { DotLottiePlayer } from '@dotlottie/react-player';
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import {
-	Checkbox,
-	H1,
-	H2,
-	Image,
-	Label,
-	ScrollView,
-	Theme,
-	View,
-	XStack,
-} from 'tamagui';
+import { Checkbox, H1, H2, Label, Theme, View, XStack } from 'tamagui';
 import { YStack } from 'tamagui';
 
 import { color } from '@theme/tokens';
@@ -28,7 +17,6 @@ import { Button } from '@components/themed/button';
 import { Link } from '@components/themed/link';
 
 import { configStore } from '@utils/config-store';
-import { createRelativeUrl } from '@utils/misc';
 import { producerStore } from '@utils/producer-store';
 
 const Home = () => {
