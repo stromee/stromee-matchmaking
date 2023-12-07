@@ -62,6 +62,7 @@ const Header = ({
 				mt="$4"
 				py="$2"
 				px="$12"
+				pr={profile ? '$12' : '$4'}
 			>
 				{!tainted && (
 					<Button
