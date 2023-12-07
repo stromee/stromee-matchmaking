@@ -26,8 +26,12 @@ const MatchAnimation = (props: MatchAnimationProps) => {
 			}}
 			src={createRelativeUrl('/images/match.lottie')}
 			style={{
-				aspectRatio: '390/360',
-				width: '100%',
+				flexShrink: 1,
+				width: 'auto',
+				height: 'auto',
+				maxWidth: '100%',
+				maxHeight: '100%',
+				aspectRatio: '374 / 400',
 			}}
 		/>
 	);

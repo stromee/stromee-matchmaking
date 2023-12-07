@@ -479,7 +479,6 @@ const SwipableList = ({ count = 4 }) => {
 							pos="absolute"
 							width="64px"
 							height="64px"
-							pt="$1"
 							transform={[{ scale: 3 }]}
 							ai="center"
 							jc="center"
@@ -493,7 +492,7 @@ const SwipableList = ({ count = 4 }) => {
 								style={{
 									width: '100%',
 									height: 'auto',
-									aspectRatio: '192/144',
+									aspectRatio: '1600 / 1200',
 								}}
 							/>
 						</View>

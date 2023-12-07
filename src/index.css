@@ -136,3 +136,9 @@ select::placeholder {
 option:disabled {
 	color: var(--placeholderColor);
 }
+
+/* fix lottie animation  */
+.animation[role='figure'] {
+	width: 100%;
+	height: 100%;
+}
