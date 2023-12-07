@@ -63,36 +63,37 @@ const Header = ({
 				py="$2"
 				px="$12"
 			>
-				<Button
-					pos="absolute"
-					top="$2"
-					left="$0"
-					ai="center"
-					jc="center"
-					minHeight="initial"
-					height="initial"
-					p="$1"
-					borderRadius="$full"
-					color="$baseStromeeNavy"
-					bg="$transparent"
-					borderStyle="solid"
-					borderWidth="1px"
-					borderColor="$transparent"
-					hoverStyle={{
-						bg: '$transparent',
-					}}
-					focusStyle={{
-						bg: '$transparent',
-					}}
-					onPress={() => {
-						navigateBack();
-					}}
-				>
-					<AccessibleIcon label="zurück">
-						<Left style={{ color: color.baseStromeeNavy }} />
-					</AccessibleIcon>
-				</Button>
-
+				{!tainted && (
+					<Button
+						pos="absolute"
+						top="$2"
+						left="$0"
+						ai="center"
+						jc="center"
+						minHeight="initial"
+						height="initial"
+						p="$1"
+						borderRadius="$full"
+						color="$baseStromeeNavy"
+						bg="$transparent"
+						borderStyle="solid"
+						borderWidth="1px"
+						borderColor="$transparent"
+						hoverStyle={{
+							bg: '$transparent',
+						}}
+						focusStyle={{
+							bg: '$transparent',
+						}}
+						onPress={() => {
+							navigateBack();
+						}}
+					>
+						<AccessibleIcon label="zurück">
+							<Left style={{ color: color.baseStromeeNavy }} />
+						</AccessibleIcon>
+					</Button>
+				)}
 				{tainted && (
 					<Popover
 						placement="bottom-start"
@@ -119,6 +120,7 @@ const Header = ({
 								p="$1"
 								borderRadius="$full"
 								color="$baseStromeeNavy"
+								width="fit-content"
 								bg="$transparent"
 								borderStyle="solid"
 								borderWidth="1px"
