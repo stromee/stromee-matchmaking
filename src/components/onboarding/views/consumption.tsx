@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import { H3, Paragraph, ScrollView, Slider, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
@@ -7,11 +8,11 @@ import { color } from '@theme/tokens';
 
 import { Dots } from '@components/dots';
 import { Header } from '@components/header';
-import OnePerson from '@components/icons/1_person.svg?react';
-import TwoPerson from '@components/icons/2_person.svg?react';
-import ThreePerson from '@components/icons/3_person.svg?react';
-import FourPerson from '@components/icons/4_person.svg?react';
-import FivePerson from '@components/icons/5_person.svg?react';
+import OnePerson from '@components/icons/person-1.svg?react';
+import TwoPerson from '@components/icons/person-2.svg?react';
+import ThreePerson from '@components/icons/person-3.svg?react';
+import FourPerson from '@components/icons/person-4.svg?react';
+import FivePerson from '@components/icons/person-5.svg?react';
 import { BodyText } from '@components/themed/body-text';
 import { Button } from '@components/themed/button';
 
@@ -25,11 +26,11 @@ import { OnboardingCarouselProps } from '../constants';
 type ConsumptionTypeProps = OnboardingCarouselProps;
 
 const consumptions = [
-	{ value: 4000, Icon: FourPerson },
-	{ value: 5000, Icon: FivePerson },
-	{ value: 2000, Icon: TwoPerson },
-	{ value: 3000, Icon: ThreePerson },
-	{ value: 1000, Icon: OnePerson },
+	{ value: 1000, Icon: OnePerson, label: '1 Person' },
+	{ value: 2000, Icon: TwoPerson, label: '2 Personen' },
+	{ value: 3000, Icon: ThreePerson, label: '3 Personen' },
+	{ value: 4000, Icon: FourPerson, label: '4 Personen' },
+	{ value: 5000, Icon: FivePerson, label: '5 Personen' },
 ];
 
 const Consumption = ({
@@ -87,7 +88,7 @@ const Consumption = ({
 			minHeight="$full"
 			contentContainerStyle={{ flex: 1, minHeight: '100%' }}
 		>
-			<YStack flex={1} px="$4" pb="$8" gap="$4" jc="space-between">
+			<YStack flex={1} px="$4" pb="$8" gap="$4">
 				<YStack width="$full" flexDirection="column" gap="$4">
 					<Header customNavigation={handlePrev} tainted={tainted}>
 						Wie viel Energie brauchst du?
@@ -135,9 +136,7 @@ const Consumption = ({
 							}}
 						/>
 					</Slider>
-				</YStack>
 
-				<YStack gap="$4">
 					<Paragraph px="$4">
 						Stell deinen Strom-Jahresverbrauch über den
 						Schieberegler ein oder sag uns wie viele Personen in
@@ -148,22 +147,29 @@ const Consumption = ({
 							{error}
 						</Paragraph>
 					)}
-					<View
-						flexDirection="row"
-						flexWrap="wrap-reverse"
-						gap="$4"
-						alignContent="center"
-						justifyContent="center"
-					>
-						{consumptions.map(({ value, Icon }) => (
+				</YStack>
+
+				<YStack
+					gap="$4"
+					ai="center"
+					jc="center"
+					flex={1}
+					minHeight="224px"
+				>
+					<View gap="$4" className="consumption-grid">
+						{consumptions.map(({ value, Icon, label }) => (
 							<Button
 								key={value}
-								width={144}
-								height={102}
 								theme="base"
 								color="$color"
 								borderRadius={10}
 								borderWidth="$0.5"
+								width="$full"
+								height="$full"
+								px="$2"
+								py="$1"
+								minHeight="$16"
+								maxHeight="$32"
 								borderColor={
 									consumption === value
 										? '$baseStromeeGreen'
@@ -188,8 +194,19 @@ const Consumption = ({
 								onPress={() => {
 									setConsumption(value);
 								}}
+								className="consumption-grid-item"
 							>
-								<Icon color={color.baseStromeeNavy} />
+								<AccessibleIcon label={label}>
+									<Icon
+										style={{
+											width: '100%',
+											height: '100%',
+											maxWidth: '56px',
+											maxHeight: '56px',
+										}}
+										color={color.baseStromeeNavy}
+									/>
+								</AccessibleIcon>
 							</Button>
 						))}
 					</View>
