@@ -24,7 +24,6 @@ const DISTANCE_MATCH = [
 	'Kurze Wege, lange Liebe',
 	'Der kurze Weg zur Energie',
 	'Nähe, die verbindet',
-	'Energie ohne Kilometer',
 ];
 const PRICE_MATCH = ['Liebe zum kleinen Preis', 'Pure Energie, kleiner Preis'];
 
