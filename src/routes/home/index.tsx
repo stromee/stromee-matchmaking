@@ -10,6 +10,7 @@ import {
 	Label,
 	ScrollView,
 	Theme,
+	View,
 	XStack,
 } from 'tamagui';
 import { YStack } from 'tamagui';
@@ -75,71 +76,67 @@ const Home = () => {
 				<PresenceStack
 					condition={!!currentSwipe && showMatchAfterSwipeFromStore}
 				>
-					<ScrollView
-						pos="relative"
-						flex={1}
-						minHeight="$full"
-						contentContainerStyle={{ flex: 1, minHeight: '100%' }}
-					>
-						<YStack mt="auto" gap="$4" px="$4" py="$8">
-							<H2
-								fontWeight="500"
-								textAlign="center"
-								// @ts-expect-error - this value works but throws a typescript error
-								fontSize="$display"
-								// @ts-expect-error - this value works but throws a typescript error
-								lineHeight="$display"
-								// @ts-expect-error - this value works but throws a typescript error
-								letterSpacing="$display"
-							>
-								Du hast ein Match!
-							</H2>
+					<YStack gap="$4" px="$4" py="$8" flex={1}>
+						<H2
+							fontWeight="500"
+							textAlign="center"
+							// @ts-expect-error - this value works but throws a typescript error
+							fontSize="$display"
+							// @ts-expect-error - this value works but throws a typescript error
+							lineHeight="$display"
+							// @ts-expect-error - this value works but throws a typescript error
+							letterSpacing="$display"
+						>
+							Du hast ein Match!
+						</H2>
 
+						<View
+							flex={1}
+							ai="center"
+							jc="center"
+							overflow="hidden"
+						>
 							<MatchAnimation />
-
-							<YStack width="$full" px="$4" py="$8" gap="$2">
-								<Link
-									onPress={() => {
-										setShowMatchAfterSwipeFromStore(
-											!checked,
-										);
-									}}
-									to={`/matches/${currentSwipe}`}
-									theme="stromeeGreen"
-									height="$11"
-									bg="$background"
-									display="flex"
-									borderRadius="$full"
-									borderWidth="1px"
-									borderColor="$transparent"
-									px="$4"
-									py="$2"
-									ai="center"
-									jc="center"
-									hoverStyle={{
-										borderColor: '$baseCloudWhite',
-									}}
-									focusStyle={{
-										outlineStyle: 'solid',
-										outlineWidth: 2,
-										outlineColor: '$baseCloudWhite',
-									}}
-								>
-									Jetzt kennenlernen
-								</Link>
-								<Button
-									borderColor="$borderColor"
-									theme="popPetrol"
-									onPress={() => {
-										setShowMatchAfterSwipeFromStore(
-											!checked,
-										);
-										setCurrentSwipe(undefined);
-									}}
-								>
-									Weiter swipen
-								</Button>
-								{/* <Button
+						</View>
+						<YStack width="$full" px="$4" pt="$4" gap="$2">
+							<Link
+								onPress={() => {
+									setShowMatchAfterSwipeFromStore(!checked);
+								}}
+								to={`/matches/${currentSwipe}`}
+								theme="stromeeGreen"
+								height="$11"
+								bg="$background"
+								display="flex"
+								borderRadius="$full"
+								borderWidth="1px"
+								borderColor="$transparent"
+								px="$4"
+								py="$2"
+								ai="center"
+								jc="center"
+								hoverStyle={{
+									borderColor: '$baseCloudWhite',
+								}}
+								focusStyle={{
+									outlineStyle: 'solid',
+									outlineWidth: 2,
+									outlineColor: '$baseCloudWhite',
+								}}
+							>
+								Jetzt kennenlernen
+							</Link>
+							<Button
+								borderColor="$borderColor"
+								theme="popPetrol"
+								onPress={() => {
+									setShowMatchAfterSwipeFromStore(!checked);
+									setCurrentSwipe(undefined);
+								}}
+							>
+								Weiter swipen
+							</Button>
+							{/* <Button
 									borderColor="$borderColor"
 									theme="popPetrol"
 									onPress={() => {
@@ -149,45 +146,42 @@ const Home = () => {
 								>
 									Nicht mehr anzeigen
 								</Button> */}
-								<XStack gap="$2" ai="center" mt="$2">
-									<Checkbox
-										id="showMatchAfterSwipe"
-										checked={checked}
-										onCheckedChange={(checkedState) => {
-											console.log(
-												'checkeEvent',
-												checkedState,
-											);
-											if (
-												checkedState !== 'indeterminate'
-											) {
-												setChecked(checkedState);
-											}
-										}}
-										size="$true"
-										width="inital"
-										height="inital"
-										padding="$0"
-										borderColor="$transparent"
-									>
-										{!checked && (
-											<CheckboxUnchecked
-												style={{
-													color: color.baseCloudWhite,
-												}}
-											/>
-										)}
-										<Checkbox.Indicator>
-											<CheckboxChecked />
-										</Checkbox.Indicator>
-									</Checkbox>
-									<Label htmlFor="showMatchAfterSwipe">
-										<BodyText>Nicht mehr anzeigen</BodyText>
-									</Label>
-								</XStack>
-							</YStack>
+							<XStack gap="$2" ai="center" mt="$2">
+								<Checkbox
+									id="showMatchAfterSwipe"
+									checked={checked}
+									onCheckedChange={(checkedState) => {
+										console.log(
+											'checkeEvent',
+											checkedState,
+										);
+										if (checkedState !== 'indeterminate') {
+											setChecked(checkedState);
+										}
+									}}
+									size="$true"
+									width="inital"
+									height="inital"
+									padding="$0"
+									borderColor="$transparent"
+								>
+									{!checked && (
+										<CheckboxUnchecked
+											style={{
+												color: color.baseCloudWhite,
+											}}
+										/>
+									)}
+									<Checkbox.Indicator>
+										<CheckboxChecked />
+									</Checkbox.Indicator>
+								</Checkbox>
+								<Label htmlFor="showMatchAfterSwipe">
+									<BodyText>Nicht mehr anzeigen</BodyText>
+								</Label>
+							</XStack>
 						</YStack>
-					</ScrollView>
+					</YStack>
 				</PresenceStack>
 			</Theme>
 		</>

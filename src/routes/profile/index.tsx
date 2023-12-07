@@ -525,7 +525,7 @@ const Profile = () => {
 					Weiter
 				</Button>
 
-				<YStack gap="$2">
+				<YStack gap="$2" mt="auto">
 					<Divider />
 					<Paragraph fontWeight="bold">Rechtliches</Paragraph>
 					<Link

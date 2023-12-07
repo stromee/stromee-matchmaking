@@ -206,26 +206,27 @@ const Match = () => {
 			</Header>
 
 			<YStack px="$4" py="$8" gap="$4" flex={1}>
-				<Link
-					alignSelf="flex-start"
-					to={`/matches/${producerId}/detail`}
-					borderRadius="$full"
-					ai="center"
-					jc="center"
-					focusStyle={{
-						outlineStyle: 'solid',
-						outlineWidth: 2,
-						outlineColor: '$baseStromeeNavy',
-					}}
-				>
-					<Avatar circular size="$11" height="$11">
-						<Avatar.Image
-							accessibilityLabel={producer.data.name}
-							src={handleStoryblokImage(producer.data.picture)}
-						/>
-						<Avatar.Fallback backgroundColor="$baseStromeeNavy" />
-					</Avatar>
-				</Link>
+				<View alignSelf="flex-start" height="$11" width="$11">
+					<Link
+						to={`/matches/${producerId}/detail`}
+						borderRadius="$full"
+						focusStyle={{
+							outlineStyle: 'solid',
+							outlineWidth: 2,
+							outlineColor: '$baseStromeeNavy',
+						}}
+					>
+						<Avatar circular size="$11" height="$11">
+							<Avatar.Image
+								accessibilityLabel={producer.data.name}
+								src={handleStoryblokImage(
+									producer.data.picture,
+								)}
+							/>
+							<Avatar.Fallback backgroundColor="$baseStromeeNavy" />
+						</Avatar>
+					</Link>
+				</View>
 				<YStack
 					p="$2"
 					borderColor="$baseStromeeGreen"
