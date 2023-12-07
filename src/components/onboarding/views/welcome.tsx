@@ -45,16 +45,28 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 						<Logo />
 					</AccessibleIcon>
 				</H1>
-				<Image
-					maxWidth="300px"
-					width="$full"
-					aspectRatio="1/1"
-					resizeMode="contain"
-					alignSelf="center"
-					source={{
-						uri: createRelativeUrl('/images/infogr_1_producer.png'),
-					}}
-				/>
+				<View
+					flex={1}
+					overflow="hidden"
+					ai="center"
+					jc="center"
+					minHeight="$48"
+				>
+					<Image
+						width="300px"
+						height="300px"
+						maxWidth="100%"
+						maxHeight="100%"
+						aspectRatio="1/1"
+						resizeMode="contain"
+						alignSelf="center"
+						source={{
+							uri: createRelativeUrl(
+								'/images/infogr_1_producer.png',
+							),
+						}}
+					/>
+				</View>
 				<YStack px="$8" gap="$2">
 					<H3 textAlign="center">
 						Auf der Suche nach der Energie deines Lebens? Finde dein
