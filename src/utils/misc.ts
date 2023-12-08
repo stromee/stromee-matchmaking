@@ -45,7 +45,12 @@ const fixStoyblokUrl = (url: string) =>
 
 export const handleStoryblokImage = (url: string) => {
 	if (!url.includes('a.storyblok.com')) {
-		console.warn('handleStoryblokImage: url is not a storyblok url', url);
+		if (__DEV__) {
+			console.warn(
+				'handleStoryblokImage: url is not a storyblok url',
+				url,
+			);
+		}
 		return url;
 	}
 

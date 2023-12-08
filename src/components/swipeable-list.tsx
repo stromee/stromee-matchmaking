@@ -320,7 +320,6 @@ const SwipableList = ({ count = 4 }) => {
 									id,
 									direction: swipe.direction,
 								});
-								console.log('swipe', swipe);
 								if (swipe.direction === 'right') {
 									likeRef.current?.seek(6);
 									likeRef.current?.play();

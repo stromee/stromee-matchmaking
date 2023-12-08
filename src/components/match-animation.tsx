@@ -16,7 +16,6 @@ const MatchAnimation = () => {
 			autoplay
 			onEvent={(event) => {
 				if (event === PlayerEvents.Complete) {
-					console.log('complete');
 					ref.current?.setSpeed(1);
 					ref.current?.setLoop(true);
 					ref.current?.playSegments([128, 180]);

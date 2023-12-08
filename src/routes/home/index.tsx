@@ -139,10 +139,6 @@ const Home = () => {
 									id="showMatchAfterSwipe"
 									checked={checked}
 									onCheckedChange={(checkedState) => {
-										console.log(
-											'checkeEvent',
-											checkedState,
-										);
 										if (checkedState !== 'indeterminate') {
 											setChecked(checkedState);
 										}

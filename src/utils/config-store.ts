@@ -1,5 +1,3 @@
-import * as z from 'zod';
-import { fromZodError } from 'zod-validation-error';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -86,10 +84,8 @@ export const createConfigStore = (name: string) => {
 							};
 						});
 					} catch (error) {
-						console.log(error);
-						if (error instanceof z.ZodError) {
-							const validationError = fromZodError(error);
-							console.error(validationError);
+						if (__DEV__) {
+							console.log(error);
 						}
 
 						set((state) => {

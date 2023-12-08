@@ -233,8 +233,10 @@ const Profile = () => {
 			setConsumptionToStore(parsed);
 			setConsumptionToStore(parsed, false);
 		} catch (error) {
-			if (error instanceof z.ZodError) {
+			if (__DEV__) {
 				console.log(error);
+			}
+			if (error instanceof z.ZodError) {
 				setConsumptionError(error.issues[0].message);
 			} else {
 				setConsumptionError(
@@ -251,8 +253,10 @@ const Profile = () => {
 			setEnergyTypeError('');
 			setEnergyTypeToStore(energyType, false);
 		} catch (error) {
-			if (error instanceof z.ZodError) {
+			if (__DEV__) {
 				console.log(error);
+			}
+			if (error instanceof z.ZodError) {
 				setEnergyTypeError(error.issues[0].message);
 			} else {
 				setEnergyTypeError(

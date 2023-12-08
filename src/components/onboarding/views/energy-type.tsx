@@ -64,8 +64,10 @@ const EnergyType = ({
 			setEnergyTypeToStore(energyType);
 			handleNext();
 		} catch (error) {
-			if (error instanceof z.ZodError) {
+			if (__DEV__) {
 				console.log(error);
+			}
+			if (error instanceof z.ZodError) {
 				setError(error.issues[0].message);
 			} else {
 				setError('Upps. ein unbekannter Fehler ist aufgetreten');

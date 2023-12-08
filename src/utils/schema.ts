@@ -26,7 +26,9 @@ export const postalCodeAsyncSchema = postalCodeSyncSchema.refine(
 			if (data.length > 0) return true;
 			return false;
 		} catch (error) {
-			console.error('postalCode', error);
+			if (__DEV__) {
+				console.log(error);
+			}
 			return false;
 		}
 	},
@@ -50,7 +52,9 @@ export const cityNameAyncSchema = async ({ postalCode, cityName }) => {
 		}
 		return false;
 	} catch (error) {
-		console.error('cityName', error);
+		if (__DEV__) {
+			console.log(error);
+		}
 		return false;
 	}
 };
@@ -70,7 +74,9 @@ export const cityIdAsyncSchema = async ({ postalCode, cityId }) => {
 		}
 		return false;
 	} catch (error) {
-		console.error('cityId', error);
+		if (__DEV__) {
+			console.log(error);
+		}
 		return false;
 	}
 };
