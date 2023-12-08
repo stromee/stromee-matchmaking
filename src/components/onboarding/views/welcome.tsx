@@ -51,6 +51,7 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 						aspectRatio="1/1"
 						resizeMode="contain"
 						alignSelf="center"
+						alt="Produzent winkt vor seiner Biogasanlage"
 						source={{
 							uri: createRelativeUrl(
 								'/images/infogr_1_producer.png',

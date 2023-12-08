@@ -294,6 +294,7 @@ const Address = ({
 						aspectRatio="327/176"
 						resizeMode="contain"
 						alignSelf="center"
+						alt="Ein Pfad verbindet zwei Herzen"
 						source={{
 							uri: createRelativeUrl('/images/address_image.svg'),
 						}}

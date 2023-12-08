@@ -65,6 +65,7 @@ const Matches = () => {
 							maxWidth="$full"
 							height="auto"
 							aspectRatio="368/92"
+							alt="Eine einsame Pflanze ganz alleine"
 							source={{
 								uri: createRelativeUrl(
 									'/images/lonely_plant_02.svg',

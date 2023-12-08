@@ -151,6 +151,7 @@ const ProducerSwipable = ({
 							height="$full"
 							resizeMode="cover"
 							alignSelf="center"
+							alt={`stromee Produzent - ${producer.name}`}
 							source={{
 								// width: 200,
 								// height: 100,
