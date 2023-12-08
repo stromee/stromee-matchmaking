@@ -3,6 +3,7 @@ import { H1, H2, Image, Paragraph, ScrollView, View, YStack } from 'tamagui';
 
 import Logo from '@components/icons/logo.svg?react';
 import { Button } from '@components/themed/button';
+import { WelcomeImage } from '@components/welcome-image';
 
 import { createRelativeUrl } from '@utils/misc';
 
@@ -48,7 +49,7 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 						height="300px"
 						maxWidth="100%"
 						maxHeight="100%"
-						aspectRatio="1/1"
+						aspectRatio="672/674"
 						resizeMode="contain"
 						alignSelf="center"
 						alt="Produzent winkt vor seiner Biogasanlage"
