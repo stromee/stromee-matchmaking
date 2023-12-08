@@ -9,6 +9,7 @@ export const fonts = {
 			3: 14, // p
 			4: 100,
 			5: 100,
+			6: 100,
 			7: 100,
 			8: 100,
 			9: 100,
@@ -29,6 +30,7 @@ export const fonts = {
 			3: 24,
 			4: 100,
 			5: 100,
+			6: 100,
 			7: 100,
 			8: 100,
 			9: 100,
@@ -87,8 +89,8 @@ export const fonts = {
 			2: 100,
 			3: 100,
 			4: 100,
-			5: 14, // h6
-			6: 18, // h5
+			5: 100, // h6
+			6: 14, // h5
 			7: 18, // h4
 			8: 24, // h3
 			9: 28, // h2
@@ -96,6 +98,8 @@ export const fonts = {
 			display: 44,
 		},
 		letterSpacing: {
+			// @ts-expect-error - this value works but throws a typescript error
+			5: '0.91%',
 			// @ts-expect-error - this value works but throws a typescript error
 			6: '0.71%',
 			// @ts-expect-error - this value works but throws a typescript error
@@ -114,8 +118,8 @@ export const fonts = {
 			2: 100,
 			3: 100,
 			4: 100,
-			5: 22,
-			6: 28,
+			5: 100,
+			6: 22,
 			7: 28,
 			8: 32,
 			9: 38,

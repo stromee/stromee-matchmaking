@@ -3,7 +3,7 @@ import { LinearGradient } from '@tamagui/linear-gradient';
 import { interpolate } from 'react-native-reanimated';
 import {
 	Card,
-	H4,
+	H2,
 	Image,
 	Paragraph,
 	Theme,
@@ -104,9 +104,9 @@ const ProducerSwipable = ({
 					<ProducerTag producer={producer} />
 
 					<YStack gap="$2">
-						<H4 numberOfLines={1} userSelect="none">
+						<H2 size="$7" numberOfLines={1} userSelect="none">
 							{producer.name}
-						</H4>
+						</H2>
 						<ProducerShort id={producer.id} />
 
 						<View

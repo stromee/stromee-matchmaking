@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, H4, Paragraph, Popover, View } from 'tamagui';
+import { Button, H1, Paragraph, Popover, View } from 'tamagui';
 
 import { color } from '@theme/tokens';
 
@@ -223,9 +223,14 @@ const Header = ({
 					</Popover>
 				)}
 
-				<H4 textAlign="center" width="$full" numberOfLines={1}>
+				<H1
+					size="$7"
+					textAlign="center"
+					width="$full"
+					numberOfLines={1}
+				>
 					{children}
-				</H4>
+				</H1>
 				{profile && (
 					<Button
 						pos="absolute"

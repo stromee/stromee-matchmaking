@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { AccessibleIcon } from '@radix-ui/react-accessible-icon';
-import { H3, Paragraph, ScrollView, Slider, View, YStack } from 'tamagui';
+import { H2, Paragraph, ScrollView, Slider, View, YStack } from 'tamagui';
 import * as z from 'zod';
 
 import { color } from '@theme/tokens';
@@ -102,7 +102,7 @@ const Consumption = ({
 						gap="$1"
 					>
 						<BodyText>Dein Verbrauch:</BodyText>
-						<H3> {formatUnit(consumption, 'kWh')}</H3>
+						<H2 size="$8">{formatUnit(consumption, 'kWh')}</H2>
 					</YStack>
 
 					<Slider
