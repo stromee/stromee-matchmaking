@@ -54,7 +54,7 @@ const Welcome = ({ onNext: handleNext }: WelcomeProps) => {
 						alignSelf="center"
 						alt="Produzent winkt vor seiner Biogasanlage"
 						source={{
-							uri: 'https://a.storyblok.com/f/116218/672x674/9050b1f04c/infogr_1_producer.png/m/',
+							uri: 'https://a.storyblok.com/f/116218/672x674/9050b1f04c/infogr_1_producer.png/m/600x0',
 						}}
 					/>
 				</View>
