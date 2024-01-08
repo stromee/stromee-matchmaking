@@ -72,6 +72,11 @@ export const fetchProducers = async (input: Record<string, unknown>) => {
 		throw error;
 	}
 
+	// This is a workaround for the backend not accepting postal codes with a leading 0
+	if (fixedInput.postalCode.startsWith('0')) {
+		fixedInput.postalCode = fixedInput.postalCode.slice(1);
+	}
+
 	fixedInput.zip = fixedInput.postalCode;
 	delete fixedInput.postalCode;
 
